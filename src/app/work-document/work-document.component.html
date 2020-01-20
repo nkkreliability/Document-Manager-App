@@ -1,0 +1,321 @@
+<!--
+    TODO - By defalt hide all images, and have a button to show/hide all up the top and a button by each image to show/hide
+    TODO - load tasks and notifications based on values in worktasks submitted, will be difficult as multiple may result in the same task?
+-->
+<div class=workDocumentContainer *ngIf="loadedDocument">
+    <div class=header>
+        <div class=logoContainer>
+            <img class=logo src="{{currentWorkDocumentData.Logo}}">
+        </div>
+        <div class=documentTitleContainer>
+            <div class=documentType>{{currentWorkDocumentData.Type}}</div>
+            <div class=documentTitle>{{currentWorkDocumentData.Title}}</div>
+            <div class=documentTitleContainerSub>
+                <div class=DTC-Title>Responsible Work Centre:</div>
+                <div class=DTC-Information>{{currentWorkDocumentData.WorkCenter}}</div>
+            </div>
+
+            <div class=documentTitleContainerSub>
+                <div class=DTC-Title>Total Duration(hrs):</div>
+                <div class=DTC-Information>{{currentWorkDocumentData.TotalDuration}}</div>
+            </div>
+
+        </div>
+        <div class=documentInformationContainer>
+            <div class=documentInformationContainerSub>
+                <div class=DIC-Title>Document #:</div>
+                <div class=DIC-Information>{{currentWorkDocumentData.SapID}}</div>
+            </div>
+            <div class=documentInformationContainerSub>
+                <div class=DIC-Title>DocumentRevision:</div>
+                <div class=DIC-Information>{{currentWorkDocumentData.Revision}}</div>
+            </div>
+            <div class=documentInformationContainerSub>
+                <div class=DIC-Title>Document Ownser:</div>
+                <div class=DIC-Information>{{currentWorkDocumentData.Owner}}</div>
+                <div class=DIC-SubInformation>{{currentWorkDocumentData.OwnerPosition}}</div>
+            </div>
+        </div>
+
+        <div class=documentAccessedContainer>
+            <div class=DAC-Title>Document Accessed:</div>
+            <div class=accessDate>{{currentWorkDocumentData.AccessDate}}</div>
+            <div class=printedWarning>Printed copies of document are uncontrolled</div>
+        </div>
+    </div>
+    <div class=context>
+        <div class=Title>Context & Purpose</div>
+        <div class=contextContent>{{currentWorkDocumentData.Context}}</div>
+    </div>
+    <div class=completionCodes>
+        <div class=Title>Completion Codes</div>
+        <div class=GridContainer>
+            <div class=completionCodesGridTitles>
+                <div class=workgridTitle>Legend</div>
+                <div class=gridTitle>Completion Code Description</div>
+            </div>
+            <div class=completionCodesTableItemsGrid
+                *ngFor="let CodeInformation of currentWorkDocumentData.CompletionCodes">
+                <div class=checkboxgridItem><img src={{CodeInformation.IconHyperLink}}> </div>
+                <div class=gridItem>{{CodeInformation.Description}}</div>
+            </div>
+        </div>
+    </div>
+    <div class=authorityToMaintain>
+        <div class=Title>Authority to Maintain</div>
+        <div class=Container>
+            <div class=authorityToMaintainGridTitles>
+                <div class=gridTitle>Competency</div>
+                <div class=gridTitle>Completion Code</div>
+            </div>
+            <div class=authorityToMaintainItemsGrid
+                *ngFor="let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation">
+                <div class=gridItem>{{AuthorityValue.CompetencyInformation}}</div>
+                <div class=gridItem>{{AuthorityValue.AuthorityCode}}</div>
+            </div>
+        </div>
+    </div>
+    <div class=equipmentAndMaterials>
+        <div class=Title>Equipment & Materials</div>
+        <div class=GridContainer>
+            <div class=equipmentAndMaterialsGridTitles>
+                <div class=gridTitle>Quantity</div>
+                <div class=gridTitle>Information</div>
+                <div class=gridTitle>Material Number</div>
+            </div>
+            <div class=equipmentAndMaterialsItemsGrid
+                *ngFor="let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation">
+                <div class=gridItem>{{equipmentMaterialValue.Quantity}}</div>
+                <div class=gridItem>{{equipmentMaterialValue.Information}}</div>
+                <div class=gridItem>{{equipmentMaterialValue.MaterialNumber}}</div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="currentWorkDocumentData.PrestartTasksInformation" class=workPreperation>
+        <div class=headerTitle>Work Preperation</div>
+        <div class=Title>Pre-Start Checklist</div>
+        <!--Spans section-->
+        <div class=GridContainer>
+            <div class=prestartTasksGridTitles>
+                <div class=workgridTitle>Duration(hrs)</div>
+                <div class=workgridTitle>Tasks</div>
+                <div class=workgridTitle>Completion Code</div>
+            </div>
+            <div *ngFor="let prestartTask of currentWorkDocumentData.PrestartTasksInformation">
+                <div id={{prestartTask.UUID}}
+                    [ngClass]="{'errorTask': prestartTask.Error, 'prestartTasksItemsGrid': !prestartTask.Error}">
+                    <div class=workgridItem>{{prestartTask.Duration}}</div>
+                    <div class=workgridItem>
+                        <div class=prestartTaskActionsContainer>
+                            <div class=workTaskTitle>
+                                <div class=workgridItemActionTitle>{{prestartTask.Name}}</div>
+                                <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable"
+                                    (click)="submitPrestartTask(prestartTask.UUID,true)">Skip</button>
+                            </div>
+                            <button class=inputbutton
+                                (click)="generateTaskObservationComment(prestartTask.UUID,prestartTask.Name)">Add
+                                comment</button>
+                            <div class=taskItem>{{prestartTask.Information}}</div>
+                            <div class=buttonContainer>
+                                <button class=inputbutton *ngIf="makeSaveValueButtonsAvaliable"
+                                    (click)="submitPrestartTask(prestartTask.UUID,false)">Complete</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class=workgridItem><img src={{prestartTask.CompletionCode}}></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=workExecution>
+        <div class=spanHeaderTitle>Work Execution</div>
+        <div class=spanTitle>Work Instructions</div>
+        <!--Spans section-->
+        <div class=GridContainer>
+            <div class=workExecutionGridTitles>
+                <div class=workgridTitle>Duration(hrs)</div>
+                <div class=workgridTitle>Tasks</div>
+                <div class=workgridTitle>Limits</div>
+                <div class=workgridTitle>Completion Code</div>
+            </div>
+            <div *ngFor="let workTask of currentWorkDocumentData.WorkTasksInformation">
+                <div id={{workTask.UUID}}
+                    [ngClass]="{'workExecutionERRORItemsGrid': workTask.Error, 'workExecutionItemsGrid': !workTask.Error}">
+                    <div class=workgridItem>{{workTask.Duration}}</div>
+                    <div class=workgridItem>
+                        <div class=workExecutionTaskContainer>
+                            <div class=workTaskTitle>
+                                <div class=workgridItemActionTitle>{{workTask.Name}}</div>
+                                <!--TODO will need to see what the value of typeOfInput is to determine what to show-->
+                                <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable"
+                                    (click)="submitWorkTask(workTask.UUID,workTask.TypeOfInput,true)">Skip Task</button>
+                                <button class=inputbutton
+                                    (click)="generateTaskObservationComment(workTask.UUID,workTask.Name)">Add
+                                    comment</button>
+                            </div>
+                            <div class=taskItem>{{workTask.Information}}</div>
+                            <div class=taskItem><img src={{workTask.Image}}></div>
+                            <!--Need to have images start minimised-->
+                            <div class=taskInputFlexContainer>
+                                <div class=taskInputGridContainer>
+                                    <div>Input Value:</div>
+                                    <!--//TODO https://stackoverflow.com/questions/41465542/angular2-input-field-to-accept-only-numbers-->
+                                    <input [disabled]="inputDisabled" class=taskValueInput id="{{workTask.InputID}}"
+                                        [value]=workTask.SubmittedValue>
+                                    <button *ngIf="makeSaveValueButtonsAvaliable" class=inputbutton
+                                        (click)="submitWorkTask(workTask.UUID,workTask.TypeOfInput,false)">SaveValue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=workgridItem>
+                        <div class=limitsGrid>
+                            <!--Check if value exists and if does display, High and Low-->
+                            <div *ngIf="workTask.Values.High">&lt;{{workTask.Values.High}}{{workTask.Units}} </div>
+                            <div *ngIf="workTask.Values.Low">&gt;{{workTask.Values.Low}}{{workTask.Units}}</div>
+                        </div>
+                    </div>
+                    <div class=workgridItem><img src={{workTask.CompletionCode}}></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=workCloseOut>
+        <div class=spanHeaderTitle>Work Close-Out</div>
+        <div class=commentsAndObsContainer>
+            <div class=Title>Comments & General Observations</div>
+            <div class=commentsGridContainer?>
+                <button class=inputbutton (click)="generateGeneralObservationComment()">Add New Comment</button>
+                <div class=commentsAndObsGrid *ngFor="let comment of overallDocumentComments">
+                    <div class=gridItem>{{comment}}</div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork"
+            class=furtherWorkRequiredContainer>
+            <div class=Title>Further Work Required</div>
+            <div class=GridContainer>
+                <div class=futherWorkRequiredGridTitles>
+                    <div class=gridTitle>NotificationCode</div>
+                    <div class=gridTitle>Notification Description</div>
+                    <div class=workgridTitle>Completion Code</div>
+                    <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
+                </div>
+                <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
+                    <div *ngIf="closeoutTaskTracker.get(furtherwork.UUID)"
+                        [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
+                        <div class=workgridItem>
+                            <div class=notificationInfoContainer>
+                                <input [disabled]="inputDisabled" id={{furtherwork.UUID}}>
+                                <button *ngIf=" makeSaveValueButtonsAvaliable"
+                                    (click)="submitFurtherWorkRequired(furtherwork.UUID)">Save
+                                    Code</button>
+                                <button class=inputbutton
+                                    (click)="generateTaskObservationComment(furtherwork.UUID,furtherwork.Name)">Add
+                                    comment</button>
+                            </div>
+
+                        </div>
+                        <div class=workgridItem>{{furtherwork.Information}}</div>
+                        <div class=workgridItem><img src={{furtherwork.CompletionCode}}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentWorkDocumentData.CloseoutTasksInformation && displayCloseoutTasks"
+            class=closeOutChecklistContainer>
+            <div class=Title>Close-Out Checklist</div>
+            <div class=GridContainer>
+                <div class=closeOutChecklistGridTitles>
+                    <div class=workgridTitle>Duration(hrs)</div>
+                    <div class=workgridTitle>Tasks</div>
+                    <div class=workgridTitle>Completion Code</div>
+                </div>
+
+                <div *ngFor="let closeOutTask of currentWorkDocumentData.CloseoutTasksInformation">
+                    <div id={{closeOutTask.Name}} *ngIf="closeoutTaskTracker.get(closeOutTask.UUID)"
+                        [ngClass]="{'errorTask': closeOutTask.Error, 'closeOutChecklistGrid': !closeOutTask.Error}">
+
+                        <div class=workgridItem>{{closeOutTask.duration}}</div>
+                        <div class=workgridItem>
+                            <div class=prestartTaskActionsContainer>
+                                <div class=workTaskTitle>
+                                    <div class=workgridItemActionTitle>{{closeOutTask.Name}}</div>
+                                    <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable"
+                                        (click)="submitCloseoutTask(closeOutTask.UUID,true)">Skip</button>
+                                </div>
+                                <div class=taskItem>{{closeOutTask.information}}</div>
+                                <div class=buttonContainer>
+                                    <button class=inputbutton *ngIf="makeSaveValueButtonsAvaliable"
+                                        (click)="submitCloseoutTask(closeOutTask.UUID,false)">Complete</button>
+                                    <button class=inputbutton
+                                        (click)="generateTaskObservationComment(closeOutTask.UUID,closeOutTask.Name)">Add
+                                        comment</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class=workgridItem><img src={{closeOutTask.CompletionCode}}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=completionSignOff>
+        <!--TODO will need to do others for other submits in section-->
+        <div class=technician>
+            <div class=completionSignOffHeaderTitle>Completion Sign-Off</div>
+            <div class=Title>Technician Name</div>
+            <div class=completionSignOffName>
+                <div>{{currentWorkDocumentData.Technician}}</div>
+                <div class=DIC-SubInformation>{{currentWorkDocumentData.TechnicianPosition}}</div>
+            </div>
+            <div class=Title>Technician Signature</div>
+            <div class=completionSignOffSignature>
+                <div *ngIf="!currentWorkDocumentData.Submitted">
+                    <button (click)="submitSheet()">Submit</button>
+                    <!--Send technicianID value -->
+                </div>
+                <div *ngIf="currentWorkDocumentData.Submitted">
+                    <img class=signature src="{{currentWorkDocumentData.TechnicianSignature}}">
+                </div>
+            </div>
+            <!--Have a button with submit that placeholds the signature-->
+            <div class=Title>Completion Timestamp</div>
+            <div class=completionSignOffTimeStamp>
+                <div>{{currentWorkDocumentData.SubmitDate}}</div>
+            </div>
+        </div>
+        <div class=supervisor>
+            <div class=Title>Supervisor Name</div>
+            <div class=completionSignOffName>
+                <div>{{currentWorkDocumentData.Reviewer}}</div>
+                <div class=DIC-SubInformation>{{currentWorkDocumentData.ReviewerPosition}}</div>
+            </div>
+            <div class=Title>Supervisor Signature</div>
+            <div class=completionSignOffSignature>
+                <div *ngIf="!currentWorkDocumentData.DocumentReviewed && currentWorkDocumentData.Submitted">
+                    <button (click)="submitReview(true)">Accept</button>
+                    <button (click)="submitReview(false)">Decline</button>
+                    <!--Send technicianID value -->
+                </div>
+                <div *ngIf="currentWorkDocumentData.DocumentReviewed && currentWorkDocumentData.Submitted">
+                    <img class=signature src="{{currentWorkDocumentData.ReviewerSignature}}">
+                </div>
+            </div>
+            <div class=Title>Review Date</div>
+            <div class=completionSignOffTimeStamp></div>
+            <!--Owner if required due to something not done and signed off by supervisor-->
+        </div>
+        <div class=documentOwner>
+            <div class=Title>Document Owners Name</div>
+            <div class=completionSignOffName></div>
+            <div class=Title>Document Owners Signature</div>
+            <div class=completionSignOffSignature></div>
+            <div class=Title>Review Date</div>
+            <div class=completionSignOffTimeStamp></div>
+        </div>
+    </div>
+</div>

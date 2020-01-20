@@ -1,0 +1,43 @@
+<div class="dataSelectionContainer">
+  <div class=dataSelectionTitles>
+    <div class=title>Document</div>
+    <div class=title>Tasks</div>
+  </div>
+  <div *ngIf="documents">
+    <div class=DocumentName *ngFor="let DocumentInfo of documents.Documents">
+      <div>{{DocumentInfo.Name}}</div>
+      <div class=taskholder>
+        <div class=tasks *ngFor="let Task of DocumentInfo.Tasks">
+          <div>{{Task.Name}}</div>
+          <input type="checkbox" id="{{Task.UUID}}">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=dateandtime>
+    <p>Between</p>
+    <div>
+      <input type="date" id="startDate">
+    </div>
+    <p>and</p>
+    <div>
+      <input type="date" id="endDate">
+    </div>
+    <!--WIll need for loop and fill as data comes back in-->
+    <div>
+      All
+      <input id=AllDates type="checkbox">
+    </div>
+  </div>
+  <button (click)="getData()">Submit</button>
+</div>
+
+<!--TODO will need some *ngIf to hide graph etc untill data is loaded-->
+<div class="flex">
+  <div class="flex-item">
+    <div style="display: block;">
+      <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" [colors]="lineChartColors"
+        [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
+    </div>
+  </div>
+</div>

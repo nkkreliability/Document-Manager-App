@@ -1,0 +1,26 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="requestButtonClick()">
+        <div class="containerTitle">
+            Account Request
+        </div>
+        <div class="containerInformation">
+            <p>
+                placeholder
+            </p>
+        </div>
+        <div class="requestInformation">
+            <div>
+                {{RequestInformation}}
+            </div>
+            <input id="accept" type="radio" value="acceppted" name="choice" formControlName="requestAccepted">
+            <label for="accept">Accept</label>
+            <input id="reject" type="radio" value="rejected" name="choice" formControlName="requestAccepted">
+            <label for="reject">Reject</label>
+            <div *ngIf="submitted && form.invalid" class="invalid-information-provided">
+                Please select either value
+            </div>
+            <input type="text" formControlName="feedback" placeholder="Enter any feedback you wish to send to the user"
+                class="user-feedback"/>
+        </div>
+    </form>
+</div>

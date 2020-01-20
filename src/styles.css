@@ -1,0 +1,105 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* TODO will need to look at breaking these up into different .css 
+files based on what they cover and import them into here*/
+
+/* Global Themes*/
+
+* {
+    font-family: Arial;
+    border: none;
+}
+
+:root {
+    --main-bg-color: black;
+    --secondary-bg-color: rgb(201, 201, 201);
+    --input-bg-color: rgb(141, 141, 141);
+    --save-btn-color: rgb(100, 54, 12);
+}
+
+.Logo {
+    position: left;
+    width: 100%;
+    height: 60px;
+    padding-left: 1cm;
+}
+
+.DisplayedName {
+    padding-top: 20px;
+    text-align: center;
+    color: #F67B2F;
+    font-size: 28px;
+    padding-bottom: 20px;
+}
+
+.container {
+    background-color: #E65400;
+    width: 350px;
+    margin: 0 auto;
+}
+
+.containerTitle {
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.containerInformation {
+    padding-left: 25px;
+    width: 300px;
+    color: #FAB636;
+    font-size: 12px;
+}
+
+.userInput {
+    width: 300px;
+    margin: 0 auto;
+    color: #F67B2F;
+    display: grid;
+    -ms-grid-column-align: center;
+    grid-gap: 10px;
+    grid-template-columns: 300px;
+    grid-template-rows: auto auto auto auto auto auto;
+    padding-bottom: 10px;
+    outline: none;
+}
+
+.form-input {
+    background-color: #F8D696;
+    align-self: center;
+    font-size: 20px;
+}
+
+.SubmitButton {
+    background-color: #F67B2F;
+    color: white;
+    font-size: 20px;
+}
+
+.NavigationArea {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    justify-content: space-between;
+}
+
+.NavigationButton {
+    background-color: #E65400;
+    color: #FAB636;
+}
+
+/*Errors*/
+
+.invalid-information-provided {
+    color: white;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

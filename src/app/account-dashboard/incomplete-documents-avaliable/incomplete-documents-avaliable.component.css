@@ -1,0 +1,12 @@
+.incompleteavaliabledocumentscontainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 50px;
+    gap: 5px;
+}
+
+.document {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr 1fr 1fr 1fr);
+    gap: 5px;
+}

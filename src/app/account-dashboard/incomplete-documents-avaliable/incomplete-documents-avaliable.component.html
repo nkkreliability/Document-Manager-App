@@ -1,0 +1,9 @@
+<div class=incompleteavaliabledocumentscontainer>
+
+    <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
+        <h1 class=documentbutton>{{documentinfo.DocumentName}}</h1>
+        <p>Created {{documentinfo.DateCreated}}</p>
+        <p>Last Modified {{documentinfo.DateLastModified}}</p>
+        <button (click)=getDocument(documentinfo.DocumentUUID)>open</button>
+    </div>
+</div>

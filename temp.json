@@ -1,0 +1,53 @@
+{
+    "Lubepump": {
+        "ID": "379d3745-7db8-4772-a054-175fefafc4a5",
+        "Tasks": [
+            {
+                "UUID": "109ee201-e1ce-4206-b64a-cebe21056c4d",
+                "Name": "Work Task 3"
+            },
+            {
+                "UUID": "43b41c23-82d5-4f84-bfd6-b265185487e0",
+                "Name": "Work Task 1"
+            },
+            {
+                "UUID": "66327620-8165-4116-8b90-0a536f3c92a1",
+                "Name": "Work Task 2"
+            }
+        ]
+    },
+    "Lubepump1": {
+        "ID": "379d3745-7db8-4772-a054-175fefafc4a5",
+        "Tasks": [
+            {
+                "UUID": "109ee201-e1ce-4206-b64a-cebe21056c4d",
+                "Name": "Work Task 3"
+            },
+            {
+                "UUID": "43b41c23-82d5-4f84-bfd6-b265185487e0",
+                "Name": "Work Task 1"
+            },
+            {
+                "UUID": "66327620-8165-4116-8b90-0a536f3c92a1",
+                "Name": "Work Task 2"
+            }
+        ]
+    },
+    "Lubepump2": {
+        "ID": "379d3745-7db8-4772-a054-175fefafc4a5",
+        "Tasks": [
+            {
+                "UUID": "109ee201-e1ce-4206-b64a-cebe21056c4d",
+                "Name": "Work Task 3"
+            },
+            {
+                "UUID": "43b41c23-82d5-4f84-bfd6-b265185487e0",
+                "Name": "Work Task 1"
+            },
+            {
+                "UUID": "66327620-8165-4116-8b90-0a536f3c92a1",
+                "Name": "Work Task 2"
+            }
+        ]
+    }
+}

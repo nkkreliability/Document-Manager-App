@@ -1,0 +1,11 @@
+<div class=incompleteavaliabledocumentscontainer>
+    <!--TODO if none avaliable display a different message-->
+    <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
+        <h1 class=documentbutton (click)=getDocument(documentinfo.returncall)>{{documentinfo.DocumentName}}</h1>
+        <p>Created {{documentinfo.DateCreated}}</p>
+        <p>Submitted {{documentinfo.SubmitDate}}</p>
+        <p>Technician : {{documentinfo.Technician}}</p>
+        <!--TODO need who submitted-->
+        <button (click)=getDocument(documentinfo.DocumentUUID)>open</button>
+    </div>
+</div>

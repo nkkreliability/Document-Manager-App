@@ -1,0 +1,6 @@
+<div class=avaliabledocumentscontainer>
+    <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
+        <button class=documentbutton (click)=getDocument(documentinfo.DocumentUUID)>{{documentinfo.Name}}</button>
+        <p>{{documentinfo.Context}}</p>
+    </div>
+</div>

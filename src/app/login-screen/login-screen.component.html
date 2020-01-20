@@ -1,0 +1,37 @@
+<div class="container">
+    <form [formGroup]="form" (keyup.enter)="loginButtonClick()">
+        <div class="containerTitle">
+            Login To Your Account</div>
+        <div class="containerInformation">
+            <p>
+                Please enter your email address and Maintenance Software Password<br />
+                For any problems please contact XXXX
+            </p>
+        </div>
+        <div class="userInput">
+            <!--Username-->
+            <input type="email" formControlName="username" placeholder="Username" class="form-input"
+                [ngClass]="{ 'is-invalid': submitted && username.errors }" />
+            <!--Username Errors-->
+            <div *ngIf="submitted && username.errors" class="invalid-information-provided">
+                <div *ngIf="username.errors.required">Username is required</div>
+                <div *ngIf="username.errors.email">Invalid username format</div>
+            </div>
+            <!--Password-->
+            <input type="password" formControlName="password" placeholder="Password" class="form-input"
+                [ngClass]="{ 'is-invalid': submitted && password.errors }" />
+            <!--Password Errors-->
+            <div *ngIf="submitted && password.errors" class="invalid-information-provided">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Minimum Password length required: {{minimumPasswordLength}}</div>
+            </div>
+            <button type="button" class="SubmitButton" (click)="loginButtonClick()" value="Login">Login</button>
+        </div>
+        <div class="NavigationArea">
+            <button type="button" class="NavigationButton" routerLink="/forgotPassword" value="Forgot">Forgot
+                Password</button>
+            <button type="button" class="NavigationButton" routerLink="/registerAccount" value="Register">Register
+                Account</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+.dataSelectionContainer {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.dataSelectionTitles {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.DocumentName {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.taskholder {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.dateandtime {
+    display: flex;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
