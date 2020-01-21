@@ -55,6 +55,8 @@ export class DreamHostHTTPSRequest implements HTTPSRequestService {
     }
 
     UpdateValue(data: TaskInformationToSend): Observable<any> {
+        console.log(data);
+        console.log(data.SubmittedValues);
         return this.http.post<TaskDataReturn>(environment.submitValueURL, data);
     }
 
@@ -64,11 +66,12 @@ export class DreamHostHTTPSRequest implements HTTPSRequestService {
     }
 
     SubmitFurtherWorkRequired(data: NotificationToSubmit): Observable<any> {
-        return this.http.post<any>(environment.submitNotificationURL, data);
+        return this.http.post<any>(environment.submitValueURL, data);
     }
 
     SubmitWorkDocument(data: string): Observable<any> {
-        return this.http.post<any>(environment.submitNotificationURL, { DocumentUUID: data });
+        console.log(data);
+        return this.http.post<any>(environment.submitDocument, { DocumentUUID: data });
     }
 
     GetAvaliableReviewDocuments(): Observable<Array<avaliableReviewDocuments>> {

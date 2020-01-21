@@ -204,11 +204,12 @@
                     <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
                 </div>
                 <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
-                    <div *ngIf="closeoutTaskTracker.get(furtherwork.UUID)"
+                    <div
                         [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
                         <div class=workgridItem>
                             <div class=notificationInfoContainer>
-                                <input [disabled]="inputDisabled" id={{furtherwork.UUID}}>
+                                <input [disabled]="inputDisabled" id={{furtherwork.UUID}}
+                                    [value]=furtherwork.SubmittedValue>
                                 <button *ngIf=" makeSaveValueButtonsAvaliable"
                                     (click)="submitFurtherWorkRequired(furtherwork.UUID)">Save
                                     Code</button>
@@ -279,7 +280,7 @@
                     <!--Send technicianID value -->
                 </div>
                 <div *ngIf="currentWorkDocumentData.Submitted">
-                    <img class=signature src="{{currentWorkDocumentData.TechnicianSignature}}">
+                    <img class=signature src="">
                 </div>
             </div>
             <!--Have a button with submit that placeholds the signature-->
@@ -296,13 +297,13 @@
             </div>
             <div class=Title>Supervisor Signature</div>
             <div class=completionSignOffSignature>
-                <div *ngIf="!currentWorkDocumentData.DocumentReviewed && currentWorkDocumentData.Submitted">
+                <div *ngIf="reviewstate && currentWorkDocumentData.Submitted">
                     <button (click)="submitReview(true)">Accept</button>
                     <button (click)="submitReview(false)">Decline</button>
                     <!--Send technicianID value -->
                 </div>
-                <div *ngIf="currentWorkDocumentData.DocumentReviewed && currentWorkDocumentData.Submitted">
-                    <img class=signature src="{{currentWorkDocumentData.ReviewerSignature}}">
+                <div *ngIf="reviewstate && currentWorkDocumentData.Submitted">
+                    <img class=signature src="">
                 </div>
             </div>
             <div class=Title>Review Date</div>

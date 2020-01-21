@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class WorkDocumentComponent implements OnInit {
   //Binding enums from global to class members for HTML access
+  reviewstate: boolean = false;;
   prestartValues = PrestartValues;
   closeoutValues = CloseoutTaskValues
   makeSaveValueButtonsAvaliable: boolean;
@@ -73,8 +74,12 @@ export class WorkDocumentComponent implements OnInit {
             }
             //Also put in each worktasks comments in
             for (let workTask of this.currentWorkDocumentData.WorkTasksInformation) {
+              console.log(workTask.CompletionCode);
               triggerinformation = this.compareValue(workTask, Number(workTask.SubmittedValue));
               this.updateTriggers(workTask, triggerinformation.trigger);
+            }
+            if (this.currentWorkDocumentData.FutherWorkTasksInformation.length) {
+              this.displayFurtherWork = true;
             }
             this.addComments();
           },
@@ -88,6 +93,7 @@ export class WorkDocumentComponent implements OnInit {
             this.loadedDocument = true;
             this.inputDisabled = this.currentWorkDocumentData.Submitted;
             this.makeSaveValueButtonsAvaliable = false;
+            this.reviewstate = true;
             for (let closeOutTask of this.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs) {
               this.closeoutTaskTracker.set(closeOutTask, false);
             }
@@ -158,7 +164,7 @@ export class WorkDocumentComponent implements OnInit {
           }
           prestartTask.CompletionCode = this.iconValues.get('NotCompleted').IconHyperLink;
           prestartTask.Submitted = true;
-          this.UpdateValue(data, prestartTask);
+          this.UpdateValue(data);
         }
       });
       if (prestartTask.Error) {
@@ -175,7 +181,7 @@ export class WorkDocumentComponent implements OnInit {
       }
       prestartTask.CompletionCode = this.iconValues.get('Completed').IconHyperLink;
       prestartTask.Submitted = true;
-      this.UpdateValue(data, prestartTask);
+      this.UpdateValue(data);
       if (prestartTask.Error) {
         prestartTask.Error = false;
       }
@@ -214,7 +220,7 @@ export class WorkDocumentComponent implements OnInit {
           }
           workTask.CompletionCode = this.iconValues.get('NotCompleted').IconHyperLink;
           workTask.Submitted = true;
-          this.UpdateValue(data, workTask);
+          this.UpdateValue(data);
         }
       });
     } else {
@@ -251,7 +257,7 @@ export class WorkDocumentComponent implements OnInit {
         workTask.CompletionCode = this.iconValues.get(triggerinformation.newIcon).IconHyperLink;
         workTask.Submitted = true;
       }
-      this.UpdateValue(data, workTask);
+      this.UpdateValue(data);
     }
   }
 
@@ -312,6 +318,7 @@ export class WorkDocumentComponent implements OnInit {
     }
     return returnValues;
   }
+
 
   updateTriggers(workTask: WorkTasksInformation, triggerValue: string) {
     if (workTask.TaskLinks) {
@@ -380,7 +387,7 @@ export class WorkDocumentComponent implements OnInit {
           }
           closeoutTask.CompletionCode = this.iconValues.get('NotCompleted').IconHyperLink;
           closeoutTask.Submitted = true;
-          this.UpdateValue(data, closeoutTask);
+          this.UpdateValue(data);
           if (closeoutTask.Error) {
             closeoutTask.Error = false;
           }
@@ -397,21 +404,21 @@ export class WorkDocumentComponent implements OnInit {
       }
       closeoutTask.CompletionCode = this.iconValues.get('Completed').IconHyperLink;
       closeoutTask.Submitted = true;
-      this.UpdateValue(data, closeoutTask);
+      this.UpdateValue(data);
       if (closeoutTask.Error) {
         closeoutTask.Error = false;
       }
     }
   }
 
-  submitFurtherWorkRequired(NotificationCodeIdentification: string) {
+  submitFurtherWorkRequired(taskUUID: string) {
     console.log('submitFurtherWorkRequired');
-    let furtherWorkNotification: NotificationToSubmit;
+    let data: TaskInformationToSend;
     let notificationValue: string;
     let furtherWorkRequiredTask: FutherWorkTasksInformation = this.currentWorkDocumentData.FutherWorkTasksInformation.filter(task => {
-      return task.UUID === NotificationCodeIdentification;
+      return task.UUID === taskUUID;
     })[0];
-    notificationValue = (<HTMLInputElement> document.getElementById(NotificationCodeIdentification)).value;
+    notificationValue = (<HTMLInputElement> document.getElementById(taskUUID)).value;
     if (notificationValue) {
       if (furtherWorkRequiredTask.Error) {
         furtherWorkRequiredTask.Error = false;
@@ -419,22 +426,27 @@ export class WorkDocumentComponent implements OnInit {
       furtherWorkRequiredTask.CompletionCode = this.iconValues.get('Completed').IconHyperLink;
       furtherWorkRequiredTask.SubmittedValue = notificationValue
       furtherWorkRequiredTask.Submitted = true;
-      furtherWorkNotification = {
-        documentIdentification: this.currentWorkDocumentData.UUID,
-        notificationIdentification: NotificationCodeIdentification,
-        notificationValue: notificationValue,
-        displayIcon: this.iconValues.get('Completed').CompletionKey,
-
+      data = {
+        DocumentUUID: this.currentWorkDocumentData.UUID,
+        TaskUUID: taskUUID,
+        SubmittedValues: {
+          CompletionKey: this.iconValues.get('Completed').CompletionKey,
+          Submitted: true,
+          SubmittedValue: notificationValue,
+        }
       }
-      this.HTTPSService.SubmitFurtherWorkRequired(furtherWorkNotification).pipe(first())
-        .subscribe(() => { },
-          (error: string) => { this.errorService.error(error) });
+      furtherWorkRequiredTask.CompletionCode = this.iconValues.get('Completed').IconHyperLink;
+      furtherWorkRequiredTask.Submitted = true;
+      this.UpdateValue(data);
+      if (furtherWorkRequiredTask.Error) {
+        furtherWorkRequiredTask.Error = false;
+      }
     } else {
       furtherWorkRequiredTask.CompletionCode = this.iconValues.get('NotCompleted').IconHyperLink;
     }
   }
 
-  UpdateValue(data: TaskInformationToSend, task: TasksInformation) {
+  UpdateValue(data: TaskInformationToSend) {
     //send off data ->Only return of error, otherwise nothing will be returned
     this.HTTPSService.UpdateValue(data).pipe(first())
       .subscribe((error: string) => { this.errorService.error(error) });
@@ -514,12 +526,14 @@ export class WorkDocumentComponent implements OnInit {
       }
     }
     for (let closeOutTask of this.currentWorkDocumentData.CloseoutTasksInformation) {
-      if (!closeOutTask.Submitted) {//No value "submitted" will need to highlight it
-        allInputsFilled = false;
-        closeOutTask.Error = true;
-        if (firstError) {
-          firstError = false;
-          (<HTMLElement> document.getElementById(closeOutTask.UUID)).scrollIntoView();
+      if (this.closeoutTaskTracker.get(closeOutTask.UUID)) {
+        if (!closeOutTask.Submitted) {//No value "submitted" will need to highlight it
+          allInputsFilled = false;
+          closeOutTask.Error = true;
+          if (firstError) {
+            firstError = false;
+            (<HTMLElement> document.getElementById(closeOutTask.UUID)).scrollIntoView();
+          }
         }
       }
     }
@@ -537,9 +551,13 @@ export class WorkDocumentComponent implements OnInit {
       this.currentWorkDocumentData.SubmitDate = dateTime.toLocaleTimeString() + " - " + dateTime.toLocaleDateString();
       this.HTTPSService.SubmitWorkDocument(this.currentWorkDocumentData.UUID).pipe(first())
         .subscribe(() => {
+          console.log('waiting 10sec');
           setTimeout(() => { this.router.navigate(['/dashboard/Welcome']); }, 10000);
         },
-          (error: string) => { this.errorService.error(error) }
+          (error: string) => {
+            console.log(error);
+            this.errorService.error(error)
+          }
         );
 
     }
@@ -549,8 +567,9 @@ export class WorkDocumentComponent implements OnInit {
     if (accepted) {
       this.currentWorkDocumentData.DocumentReviewed = true;
     }
-    this.HTTPSService.SubmitWorkDocument(this.currentWorkDocumentData.UUID).pipe(first())
+    this.HTTPSService.SubmitReview(this.currentWorkDocumentData.UUID, accepted).pipe(first())
       .subscribe(() => {
+        console.log('waiting 10sec');
         setTimeout(() => { this.router.navigate(['/dashboard/Welcome']); }, 10000);
       },
         (error: string) => { this.errorService.error(error) }
