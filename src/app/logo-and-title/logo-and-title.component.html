@@ -1,12 +1,10 @@
-<div class="Logo">
-        <h1>
+<div class="TitleArea">
 
-                <img src="{{LogoImage}}" style="height:60px">
-        </h1>
+        <img class="Logo" src="{{LogoImage}}">
+        <div class="Title">{{title}}</div>
+        <div class="UserInformation" *ngIf="loggedIn">
+                {{username}}
+                <!--TODO logout button here-->
+                <button (click)="logout()">Logout</button>
+        </div>
 </div>
-<div class="DisplayedName">
-        <h2>
-                <p><b>{{title}}</b></p>
-        </h2>
-</div>
-<div>{{environment}}</div>

@@ -343,7 +343,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<button (click)=\"HideShowClick()\">hide and show nav</button>\r\n<div id=dash class=dashboardcontainer>\r\n    <div id=navbar class=navigation>\r\n        <button class=sidebarbutton (click)=\"WelcomeButtonClick()\">Home</button>\r\n        <button class=sidebarbutton (click)=\"AvaliableDocumentsButtonClick()\">Avaliable Documents</button>\r\n        <button class=sidebarbutton (click)=\"IncompleteDocumentsAvaliableClick()\">Incomplete Documents</button>\r\n        <button class=sidebarbutton (click)=\"DocumentsReviewClick()\">Review</button>\r\n        <!--Will need a ngIf based on if account is a document owner/reviewer-->\r\n        <button class=sidebarbutton (click)=\"GraphicsClick()\">Data</button>\r\n    </div>\r\n    <div class=outlet>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>\r\n\r\n<p><a [routerLink]=\"['/login']\">Logout</a></p>";
+    __webpack_exports__["default"] = "<div class='otherinfo'>\r\n    <button (click)=\"HideShowClick()\">hide and show nav</button>\r\n    {{ time | date: 'hh:mm:ss a' }}\r\n</div>\r\n\r\n<div id=dash class=dashboardcontainer>\r\n    <div id=navbar class=navigation>\r\n        <button class=sidebarbutton (click)=\"WelcomeButtonClick()\">Home Page</button>\r\n        <button class=sidebarbutton (click)=\"AvaliableDocumentsButtonClick()\">New Documents</button>\r\n        <button class=sidebarbutton (click)=\"IncompleteDocumentsAvaliableClick()\">Current Documents</button>\r\n        <button class=sidebarbutton (click)=\"DocumentsReviewClick()\">Review Documents</button>\r\n        <!--Will need a ngIf based on if account is a document owner/reviewer-->\r\n        <button class=sidebarbutton (click)=\"GraphicsClick()\">Graphics</button>\r\n    </div>\r\n    <div class=outlet>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
     /***/
   },
 
@@ -363,7 +363,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=avaliabledocumentscontainer>\r\n    <div *ngFor=\"let documentinfo of avaliableDocuments; index as i\" class=document>\r\n        <button class=documentbutton (click)=getDocument(documentinfo.DocumentUUID)>{{documentinfo.Name}}</button>\r\n        <p>{{documentinfo.Context}}</p>\r\n    </div>\r\n</div>\r\n";
+    __webpack_exports__["default"] = "<div class=avaliabledocumentscontainer>\r\n    <div *ngFor=\"let documentinfo of avaliableDocuments; index as i\" class=document>\r\n        <div>{{documentinfo.Name}}</div>\r\n        <div class=documentContext>{{documentinfo.Context}}</div>\r\n        <button class=selectionButton (click)=getDocument(documentinfo.DocumentUUID)>Create Document</button>\r\n    </div>\r\n</div>";
     /***/
   },
 
@@ -463,7 +463,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-logo-and-title></app-logo-and-title>\r\n<app-error-messages></app-error-messages>\r\n<router-outlet></router-outlet>\r\n<app-dev-tools></app-dev-tools>";
+    __webpack_exports__["default"] = "<app-logo-and-title></app-logo-and-title>\r\n<app-error-messages></app-error-messages>\r\n<router-outlet></router-outlet>\r\n<!--\r\n<app-dev-tools></app-dev-tools>\r\n-->";
     /***/
   },
 
@@ -563,7 +563,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"Logo\">\r\n        <h1>\r\n\r\n                <img src=\"{{LogoImage}}\" style=\"height:60px\">\r\n        </h1>\r\n</div>\r\n<div class=\"DisplayedName\">\r\n        <h2>\r\n                <p><b>{{title}}</b></p>\r\n        </h2>\r\n</div>\r\n<div>{{environment}}</div>";
+    __webpack_exports__["default"] = "<div class=\"TitleArea\">\r\n\r\n        <img class=\"Logo\" src=\"{{LogoImage}}\">\r\n        <div class=\"Title\">{{title}}</div>\r\n        <div class=\"UserInformation\" *ngIf=\"loggedIn\">\r\n                {{username}}\r\n                <!--TODO logout button here-->\r\n                <button (click)=\"logout()\">Logout</button>\r\n        </div>\r\n</div>";
     /***/
   },
 
@@ -1282,24 +1282,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../Services/TitleMessageService */
+    "./src/app/Services/TitleMessageService.ts");
 
     var AuthenticatorGuardService =
     /*#__PURE__*/
     function () {
-      function AuthenticatorGuardService(router) {
+      function AuthenticatorGuardService(router, messageService) {
         _classCallCheck(this, AuthenticatorGuardService);
 
         this.router = router;
+        this.messageService = messageService;
       }
 
       _createClass(AuthenticatorGuardService, [{
         key: "canActivate",
         value: function canActivate(route, state) {
           if (localStorage.getItem('currentUser')) {
-            // logged in so return true
-            return true;
-          } // not logged in so redirect to login page with the return url
+            this.messageService.logginIn(JSON.parse(localStorage.getItem('currentUser')).name); // logged in so return true
 
+            return true;
+          }
+
+          this.messageService.loggingOut(); // not logged in so redirect to login page with the return url
 
           this.router.navigate(['../login']);
           return false;
@@ -1312,6 +1321,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     AuthenticatorGuardService.ctorParameters = function () {
       return [{
         type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
+      }, {
+        type: _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_3__["TitleMessageService"]
       }];
     };
 
@@ -1371,24 +1382,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/environments/environment */
     "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../Services/TitleMessageService */
+    "./src/app/Services/TitleMessageService.ts");
 
     var AuthenticatorService =
     /*#__PURE__*/
     function () {
-      function AuthenticatorService(http) {
+      function AuthenticatorService(http, messageService) {
         _classCallCheck(this, AuthenticatorService);
 
         this.http = http;
+        this.messageService = messageService;
       }
 
       _createClass(AuthenticatorService, [{
         key: "login",
         value: function login(username, password) {
+          var _this = this;
+
           return this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].loginURL, {
             username: username,
             password: password
           }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (user) {
-            // store user details and auth token in local storage to keep user logged in between page refreshes
+            _this.messageService.logginIn(user.name); // store user details and auth token in local storage to keep user logged in between page refreshes
+
+
             localStorage.setItem('currentUser', JSON.stringify(user));
             return user;
           }));
@@ -1396,7 +1418,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "logout",
         value: function logout() {
-          // remove user from local storage to log user out
+          this.messageService.loggingOut(); // remove user from local storage to log user out
+
           localStorage.removeItem('currentUser');
         }
       }]);
@@ -1407,6 +1430,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     AuthenticatorService.ctorParameters = function () {
       return [{
         type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+      }, {
+        type: _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_5__["TitleMessageService"]
       }];
     };
 
@@ -1729,7 +1754,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ErrorInterceptor, [{
         key: "intercept",
         value: function intercept(request, next) {
-          var _this = this;
+          var _this2 = this;
 
           return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
             alert(err.error.errorMsg);
@@ -1738,7 +1763,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //TODO may need to add more later
               case 401:
                 // auto logout if 401 response returned from api
-                _this.authenticatorService.logout();
+                _this2.authenticatorService.logout();
 
                 location.reload(true);
                 break;
@@ -1859,6 +1884,81 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     NoopInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()], NoopInterceptor);
+    /***/
+  },
+
+  /***/
+  "./src/app/Services/TitleMessageService.ts":
+  /*!*************************************************!*\
+    !*** ./src/app/Services/TitleMessageService.ts ***!
+    \*************************************************/
+
+  /*! exports provided: TitleMessageService */
+
+  /***/
+  function srcAppServicesTitleMessageServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TitleMessageService", function () {
+      return TitleMessageService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+
+    var TitleMessageService =
+    /*#__PURE__*/
+    function () {
+      function TitleMessageService() {
+        _classCallCheck(this, TitleMessageService);
+
+        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+      }
+
+      _createClass(TitleMessageService, [{
+        key: "logginIn",
+        value: function logginIn(message) {
+          this.subject.next({
+            text: message
+          });
+        }
+      }, {
+        key: "loggingOut",
+        value: function loggingOut() {
+          this.subject.next();
+        }
+      }, {
+        key: "getMessage",
+        value: function getMessage() {
+          return this.subject.asObservable();
+        }
+      }]);
+
+      return TitleMessageService;
+    }();
+
+    TitleMessageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    })], TitleMessageService);
     /***/
   },
 
@@ -2738,7 +2838,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".dashboardcontainer{\r\n    display: grid;\r\n    grid-template-columns: 1fr 4fr;\r\n    gap:5px;\r\n}\r\n.navigation{\r\n    display: grid;\r\n    grid-template-columns: repeat(1,1fr);\r\n    grid-auto-rows: 40px;\r\n    gap:5px;\r\n}\r\n.outlet{\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjY291bnQtZGFzaGJvYXJkL2FjY291bnQtZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2IsOEJBQThCO0lBQzlCLE9BQU87QUFDWDtBQUNBO0lBQ0ksYUFBYTtJQUNiLG9DQUFvQztJQUNwQyxvQkFBb0I7SUFDcEIsT0FBTztBQUNYO0FBQ0E7SUFDSSxXQUFXO0FBQ2YiLCJmaWxlIjoiYWNjb3VudC1kYXNoYm9hcmQvYWNjb3VudC1kYXNoYm9hcmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kYXNoYm9hcmRjb250YWluZXJ7XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gICAgZ2FwOjVweDtcclxufVxyXG4ubmF2aWdhdGlvbntcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLDFmcik7XHJcbiAgICBncmlkLWF1dG8tcm93czogNDBweDtcclxuICAgIGdhcDo1cHg7XHJcbn1cclxuLm91dGxldHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59Il19 */";
+    __webpack_exports__["default"] = ".dashboardcontainer{\r\n    display: grid;\r\n    grid-template-columns: 1fr 4fr;\r\n    gap:5px;\r\n}\r\n.navigation{\r\n    display: grid;\r\n    grid-template-columns: repeat(1,1fr);\r\n    grid-auto-rows: 40px;\r\n    gap:5px;\r\n}\r\n.outlet{\r\n    width: 100%;\r\n}\r\n.sidebarbutton{\r\n    background-color: dodgerblue;\r\n    color:white;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC1kYXNoYm9hcmQvYWNjb3VudC1kYXNoYm9hcmQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7SUFDYiw4QkFBOEI7SUFDOUIsT0FBTztBQUNYO0FBQ0E7SUFDSSxhQUFhO0lBQ2Isb0NBQW9DO0lBQ3BDLG9CQUFvQjtJQUNwQixPQUFPO0FBQ1g7QUFDQTtJQUNJLFdBQVc7QUFDZjtBQUVBO0lBQ0ksNEJBQTRCO0lBQzVCLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL2FjY291bnQtZGFzaGJvYXJkL2FjY291bnQtZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGFzaGJvYXJkY29udGFpbmVye1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICAgIGdhcDo1cHg7XHJcbn1cclxuLm5hdmlnYXRpb257XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwxZnIpO1xyXG4gICAgZ3JpZC1hdXRvLXJvd3M6IDQwcHg7XHJcbiAgICBnYXA6NXB4O1xyXG59XHJcbi5vdXRsZXR7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLnNpZGViYXJidXR0b257XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBkb2RnZXJibHVlO1xyXG4gICAgY29sb3I6d2hpdGU7XHJcbn0iXX0= */";
     /***/
   },
 
@@ -2787,13 +2887,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, AccountDashboardComponent);
 
         this.router = router;
+        this.time = new Date();
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
       }
 
       _createClass(AccountDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
+          var _this3 = this;
+
           this.router.navigate(['/dashboard/Welcome']);
+          setInterval(function () {
+            _this3.time = new Date();
+          }, 1000);
         }
       }, {
         key: "WelcomeButtonClick",
@@ -2964,7 +3070,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".avaliabledocumentscontainer {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 2fr 1fr 1fr);\r\n    grid-auto-rows: 50px;\r\n    gap: 5px;\r\n}\r\n\r\n.document {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 1fr 6fr);\r\n    gap: 5px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjY291bnQtZGFzaGJvYXJkL2F2YWxpYWJsZS1kb2N1bWVudHMvYXZhbGlhYmxlLWRvY3VtZW50cy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLDZDQUE2QztJQUM3QyxvQkFBb0I7SUFDcEIsUUFBUTtBQUNaOztBQUVBO0lBQ0ksYUFBYTtJQUNiLHlDQUF5QztJQUN6QyxRQUFRO0FBQ1oiLCJmaWxlIjoiYWNjb3VudC1kYXNoYm9hcmQvYXZhbGlhYmxlLWRvY3VtZW50cy9hdmFsaWFibGUtZG9jdW1lbnRzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYXZhbGlhYmxlZG9jdW1lbnRzY29udGFpbmVyIHtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAyZnIgMWZyIDFmcik7XHJcbiAgICBncmlkLWF1dG8tcm93czogNTBweDtcclxuICAgIGdhcDogNXB4O1xyXG59XHJcblxyXG4uZG9jdW1lbnQge1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmciA2ZnIpO1xyXG4gICAgZ2FwOiA1cHg7XHJcbn0iXX0= */";
+    __webpack_exports__["default"] = ".avaliabledocumentscontainer {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 2fr auto 1fr);\r\n    grid-auto-rows: auto;\r\n    gap: 5px;\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC1kYXNoYm9hcmQvYXZhbGlhYmxlLWRvY3VtZW50cy9hdmFsaWFibGUtZG9jdW1lbnRzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2IsOENBQThDO0lBQzlDLG9CQUFvQjtJQUNwQixRQUFRO0FBQ1oiLCJmaWxlIjoic3JjL2FwcC9hY2NvdW50LWRhc2hib2FyZC9hdmFsaWFibGUtZG9jdW1lbnRzL2F2YWxpYWJsZS1kb2N1bWVudHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdmFsaWFibGVkb2N1bWVudHNjb250YWluZXIge1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDJmciBhdXRvIDFmcik7XHJcbiAgICBncmlkLWF1dG8tcm93czogYXV0bztcclxuICAgIGdhcDogNXB4O1xyXG59XHJcblxyXG4iXX0= */";
     /***/
   },
 
@@ -3038,12 +3144,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AvaliableDocumentsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this2 = this;
+          var _this4 = this;
 
           this.HTTPSService.GetAvaliableNewWorkDocumentsRequest().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
-            _this2.avaliableDocuments = data;
+            _this4.avaliableDocuments = data;
           }, function (error) {
-            _this2.errorService.error(error);
+            _this4.errorService.error(error);
           });
         }
       }, {
@@ -3101,7 +3207,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".dataSelectionContainer {\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n\r\n.dataSelectionTitles {\r\n    display: grid;\r\n    grid-template-columns: 1fr 5fr;\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n\r\n.DocumentName {\r\n    display: grid;\r\n    grid-template-columns: 1fr 5fr;\r\n}\r\n\r\n.taskholder {\r\n    display: grid;\r\n    grid-template-columns: auto auto auto auto;\r\n}\r\n\r\n.tasks {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: horizontal;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: row;\r\n            flex-direction: row;\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n\r\n.dateandtime {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjY291bnQtZGFzaGJvYXJkL2dyYXBoaWNzL2dyYXBoaWNzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxtQkFBbUI7SUFDbkIsaUJBQWlCO0lBQ2pCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLGFBQWE7SUFDYiw4QkFBOEI7SUFDOUIsbUJBQW1CO0lBQ25CLGlCQUFpQjtJQUNqQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsOEJBQThCO0FBQ2xDOztBQUVBO0lBQ0ksYUFBYTtJQUNiLDBDQUEwQztBQUM5Qzs7QUFFQTtJQUNJLG9CQUFhO0lBQWIsb0JBQWE7SUFBYixhQUFhO0lBQ2IsOEJBQW1CO0lBQW5CLDZCQUFtQjtRQUFuQix1QkFBbUI7WUFBbkIsbUJBQW1CO0lBQ25CLG1CQUFtQjtJQUNuQixpQkFBaUI7SUFDakIsbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksb0JBQWE7SUFBYixvQkFBYTtJQUFiLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsaUJBQWlCO0lBQ2pCLG1CQUFtQjtBQUN2QiIsImZpbGUiOiJhY2NvdW50LWRhc2hib2FyZC9ncmFwaGljcy9ncmFwaGljcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRhdGFTZWxlY3Rpb25Db250YWluZXIge1xyXG4gICAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICAgIGJvcmRlci13aWR0aDogMXB4O1xyXG4gICAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmRhdGFTZWxlY3Rpb25UaXRsZXMge1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDVmcjtcclxuICAgIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgICBib3JkZXItd2lkdGg6IDFweDtcclxuICAgIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5Eb2N1bWVudE5hbWUge1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDVmcjtcclxufVxyXG5cclxuLnRhc2tob2xkZXIge1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvIGF1dG8gYXV0bztcclxufVxyXG5cclxuLnRhc2tzIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICAgIGJvcmRlci13aWR0aDogMXB4O1xyXG4gICAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmRhdGVhbmR0aW1lIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gICAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59Il19 */";
+    __webpack_exports__["default"] = ".dataSelectionContainer {\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n\r\n.dataSelectionTitles {\r\n    display: grid;\r\n    grid-template-columns: 1fr 5fr;\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n\r\n.DocumentName {\r\n    display: grid;\r\n    grid-template-columns: 1fr 5fr;\r\n}\r\n\r\n.taskholder {\r\n    display: grid;\r\n    grid-template-columns: auto auto auto auto;\r\n}\r\n\r\n.tasks {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: horizontal;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: row;\r\n            flex-direction: row;\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n\r\n.dateandtime {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    border-style: solid;\r\n    border-width: 1px;\r\n    border-color: black;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC1kYXNoYm9hcmQvZ3JhcGhpY3MvZ3JhcGhpY3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtJQUNuQixpQkFBaUI7SUFDakIsbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLDhCQUE4QjtJQUM5QixtQkFBbUI7SUFDbkIsaUJBQWlCO0lBQ2pCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLGFBQWE7SUFDYiw4QkFBOEI7QUFDbEM7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsMENBQTBDO0FBQzlDOztBQUVBO0lBQ0ksb0JBQWE7SUFBYixvQkFBYTtJQUFiLGFBQWE7SUFDYiw4QkFBbUI7SUFBbkIsNkJBQW1CO1FBQW5CLHVCQUFtQjtZQUFuQixtQkFBbUI7SUFDbkIsbUJBQW1CO0lBQ25CLGlCQUFpQjtJQUNqQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxvQkFBYTtJQUFiLG9CQUFhO0lBQWIsYUFBYTtJQUNiLG1CQUFtQjtJQUNuQixpQkFBaUI7SUFDakIsbUJBQW1CO0FBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvYWNjb3VudC1kYXNoYm9hcmQvZ3JhcGhpY3MvZ3JhcGhpY3MuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kYXRhU2VsZWN0aW9uQ29udGFpbmVyIHtcclxuICAgIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgICBib3JkZXItd2lkdGg6IDFweDtcclxuICAgIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5kYXRhU2VsZWN0aW9uVGl0bGVzIHtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA1ZnI7XHJcbiAgICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gICAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uRG9jdW1lbnROYW1lIHtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA1ZnI7XHJcbn1cclxuXHJcbi50YXNraG9sZGVyIHtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gYXV0byBhdXRvIGF1dG87XHJcbn1cclxuXHJcbi50YXNrcyB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgICBib3JkZXItd2lkdGg6IDFweDtcclxuICAgIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5kYXRlYW5kdGltZSB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICAgIGJvcmRlci13aWR0aDogMXB4O1xyXG4gICAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufSJdfQ== */";
     /***/
   },
 
@@ -3254,7 +3360,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(GraphicsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this3 = this;
+          var _this5 = this;
 
           this.numberofCallBacksLeft = 0;
           this.allDatesSelected = false;
@@ -3262,9 +3368,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           //this.graphMetaData.StartDateDisplayed = null;
 
           this.HTTPSService.GetDocumentsForGraph().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (data) {
-            _this3.documents = data;
+            _this5.documents = data;
           }, function (error) {
-            _this3.errorService.error(error);
+            _this5.errorService.error(error);
           });
           this.lineChartData = [{
             data: []
@@ -3755,7 +3861,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "HTTPSCallForGraphData",
         value: function HTTPSCallForGraphData(requestData) {
-          var _this4 = this;
+          var _this6 = this;
 
           console.log('HTTPSCallForGraphData()');
           this.HTTPSService.GetTaskDataForGraph(requestData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (serverData) {
@@ -3782,10 +3888,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var newDocumentInformation = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedGraphData"]();
                       newDocumentInformation.DocumentUUID = taskEntry.DocumentUUID;
                       var newOrganisedDocumentTasks = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
-                      newOrganisedDocumentTasks.TaskName = _this4.getTaskName(taskEntry);
+                      newOrganisedDocumentTasks.TaskName = _this6.getTaskName(taskEntry);
                       newOrganisedDocumentTasks.TaskUUID = taskEntry.TaskUUID;
                       var newDataEntry = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
-                      newDataEntry.Date = _this4.DateServerToFrontEnd(taskEntry.Date);
+                      newDataEntry.Date = _this6.DateServerToFrontEnd(taskEntry.Date);
                       newDataEntry.Value = taskEntry.SubmittedValue;
                       newOrganisedDocumentTasks.Data.push(newDataEntry);
                       newDocumentInformation.Tasks.push(newOrganisedDocumentTasks);
@@ -3797,12 +3903,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       var _newOrganisedDocumentTasks = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
 
-                      _newOrganisedDocumentTasks.TaskName = _this4.getTaskName(taskEntry);
+                      _newOrganisedDocumentTasks.TaskName = _this6.getTaskName(taskEntry);
                       _newOrganisedDocumentTasks.TaskUUID = taskEntry.TaskUUID;
 
                       var _newDataEntry = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
 
-                      _newDataEntry.Date = _this4.DateServerToFrontEnd(taskEntry.Date);
+                      _newDataEntry.Date = _this6.DateServerToFrontEnd(taskEntry.Date);
                       _newDataEntry.Value = taskEntry.SubmittedValue;
 
                       _newOrganisedDocumentTasks.Data.push(_newDataEntry); //Get existing document Object and add to it
@@ -3840,9 +3946,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       //Document and Task UUIDS. Will need to add in task data ordered by date
                       console.log("Existing Task Found");
 
-                      _this4.addTaskData(taskEntry, newDataToGraph);
+                      _this6.addTaskData(taskEntry, newDataToGraph);
 
-                      _this4.checkMetaDataDates(taskEntry, newGraphMetaData);
+                      _this6.checkMetaDataDates(taskEntry, newGraphMetaData);
                     }
 
                     console.log(taskEntry.TaskUUID);
@@ -3862,8 +3968,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   }
                 }
 
-                _this4.GraphData = newDataToGraph;
-                _this4.graphMetaData = newGraphMetaData;
+                _this6.GraphData = newDataToGraph;
+                _this6.graphMetaData = newGraphMetaData;
                 break;
 
               case src_app_GlobalValues_global_values__WEBPACK_IMPORTED_MODULE_7__["NewTasks"]:
@@ -3878,11 +3984,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     var _taskEntry = _step11.value;
 
                     //TODO look at moving into new functions. Make this a layer of logic instead of doing
-                    if (!_this4.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID)) {
+                    if (!_this6.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID)) {
                       //totally new document
-                      _this4.graphMetaData.DocumentUUIDS.push(_taskEntry.DocumentUUID);
+                      _this6.graphMetaData.DocumentUUIDS.push(_taskEntry.DocumentUUID);
 
-                      _this4.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
+                      _this6.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
 
                       var _newDocumentInformation = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedGraphData"]();
 
@@ -3890,31 +3996,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       var _newOrganisedDocumentTasks2 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
 
-                      _newOrganisedDocumentTasks2.TaskName = _this4.getTaskName(_taskEntry);
+                      _newOrganisedDocumentTasks2.TaskName = _this6.getTaskName(_taskEntry);
                       _newOrganisedDocumentTasks2.TaskUUID = _taskEntry.TaskUUID;
 
                       var _newDataEntry2 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
 
-                      _newDataEntry2.Date = _this4.DateServerToFrontEnd(_taskEntry.Date);
+                      _newDataEntry2.Date = _this6.DateServerToFrontEnd(_taskEntry.Date);
                       _newDataEntry2.Value = _taskEntry.SubmittedValue;
 
                       _newOrganisedDocumentTasks2.Data.push(_newDataEntry2);
 
                       _newDocumentInformation.Tasks.push(_newOrganisedDocumentTasks2);
 
-                      _this4.GraphData.push(_newDocumentInformation);
-                    } else if (_this4.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID) && !_this4.graphMetaData.TaskUUIDS.includes(_taskEntry.TaskUUID)) {
+                      _this6.GraphData.push(_newDocumentInformation);
+                    } else if (_this6.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID) && !_this6.graphMetaData.TaskUUIDS.includes(_taskEntry.TaskUUID)) {
                       //new task only.
-                      _this4.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
+                      _this6.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
 
                       var _newOrganisedDocumentTasks3 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
 
-                      _newOrganisedDocumentTasks3.TaskName = _this4.getTaskName(_taskEntry);
+                      _newOrganisedDocumentTasks3.TaskName = _this6.getTaskName(_taskEntry);
                       _newOrganisedDocumentTasks3.TaskUUID = _taskEntry.TaskUUID;
 
                       var _newDataEntry3 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
 
-                      _newDataEntry3.Date = _this4.DateServerToFrontEnd(_taskEntry.Date);
+                      _newDataEntry3.Date = _this6.DateServerToFrontEnd(_taskEntry.Date);
                       _newDataEntry3.Value = _taskEntry.SubmittedValue;
 
                       _newOrganisedDocumentTasks3.Data.push(_newDataEntry3); //Get existing document Object and add to it
@@ -3925,7 +4031,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var _iteratorError12 = undefined;
 
                       try {
-                        for (var _iterator12 = _this4.GraphData[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+                        for (var _iterator12 = _this6.GraphData[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
                           var _document2 = _step12.value;
 
                           if (_document2.DocumentUUID === _taskEntry.DocumentUUID) {
@@ -3950,9 +4056,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     } else {
                       //Document and Task UUIDS. Will need to add in task data ordered by date
-                      _this4.addTaskData(_taskEntry, _this4.GraphData);
+                      _this6.addTaskData(_taskEntry, _this6.GraphData);
 
-                      _this4.checkMetaDataDates(_taskEntry, _this4.graphMetaData);
+                      _this6.checkMetaDataDates(_taskEntry, _this6.graphMetaData);
                     }
 
                     console.log(_taskEntry.TaskUUID);
@@ -3985,9 +4091,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   for (var _iterator13 = serverData.Data[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
                     var _taskEntry2 = _step13.value;
 
-                    _this4.addTaskData(_taskEntry2, _this4.GraphData);
+                    _this6.addTaskData(_taskEntry2, _this6.GraphData);
 
-                    _this4.checkMetaDataDates(_taskEntry2, _this4.graphMetaData);
+                    _this6.checkMetaDataDates(_taskEntry2, _this6.graphMetaData);
 
                     console.log(_taskEntry2.TaskUUID);
                   }
@@ -4010,13 +4116,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             console.log("finished HTTPSCallForGraphData() return");
-            console.log("Current this.DataToGraph = " + JSON.stringify(_this4.GraphData)); //This looks like a race condition, due to using webworkers. BUT each function is atomic so no need for mutex
+            console.log("Current this.DataToGraph = " + JSON.stringify(_this6.GraphData)); //This looks like a race condition, due to using webworkers. BUT each function is atomic so no need for mutex
 
-            if (! --_this4.numberofCallBacksLeft) {
-              _this4.SetupDataForGraph();
+            if (! --_this6.numberofCallBacksLeft) {
+              _this6.SetupDataForGraph();
             }
           }, function (error) {
-            _this4.errorService.error(error);
+            _this6.errorService.error(error);
           });
         }
       }, {
@@ -4534,7 +4640,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".incompleteavaliabledocumentscontainer {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 1fr);\r\n    grid-auto-rows: 50px;\r\n    gap: 5px;\r\n}\r\n\r\n.document {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 1fr 1fr 1fr 1fr);\r\n    gap: 5px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjY291bnQtZGFzaGJvYXJkL2luY29tcGxldGUtZG9jdW1lbnRzLWF2YWxpYWJsZS9pbmNvbXBsZXRlLWRvY3VtZW50cy1hdmFsaWFibGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7SUFDYixxQ0FBcUM7SUFDckMsb0JBQW9CO0lBQ3BCLFFBQVE7QUFDWjs7QUFFQTtJQUNJLGFBQWE7SUFDYixpREFBaUQ7SUFDakQsUUFBUTtBQUNaIiwiZmlsZSI6ImFjY291bnQtZGFzaGJvYXJkL2luY29tcGxldGUtZG9jdW1lbnRzLWF2YWxpYWJsZS9pbmNvbXBsZXRlLWRvY3VtZW50cy1hdmFsaWFibGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbmNvbXBsZXRlYXZhbGlhYmxlZG9jdW1lbnRzY29udGFpbmVyIHtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIpO1xyXG4gICAgZ3JpZC1hdXRvLXJvd3M6IDUwcHg7XHJcbiAgICBnYXA6IDVweDtcclxufVxyXG5cclxuLmRvY3VtZW50IHtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMWZyIDFmciAxZnIpO1xyXG4gICAgZ2FwOiA1cHg7XHJcbn0iXX0= */";
+    __webpack_exports__["default"] = ".incompleteavaliabledocumentscontainer {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 1fr);\r\n    grid-auto-rows: 50px;\r\n    gap: 5px;\r\n}\r\n\r\n.document {\r\n    display: grid;\r\n    grid-template-columns: repeat(1, 1fr 1fr 1fr 1fr);\r\n    gap: 5px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC1kYXNoYm9hcmQvaW5jb21wbGV0ZS1kb2N1bWVudHMtYXZhbGlhYmxlL2luY29tcGxldGUtZG9jdW1lbnRzLWF2YWxpYWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLHFDQUFxQztJQUNyQyxvQkFBb0I7SUFDcEIsUUFBUTtBQUNaOztBQUVBO0lBQ0ksYUFBYTtJQUNiLGlEQUFpRDtJQUNqRCxRQUFRO0FBQ1oiLCJmaWxlIjoic3JjL2FwcC9hY2NvdW50LWRhc2hib2FyZC9pbmNvbXBsZXRlLWRvY3VtZW50cy1hdmFsaWFibGUvaW5jb21wbGV0ZS1kb2N1bWVudHMtYXZhbGlhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW5jb21wbGV0ZWF2YWxpYWJsZWRvY3VtZW50c2NvbnRhaW5lciB7XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyKTtcclxuICAgIGdyaWQtYXV0by1yb3dzOiA1MHB4O1xyXG4gICAgZ2FwOiA1cHg7XHJcbn1cclxuXHJcbi5kb2N1bWVudCB7XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyIDFmciAxZnIgMWZyKTtcclxuICAgIGdhcDogNXB4O1xyXG59Il19 */";
     /***/
   },
 
@@ -4608,12 +4714,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(IncompleteDocumentsAvaliableComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this5 = this;
+          var _this7 = this;
 
           this.HTTPSService.GetAvaliableIncompleteDocumentRequest().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
-            _this5.avaliableDocuments = data;
+            _this7.avaliableDocuments = data;
           }, function (error) {
-            _this5.errorService.error(error);
+            _this7.errorService.error(error);
           });
         }
       }, {
@@ -4672,7 +4778,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhY2NvdW50LWRhc2hib2FyZC9yZXZpZXcvcmV2aWV3LmNvbXBvbmVudC5jc3MifQ== */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FjY291bnQtZGFzaGJvYXJkL3Jldmlldy9yZXZpZXcuY29tcG9uZW50LmNzcyJ9 */";
     /***/
   },
 
@@ -4746,12 +4852,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ReviewComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this6 = this;
+          var _this8 = this;
 
           this.HTTPSService.GetAvaliableReviewDocuments().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
-            _this6.avaliableDocuments = data;
+            _this8.avaliableDocuments = data;
           }, function (error) {
-            _this6.errorService.error(error);
+            _this8.errorService.error(error);
           });
         }
       }, {
@@ -4810,7 +4916,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhY2NvdW50LWRhc2hib2FyZC93ZWxjb21lLXNjcmVlbi93ZWxjb21lLXNjcmVlbi5jb21wb25lbnQuY3NzIn0= */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FjY291bnQtZGFzaGJvYXJkL3dlbGNvbWUtc2NyZWVuL3dlbGNvbWUtc2NyZWVuLmNvbXBvbmVudC5jc3MifQ== */";
     /***/
   },
 
@@ -5005,7 +5111,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LmNzcyJ9 */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */";
     /***/
   },
 
@@ -5250,6 +5356,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
     /*! @angular/material/dialog */
     "./node_modules/@angular/material/esm2015/dialog.js");
+    /* harmony import */
+
+
+    var _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
+    /*! ./Services/TitleMessageService */
+    "./src/app/Services/TitleMessageService.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -5259,7 +5371,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _logo_and_title_logo_and_title_component__WEBPACK_IMPORTED_MODULE_7__["LogoAndTitleComponent"], _splash_screen_splash_screen_component__WEBPACK_IMPORTED_MODULE_8__["SplashScreenComponent"], _login_screen_login_screen_component__WEBPACK_IMPORTED_MODULE_9__["LoginScreenComponent"], _forgot_password_screen_forgot_password_screen_component__WEBPACK_IMPORTED_MODULE_10__["ForgotPasswordScreenComponent"], _register_account_screen_register_account_screen_component__WEBPACK_IMPORTED_MODULE_11__["RegisterAccountScreenComponent"], _reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_12__["ResetPasswordComponent"], _request_manager_request_manager_component__WEBPACK_IMPORTED_MODULE_13__["RequestManagerComponent"], _account_dashboard_account_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["AccountDashboardComponent"], _error_messages_error_messages_component__WEBPACK_IMPORTED_MODULE_16__["ErrorMessagesComponent"], _dev_tools_dev_tools_component__WEBPACK_IMPORTED_MODULE_23__["DevToolsComponent"], _work_document_work_document_component__WEBPACK_IMPORTED_MODULE_26__["WorkDocumentComponent"], _work_document_work_document_component__WEBPACK_IMPORTED_MODULE_26__["CommentDialog"]],
       entryComponents: [_work_document_work_document_component__WEBPACK_IMPORTED_MODULE_26__["CommentDialog"]],
       imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _account_dashboard_account_dashboard_module__WEBPACK_IMPORTED_MODULE_25__["DashboardModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_27__["NoopAnimationsModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_28__["MatDialogModule"]],
-      providers: [_Authenticators_Authenticator_GuardService__WEBPACK_IMPORTED_MODULE_17__["AuthenticatorGuardService"], _error_messages_error_messageService__WEBPACK_IMPORTED_MODULE_18__["ErrorMessageService"], _Authenticators_AuthenticatorService__WEBPACK_IMPORTED_MODULE_20__["AuthenticatorService"], _Server_HTTPS_DreamHostHTTPS_Request__WEBPACK_IMPORTED_MODULE_19__["DreamHostHTTPSRequest"], {
+      providers: [_Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_29__["TitleMessageService"], _Authenticators_Authenticator_GuardService__WEBPACK_IMPORTED_MODULE_17__["AuthenticatorGuardService"], _error_messages_error_messageService__WEBPACK_IMPORTED_MODULE_18__["ErrorMessageService"], _Authenticators_AuthenticatorService__WEBPACK_IMPORTED_MODULE_20__["AuthenticatorService"], _Server_HTTPS_DreamHostHTTPS_Request__WEBPACK_IMPORTED_MODULE_19__["DreamHostHTTPSRequest"], {
         provide: _Server_HTTPS_IHTTPS_Request__WEBPACK_IMPORTED_MODULE_22__["HTTPSRequestService"],
         useClass: _Server_HTTPS_DreamHostHTTPS_Request__WEBPACK_IMPORTED_MODULE_19__["DreamHostHTTPSRequest"]
       }, {
@@ -5296,7 +5408,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJkZXYtdG9vbHMvZGV2LXRvb2xzLmNvbXBvbmVudC5jc3MifQ== */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Rldi10b29scy9kZXYtdG9vbHMuY29tcG9uZW50LmNzcyJ9 */";
     /***/
   },
 
@@ -5407,7 +5519,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function ErrorMessageService(router) {
-        var _this7 = this;
+        var _this9 = this;
 
         _classCallCheck(this, ErrorMessageService);
 
@@ -5416,11 +5528,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.keepAfterNavigationChange = false;
         router.events.subscribe(function (event) {
           if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
-            if (_this7.keepAfterNavigationChange) {
+            if (_this9.keepAfterNavigationChange) {
               // only keep for a single location change
-              _this7.keepAfterNavigationChange = false;
+              _this9.keepAfterNavigationChange = false;
             } else {
-              _this7.subject.next();
+              _this9.subject.next();
             }
           }
         });
@@ -5482,7 +5594,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJlcnJvci1tZXNzYWdlcy9lcnJvci1tZXNzYWdlcy5jb21wb25lbnQuY3NzIn0= */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Vycm9yLW1lc3NhZ2VzL2Vycm9yLW1lc3NhZ2VzLmNvbXBvbmVudC5jc3MifQ== */";
     /***/
   },
 
@@ -5536,10 +5648,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ErrorMessagesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this8 = this;
+          var _this10 = this;
 
           this.subscription = this.errorMessageService.getMessage().subscribe(function (message) {
-            _this8.message = message;
+            _this10.message = message;
           });
         }
       }, {
@@ -5586,7 +5698,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJmb3Jnb3QtcGFzc3dvcmQtc2NyZWVuL2ZvcmdvdC1wYXNzd29yZC1zY3JlZW4uY29tcG9uZW50LmNzcyJ9 */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2ZvcmdvdC1wYXNzd29yZC1zY3JlZW4vZm9yZ290LXBhc3N3b3JkLXNjcmVlbi5jb21wb25lbnQuY3NzIn0= */";
     /***/
   },
 
@@ -5676,7 +5788,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "resetPasswordButtonClick",
         value: function resetPasswordButtonClick() {
-          var _this9 = this;
+          var _this11 = this;
 
           this.submitted = true;
 
@@ -5685,12 +5797,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           this.HTTPSService.ForgotPasswordRequest(this.form.controls.username.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (data) {
-            _this9.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
+            _this11.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
             setTimeout(function () {
-              _this9.router.navigate(['/login']);
+              _this11.router.navigate(['/login']);
             }, 5000);
           }, function (error) {
-            return _this9.errorService.error(error);
+            return _this11.errorService.error(error);
           });
         }
       }, {
@@ -5743,7 +5855,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dpbi1zY3JlZW4vbG9naW4tc2NyZWVuLmNvbXBvbmVudC5jc3MifQ== */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvZ2luLXNjcmVlbi9sb2dpbi1zY3JlZW4uY29tcG9uZW50LmNzcyJ9 */";
     /***/
   },
 
@@ -5855,7 +5967,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loginButtonClick",
         value: function loginButtonClick() {
-          var _this10 = this;
+          var _this12 = this;
 
           this.submitted = true; // stop here if form is invalid
 
@@ -5864,12 +5976,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           this.authenticatorService.login(this.form.controls.username.value, this.form.controls.password.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (data) {
-            _this10.userdata.userDataAvaliable(true); //Use this to instead set the banner/toolbar at the top to the name
+            _this12.userdata.userDataAvaliable(true); //Use this to instead set the banner/toolbar at the top to the name
 
 
-            _this10.router.navigate(['/']);
+            _this12.router.navigate(['/']);
           }, function (error) {
-            return _this10.errorService.error(error);
+            return _this12.errorService.error(error);
           });
         }
       }, {
@@ -5931,7 +6043,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dvLWFuZC10aXRsZS9sb2dvLWFuZC10aXRsZS5jb21wb25lbnQuY3NzIn0= */";
+    __webpack_exports__["default"] = ".TitleArea{\r\n    display: grid;\r\n    grid-template-columns: 150px auto 200px;\r\n    width: 100%;\r\n    background-color: black;\r\n}\r\n\r\n.Title{\r\ntext-align: center;\r\n    line-height:50px;\r\n    color: white;\r\nfont-size: calc(16px + 1vw)\r\n}\r\n\r\n.Logo{\r\n    line-height:50px;\r\n    height: 50px;\r\n}\r\n\r\n.UserInformation{\r\n    line-height:50px;\r\n    color: white;\r\n    font-size: 15px;\r\n    text-align: right;\r\n    padding-right: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9nby1hbmQtdGl0bGUvbG9nby1hbmQtdGl0bGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7SUFDYix1Q0FBdUM7SUFDdkMsV0FBVztJQUNYLHVCQUF1QjtBQUMzQjs7QUFFQTtBQUNBLGtCQUFrQjtJQUNkLGdCQUFnQjtJQUNoQixZQUFZO0FBQ2hCO0FBQ0E7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsWUFBWTtBQUNoQjs7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixZQUFZO0lBQ1osZUFBZTtJQUNmLGlCQUFpQjtJQUNqQixtQkFBbUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9sb2dvLWFuZC10aXRsZS9sb2dvLWFuZC10aXRsZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLlRpdGxlQXJlYXtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDE1MHB4IGF1dG8gMjAwcHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uVGl0bGV7XHJcbnRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGxpbmUtaGVpZ2h0OjUwcHg7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbmZvbnQtc2l6ZTogY2FsYygxNnB4ICsgMXZ3KVxyXG59XHJcblxyXG4uTG9nb3tcclxuICAgIGxpbmUtaGVpZ2h0OjUwcHg7XHJcbiAgICBoZWlnaHQ6IDUwcHg7XHJcbn1cclxuXHJcbi5Vc2VySW5mb3JtYXRpb257XHJcbiAgICBsaW5lLWhlaWdodDo1MHB4O1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgZm9udC1zaXplOiAxNXB4O1xyXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbiAgICBwYWRkaW5nLXJpZ2h0OiAxMHB4O1xyXG59Il19 */";
     /***/
   },
 
@@ -5972,28 +6084,85 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! src/environments/environment */
     "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../Services/TitleMessageService */
+    "./src/app/Services/TitleMessageService.ts");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _Authenticators_AuthenticatorService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../Authenticators/AuthenticatorService */
+    "./src/app/Authenticators/AuthenticatorService.ts");
 
     var LogoAndTitleComponent =
     /*#__PURE__*/
     function () {
-      function LogoAndTitleComponent() {
+      function LogoAndTitleComponent(messageService, router, authenticatorService) {
+        var _this13 = this;
+
         _classCallCheck(this, LogoAndTitleComponent);
 
-        //Will need to have this linked to the LOGO
-        this.LogoImage = ''; //TODO logo
+        this.messageService = messageService;
+        this.router = router;
+        this.authenticatorService = authenticatorService; //Will need to have this linked to the LOGO
 
-        this.title = 'Document Manager';
-      }
+        this.LogoImage = 'https://nks-maintenance.online/Server/public/images/Logo/logo.png'; //TODO logo
+
+        this.title = 'Document Manager Application';
+        this.subscription = this.messageService.getMessage().subscribe(function (message) {
+          if (message) {
+            _this13.username = message.text;
+            _this13.loggedIn = true;
+          } else {
+            // clear messages when empty message received
+            _this13.username = '';
+            _this13.loggedIn = false;
+          }
+        });
+      } //TODO will need a service with login information etc for displaying
+
 
       _createClass(LogoAndTitleComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
           this.environment = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].environemnt;
+          this.loggedIn = false;
+        }
+      }, {
+        key: "logout",
+        value: function logout() {
+          this.loggedIn = false;
+          this.authenticatorService.logout();
+          this.router.navigate(['/login']);
+        }
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.subscription.unsubscribe();
         }
       }]);
 
       return LogoAndTitleComponent;
     }();
+
+    LogoAndTitleComponent.ctorParameters = function () {
+      return [{
+        type: _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_3__["TitleMessageService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+      }, {
+        type: _Authenticators_AuthenticatorService__WEBPACK_IMPORTED_MODULE_5__["AuthenticatorService"]
+      }];
+    };
 
     LogoAndTitleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-logo-and-title',
@@ -6023,7 +6192,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZWdpc3Rlci1hY2NvdW50LXNjcmVlbi9yZWdpc3Rlci1hY2NvdW50LXNjcmVlbi5jb21wb25lbnQuY3NzIn0= */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JlZ2lzdGVyLWFjY291bnQtc2NyZWVuL3JlZ2lzdGVyLWFjY291bnQtc2NyZWVuLmNvbXBvbmVudC5jc3MifQ== */";
     /***/
   },
 
@@ -6132,7 +6301,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "registerAccountButtonClick",
         value: function registerAccountButtonClick() {
-          var _this11 = this;
+          var _this14 = this;
 
           this.submitted = true; //Check information is invalid, if so display errors and stop
 
@@ -6146,12 +6315,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               sapID: this.form.controls.sapID.value
             };
             this.HTTPSService.RegisterAccountRequest(info).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (data) {
-              _this11.feedbackinfo = 'Success! \n The request is being reviewed. You will recieve an email (' + _this11.form.controls.username.value + ') Returning you to login screen in 5 seconds';
+              _this14.feedbackinfo = 'Success! \n The request is being reviewed. You will recieve an email (' + _this14.form.controls.username.value + ') Returning you to login screen in 5 seconds';
               setTimeout(function () {
-                _this11.router.navigate(['/login']);
+                _this14.router.navigate(['/login']);
               }, 5000);
             }, function (error) {
-              _this11.errorService.error(error);
+              _this14.errorService.error(error);
             });
           }
         }
@@ -6227,7 +6396,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZXF1ZXN0LW1hbmFnZXIvcmVxdWVzdC1tYW5hZ2VyLmNvbXBvbmVudC5jc3MifQ== */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JlcXVlc3QtbWFuYWdlci9yZXF1ZXN0LW1hbmFnZXIuY29tcG9uZW50LmNzcyJ9 */";
     /***/
   },
 
@@ -6338,7 +6507,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZXNldC1wYXNzd29yZC9yZXNldC1wYXNzd29yZC5jb21wb25lbnQuY3NzIn0= */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Jlc2V0LXBhc3N3b3JkL3Jlc2V0LXBhc3N3b3JkLmNvbXBvbmVudC5jc3MifQ== */";
     /***/
   },
 
@@ -6445,7 +6614,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "resetPasswordButtonClick",
         value: function resetPasswordButtonClick() {
-          var _this12 = this;
+          var _this15 = this;
 
           this.submitted = true; //Check information is invalid, if so display errors and stop
 
@@ -6453,12 +6622,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             return;
           } else {
             this.HTTPSService.ResetPasswordRequest(this.form.controls.username.value, this.form.controls.password.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (data) {
-              _this12.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
+              _this15.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
               setTimeout(function () {
-                _this12.router.navigate(['/login']);
+                _this15.router.navigate(['/login']);
               }, 5000);
             }, function (error) {
-              return _this12.errorService.error(error);
+              return _this15.errorService.error(error);
             });
           }
         }
@@ -6524,7 +6693,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcGxhc2gtc2NyZWVuL3NwbGFzaC1zY3JlZW4uY29tcG9uZW50LmNzcyJ9 */";
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NwbGFzaC1zY3JlZW4vc3BsYXNoLXNjcmVlbi5jb21wb25lbnQuY3NzIn0= */";
     /***/
   },
 
@@ -6669,7 +6838,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "/*TODO need to play with vmin/wmin -> bind all values to vh and then add scaling for width*/\r\n\r\n.workDocumentContainer {\r\n  display: grid;\r\n  text-align: center;\r\n  padding: .5%;\r\n  gap: .5vh;\r\n  font-size: 1.5vh;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.headerTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vh;\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 3;\r\n}\r\n\r\n.Title {\r\n  background-color: var(--secondary-bg-color);\r\n  font-size: 2vh;\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.GridContainer {\r\n  height: 100%;\r\n  display: grid;\r\n  grid-template-rows: 1fr auto;\r\n  text-align: left;\r\n}\r\n\r\n.gridTitle {\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: left;\r\n      -ms-flex-pack: left;\r\n          justify-content: left;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  font-size: 1.8vh;\r\n}\r\n\r\n.workgridTitle {\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  font-size: 1.8vh\r\n}\r\n\r\n.workgridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.workgridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2.0vh;\r\n}\r\n\r\n.gridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: left;\r\n      -ms-flex-pack: left;\r\n          justify-content: left;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.gridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2vh;\r\n}\r\n\r\n.checkboxgridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.checkboxgridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2.0vh;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  height: 2vh;\r\n  width: 2vw;\r\n}\r\n\r\n.workgridItemActionTitle {\r\n  font-weight: bold;\r\n  font-size: 1.7vh;\r\n}\r\n\r\n.workTaskTitle {\r\n  display: grid;\r\n  grid-template-columns: auto auto;\r\n}\r\n\r\n.buttonContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  -webkit-column-gap: 1%;\r\n     -moz-column-gap: 1%;\r\n          column-gap: 1%;\r\n  ;\r\n}\r\n\r\n.inputbutton {\r\n  height: auto;\r\n  width: -webkit-min-content;\r\n  width: -moz-min-content;\r\n  width: min-content;\r\n  font-size: 1vh;\r\n  text-align: center;\r\n  background-color: lightblue;\r\n}\r\n\r\n.taskValueInput {\r\n  background-color: var(--input-bg-color);\r\n  height: 1.0vh;\r\n}\r\n\r\n.header {\r\n  color: white;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr 1fr;\r\n  grid-template-rows: 3fr 0.2fr;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-bottom: 1px solid black;\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.head:nth-child(2) {\r\n  margin-right: -1px;\r\n}\r\n\r\n.logoContainer {\r\n  background-color: var(--main-bg-color);\r\n  vertical-align: middle;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-right: 1px solid white;\r\n}\r\n\r\n.logoContainer img {\r\n  width: 100%;\r\n}\r\n\r\n.documentTitleContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n}\r\n\r\n.documentTitleContainerSub {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n.documentTitle {\r\n  font-weight: 900;\r\n  font-size: 3vh;\r\n}\r\n\r\n.documentType {\r\n  font-weight: bold;\r\n  font-size: 2vh;\r\n}\r\n\r\n.DTC-Title {\r\n  font-weight: bold;\r\n  font-size: 1.5vh;\r\n  text-align: right;\r\n}\r\n\r\n.DTC-Information {\r\n  font-size: 1.5vh;\r\n  text-align: left;\r\n  padding-left: 4px;\r\n}\r\n\r\n.documentInformationContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n  border-left: 1px solid white;\r\n}\r\n\r\n.DIC-Title {\r\n  font-weight: bold;\r\n  font-size: 1.5vh;\r\n}\r\n\r\n.DIC-Information {\r\n  font-size: 1.5vh;\r\n}\r\n\r\n.DIC-SubInformation {\r\n  font-size: 1vh;\r\n  font-style: italic;\r\n}\r\n\r\n.documentAccessedContainer {\r\n  grid-column: 1/5;\r\n  color: black;\r\n  background-color: var(--secondary-bg-color);\r\n  display: grid;\r\n  grid-template-columns: auto 3fr auto;\r\n  font-size: 1.2vh;\r\n}\r\n\r\n.DAC-Title {\r\n  font-weight: bold;\r\n  padding-left: 1px;\r\n}\r\n\r\n.accessDate {\r\n  text-align: left;\r\n}\r\n\r\n.printedWarning {\r\n  text-align: right;\r\n}\r\n\r\n.context {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.contextContent {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  height: 100%;\r\n  text-align: left;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.completionCodes {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.completionCodesGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 3.5fr;\r\n}\r\n\r\n.completionCodesTableItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr);\r\n}\r\n\r\n.authorityToMaintain {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.authorityToMaintainGridTitles {\r\n  display: grid;\r\n  grid-template-columns: 3fr 1fr;\r\n}\r\n\r\n.authorityToMaintainItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 3fr 1fr);\r\n}\r\n\r\n.equipmentAndMaterials {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.equipmentAndMaterialsGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr 1fr;\r\n}\r\n\r\n.equipmentAndMaterialsItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 2.5fr 1fr);\r\n}\r\n\r\n.workPreperation {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.prestartTasksGridTitles {\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.prestartTasksItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.errorTask {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n  background-color: red;\r\n}\r\n\r\n.prestartTaskActionsContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.taskInputContainer {\r\n  display: grid;\r\n  grid-template-columns: auto;\r\n}\r\n\r\n.workExecution {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-bottom: 1px solid black;\r\n  border-top: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.spanHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vh;\r\n  font-weight: 900;\r\n  text-align: center;\r\n}\r\n\r\n.spanTitle {\r\n  background-color: var(--secondary-bg-color);\r\n  font-size: 2vh;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  height: 100%;\r\n  border-bottom: 1px solid black;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.workExecutionGridTitles {\r\n  text-align: center;\r\n  display: grid;\r\n  grid-template-columns: .5fr 3.5fr .25fr .75fr;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n}\r\n\r\n.workExecutionERRORItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n  background-color: red;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  border-bottom: -1px solid black;\r\n}\r\n\r\n.workExecutionTaskContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.workExecutionTaskContainer img {\r\n  width: auto;\r\n  height: 30vh;\r\n  padding: 0%;\r\n}\r\n\r\n.taskInputFlexContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: row;\r\n          flex-direction: row;\r\n  width: 100%;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.taskInputGridContainer {\r\n  display: grid;\r\n  grid-template-columns: auto auto auto;\r\n}\r\n\r\n.limitsGrid {\r\n  display: grid;\r\n  row-gap: .5vh;\r\n}\r\n\r\n.workCloseOut {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n  row-gap: .5vh;\r\n}\r\n\r\n.commentsAndObsContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.commentsGridContainer {\r\n  display: grid;\r\n}\r\n\r\n.commentsAndObsGrid {\r\n  display: grid;\r\n  grid-template-columns: 4fr;\r\n  grid-template-rows: auto;\r\n}\r\n\r\n.commentsAndGeneralObsInput {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.addcommentContainer {\r\n  display: grid;\r\n  grid-template-columns: 3.5fr .5fr;\r\n}\r\n\r\n.furtherWorkRequiredContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.futherWorkRequiredGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.futherWorkRequiredItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.futherWorkRequiredItemsERRORGrid {\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n  background-color: red;\r\n}\r\n\r\n.closeOutChecklistContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.notificationInformationContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr;\r\n}\r\n\r\n.closeOutChecklistGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.closeOutChecklistGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.completionSignOff {\r\n  display: grid;\r\n  grid-template-rows: 5fr;\r\n  grid-template-rows: auto;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n  row-gap: .5vh;\r\n}\r\n\r\n.completionSignOffHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vh;\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 7;\r\n}\r\n\r\n.technician {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n  border-top: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  padding-bottom: .05vh;\r\n  padding-left: .01vh;\r\n}\r\n\r\n.supervisor {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n  border-top: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  padding-bottom: .05vh;\r\n  padding-left: .01vh;\r\n}\r\n\r\n.documentOwner {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n  border-top: 1px solid black;\r\n  padding-bottom: .05vh;\r\n  padding-left: .01vh;\r\n}\r\n\r\n.completionSignOffName {\r\n  display: grid;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffSignature {\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffTimeStamp {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.signature{\r\n  width:auto;\r\n  height: 8vh;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndvcmstZG9jdW1lbnQvd29yay1kb2N1bWVudC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDJGQUEyRjs7QUFFM0Y7RUFDRSxhQUFhO0VBQ2Isa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixTQUFTO0VBQ1QsZ0JBQWdCO0VBQ2hCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0Usc0NBQXNDO0VBQ3RDLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtFQUNsQixrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSwyQ0FBMkM7RUFDM0MsY0FBYztFQUNkLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQix3QkFBdUI7TUFBdkIscUJBQXVCO1VBQXZCLHVCQUF1QjtBQUN6Qjs7QUFFQTtFQUNFLFlBQVk7RUFDWixhQUFhO0VBQ2IsNEJBQTRCO0VBQzVCLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixzQkFBcUI7TUFBckIsbUJBQXFCO1VBQXJCLHFCQUFxQjtFQUNyQiw0QkFBNEI7RUFDNUIsOEJBQThCO0VBQzlCLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQix3QkFBdUI7TUFBdkIscUJBQXVCO1VBQXZCLHVCQUF1QjtFQUN2Qiw0QkFBNEI7RUFDNUIsOEJBQThCO0VBQzlCO0FBQ0Y7O0FBRUE7RUFDRSxZQUFZO0VBQ1osV0FBVztFQUNYLG9CQUFhO0VBQWIsb0JBQWE7RUFBYixhQUFhO0VBQ2IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsd0JBQXVCO01BQXZCLHFCQUF1QjtVQUF2Qix1QkFBdUI7RUFDdkIsNEJBQTRCO0VBQzVCLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGVBQWU7RUFDZixXQUFXO0VBQ1gsYUFBYTtBQUNmOztBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7RUFDWCxvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHNCQUFxQjtNQUFyQixtQkFBcUI7VUFBckIscUJBQXFCO0VBQ3JCLDRCQUE0QjtBQUM5Qjs7QUFFQTtFQUNFLGVBQWU7RUFDZixXQUFXO0VBQ1gsV0FBVztBQUNiOztBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7RUFDWCxvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLDRCQUE0QjtBQUM5Qjs7QUFFQTtFQUNFLGVBQWU7RUFDZixXQUFXO0VBQ1gsYUFBYTtBQUNmOztBQUVBO0VBQ0UsV0FBVztFQUNYLFVBQVU7QUFDWjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsZ0NBQWdDO0FBQ2xDOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixzQkFBYztLQUFkLG1CQUFjO1VBQWQsY0FBYzs7QUFFaEI7O0FBRUE7RUFDRSxZQUFZO0VBQ1osMEJBQWtCO0VBQWxCLHVCQUFrQjtFQUFsQixrQkFBa0I7RUFDbEIsY0FBYztFQUNkLGtCQUFrQjtFQUNsQiwyQkFBMkI7QUFDN0I7O0FBRUE7RUFDRSx1Q0FBdUM7RUFDdkMsYUFBYTtBQUNmOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixrQ0FBa0M7RUFDbEMsNkJBQTZCO0VBQzdCLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLDhCQUE4QjtFQUM5Qiw0QkFBNEI7RUFDNUIsNkJBQTZCO0FBQy9COztBQUVBO0VBQ0Usa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usc0NBQXNDO0VBQ3RDLHNCQUFzQjtFQUN0QixZQUFZO0VBQ1osb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQiw2QkFBNkI7QUFDL0I7O0FBRUE7RUFDRSxXQUFXO0FBQ2I7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsYUFBYTtFQUNiLG9CQUFvQjtFQUNwQixZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0FBQ2hDOztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsY0FBYztBQUNoQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixnQkFBZ0I7RUFDaEIsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtFQUNoQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsYUFBYTtFQUNiLG9CQUFvQjtFQUNwQixZQUFZO0VBQ1osNEJBQTRCO0FBQzlCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGNBQWM7RUFDZCxrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsWUFBWTtFQUNaLDJDQUEyQztFQUMzQyxhQUFhO0VBQ2Isb0NBQW9DO0VBQ3BDLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRSxpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSx5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0Usb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLDRCQUE0QjtBQUM5Qjs7QUFFQTtFQUNFLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsaUNBQWlDO0FBQ25DOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHdCQUF3QjtFQUN4Qiw0Q0FBNEM7QUFDOUM7O0FBRUE7RUFDRSx5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIseUNBQXlDO0FBQzNDOztBQUVBO0VBQ0UseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixxQ0FBcUM7QUFDdkM7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLGdEQUFnRDtBQUNsRDs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsNkJBQTZCO0VBQzdCLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLG9DQUFvQztBQUN0Qzs7QUFFQTtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsK0NBQStDO0FBQ2pEOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHdCQUF3QjtFQUN4QiwrQ0FBK0M7RUFDL0MscUJBQXFCO0FBQ3ZCOztBQUVBO0VBQ0Usb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYiw0QkFBc0I7RUFBdEIsNkJBQXNCO01BQXRCLDBCQUFzQjtVQUF0QixzQkFBc0I7RUFDdEIsV0FBVztBQUNiOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDJCQUEyQjtBQUM3Qjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwwQkFBMEI7RUFDMUIsa0NBQWtDO0VBQ2xDLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLDhCQUE4QjtFQUM5QiwyQkFBMkI7RUFDM0IsNkJBQTZCO0FBQy9COztBQUVBO0VBQ0Usc0NBQXNDO0VBQ3RDLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLDJDQUEyQztFQUMzQyxjQUFjO0VBQ2QsaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQixZQUFZO0VBQ1osOEJBQThCO0VBQzlCLDRCQUE0QjtBQUM5Qjs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixhQUFhO0VBQ2IsNkNBQTZDO0FBQy9DOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLDBCQUFxQjtNQUFyQixxQkFBcUI7RUFDckIsYUFBYTtFQUNiLHdCQUF3QjtFQUN4Qix3REFBd0Q7QUFDMUQ7O0FBRUE7RUFDRSxrQkFBa0I7RUFDbEIsMEJBQXFCO01BQXJCLHFCQUFxQjtFQUNyQixhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLHdEQUF3RDtFQUN4RCxxQkFBcUI7QUFDdkI7O0FBRUE7RUFDRSwrQkFBK0I7QUFDakM7O0FBRUE7RUFDRSxvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLDRCQUFzQjtFQUF0Qiw2QkFBc0I7TUFBdEIsMEJBQXNCO1VBQXRCLHNCQUFzQjtFQUN0QixXQUFXO0FBQ2I7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtFQUNaLFdBQVc7QUFDYjs7QUFFQTtFQUNFLG9CQUFhO0VBQWIsb0JBQWE7RUFBYixhQUFhO0VBQ2IsOEJBQW1CO0VBQW5CLDZCQUFtQjtNQUFuQix1QkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLFdBQVc7RUFDWCx3QkFBdUI7TUFBdkIscUJBQXVCO1VBQXZCLHVCQUF1QjtBQUN6Qjs7QUFFQTtFQUNFLGFBQWE7RUFDYixxQ0FBcUM7QUFDdkM7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsYUFBYTtBQUNmOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDBCQUEwQjtFQUMxQix3QkFBd0I7RUFDeEIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7RUFDbkIsYUFBYTtBQUNmOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5Qix3QkFBd0I7RUFDeEIseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsMEJBQTBCO0VBQzFCLHdCQUF3QjtBQUMxQjs7QUFFQTtFQUNFLDRCQUE0QjtBQUM5Qjs7QUFFQTtFQUNFLGFBQWE7RUFDYixpQ0FBaUM7QUFDbkM7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLHdCQUF3QjtFQUN4Qix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixhQUFhO0VBQ2Isb0NBQW9DO0FBQ3RDOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLDBCQUFxQjtNQUFyQixxQkFBcUI7RUFDckIsYUFBYTtFQUNiLHdCQUF3QjtFQUN4QiwrQ0FBK0M7QUFDakQ7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isb0NBQW9DO0VBQ3BDLHFCQUFxQjtBQUN2Qjs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsd0JBQXdCO0VBQ3hCLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixhQUFhO0VBQ2Isb0NBQW9DO0FBQ3RDOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLDBCQUFxQjtNQUFyQixxQkFBcUI7RUFDckIsYUFBYTtFQUNiLHdCQUF3QjtFQUN4QiwrQ0FBK0M7QUFDakQ7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsdUJBQXVCO0VBQ3ZCLHdCQUF3QjtFQUN4QixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtFQUNuQixhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixnREFBZ0Q7RUFDaEQsMkJBQTJCO0VBQzNCLDhCQUE4QjtFQUM5QixxQkFBcUI7RUFDckIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLGdEQUFnRDtFQUNoRCwyQkFBMkI7RUFDM0IsOEJBQThCO0VBQzlCLHFCQUFxQjtFQUNyQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsZ0RBQWdEO0VBQ2hELDJCQUEyQjtFQUMzQixxQkFBcUI7RUFDckIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLDRCQUE0QjtFQUM1Qiw2QkFBNkI7QUFDL0I7O0FBRUE7RUFDRSw0QkFBNEI7RUFDNUIsNkJBQTZCO0FBQy9COztBQUVBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUNBO0VBQ0UsVUFBVTtFQUNWLFdBQVc7QUFDYiIsImZpbGUiOiJ3b3JrLWRvY3VtZW50L3dvcmstZG9jdW1lbnQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qVE9ETyBuZWVkIHRvIHBsYXkgd2l0aCB2bWluL3dtaW4gLT4gYmluZCBhbGwgdmFsdWVzIHRvIHZoIGFuZCB0aGVuIGFkZCBzY2FsaW5nIGZvciB3aWR0aCovXHJcblxyXG4ud29ya0RvY3VtZW50Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBwYWRkaW5nOiAuNSU7XHJcbiAgZ2FwOiAuNXZoO1xyXG4gIGZvbnQtc2l6ZTogMS41dmg7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uaGVhZGVyVGl0bGUge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDIuNXZoO1xyXG4gIGZvbnQtd2VpZ2h0OiA5MDA7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGdyaWQtY29sdW1uOiAxIC8gMztcclxufVxyXG5cclxuLlRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gIGZvbnQtc2l6ZTogMnZoO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcbi5HcmlkQ29udGFpbmVyIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IDFmciBhdXRvO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuXHJcbi5ncmlkVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBsZWZ0O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGZvbnQtc2l6ZTogMS44dmg7XHJcbn1cclxuXHJcbi53b3JrZ3JpZFRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGZvbnQtc2l6ZTogMS44dmhcclxufVxyXG5cclxuLndvcmtncmlkSXRlbSB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLndvcmtncmlkSXRlbSBpbWcge1xyXG4gIHBhZGRpbmctdG9wOiAxJTtcclxuICB3aWR0aDogYXV0bztcclxuICBoZWlnaHQ6IDIuMHZoO1xyXG59XHJcblxyXG4uZ3JpZEl0ZW0ge1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB3aWR0aDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBsZWZ0O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5ncmlkSXRlbSBpbWcge1xyXG4gIHBhZGRpbmctdG9wOiAxJTtcclxuICB3aWR0aDogYXV0bztcclxuICBoZWlnaHQ6IDJ2aDtcclxufVxyXG5cclxuLmNoZWNrYm94Z3JpZEl0ZW0ge1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB3aWR0aDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmNoZWNrYm94Z3JpZEl0ZW0gaW1nIHtcclxuICBwYWRkaW5nLXRvcDogMSU7XHJcbiAgd2lkdGg6IGF1dG87XHJcbiAgaGVpZ2h0OiAyLjB2aDtcclxufVxyXG5cclxuaW5wdXRbdHlwZT1jaGVja2JveF0ge1xyXG4gIGhlaWdodDogMnZoO1xyXG4gIHdpZHRoOiAydnc7XHJcbn1cclxuXHJcbi53b3JrZ3JpZEl0ZW1BY3Rpb25UaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgZm9udC1zaXplOiAxLjd2aDtcclxufVxyXG5cclxuLndvcmtUYXNrVGl0bGUge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIGF1dG87XHJcbn1cclxuXHJcbi5idXR0b25Db250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xyXG4gIGNvbHVtbi1nYXA6IDElO1xyXG4gIDtcclxufVxyXG5cclxuLmlucHV0YnV0dG9uIHtcclxuICBoZWlnaHQ6IGF1dG87XHJcbiAgd2lkdGg6IG1pbi1jb250ZW50O1xyXG4gIGZvbnQtc2l6ZTogMXZoO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBsaWdodGJsdWU7XHJcbn1cclxuXHJcbi50YXNrVmFsdWVJbnB1dCB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW5wdXQtYmctY29sb3IpO1xyXG4gIGhlaWdodDogMS4wdmg7XHJcbn1cclxuXHJcbi5oZWFkZXIge1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDNmciAxZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiAzZnIgMC4yZnI7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmhlYWQ6bnRoLWNoaWxkKDIpIHtcclxuICBtYXJnaW4tcmlnaHQ6IC0xcHg7XHJcbn1cclxuXHJcbi5sb2dvQ29udGFpbmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgd2hpdGU7XHJcbn1cclxuXHJcbi5sb2dvQ29udGFpbmVyIGltZyB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5kb2N1bWVudFRpdGxlQ29udGFpbmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtYXV0by1yb3dzOiBhdXRvO1xyXG4gIGhlaWdodDogMTAwJTtcclxufVxyXG5cclxuLmRvY3VtZW50VGl0bGVDb250YWluZXJTdWIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xyXG59XHJcblxyXG4uZG9jdW1lbnRUaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICBmb250LXNpemU6IDN2aDtcclxufVxyXG5cclxuLmRvY3VtZW50VHlwZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgZm9udC1zaXplOiAydmg7XHJcbn1cclxuXHJcbi5EVEMtVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMS41dmg7XHJcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbn1cclxuXHJcbi5EVEMtSW5mb3JtYXRpb24ge1xyXG4gIGZvbnQtc2l6ZTogMS41dmg7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBwYWRkaW5nLWxlZnQ6IDRweDtcclxufVxyXG5cclxuLmRvY3VtZW50SW5mb3JtYXRpb25Db250YWluZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC1hdXRvLXJvd3M6IGF1dG87XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgd2hpdGU7XHJcbn1cclxuXHJcbi5ESUMtVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMS41dmg7XHJcbn1cclxuXHJcbi5ESUMtSW5mb3JtYXRpb24ge1xyXG4gIGZvbnQtc2l6ZTogMS41dmg7XHJcbn1cclxuXHJcbi5ESUMtU3ViSW5mb3JtYXRpb24ge1xyXG4gIGZvbnQtc2l6ZTogMXZoO1xyXG4gIGZvbnQtc3R5bGU6IGl0YWxpYztcclxufVxyXG5cclxuLmRvY3VtZW50QWNjZXNzZWRDb250YWluZXIge1xyXG4gIGdyaWQtY29sdW1uOiAxLzU7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXNlY29uZGFyeS1iZy1jb2xvcik7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gM2ZyIGF1dG87XHJcbiAgZm9udC1zaXplOiAxLjJ2aDtcclxufVxyXG5cclxuLkRBQy1UaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgcGFkZGluZy1sZWZ0OiAxcHg7XHJcbn1cclxuXHJcbi5hY2Nlc3NEYXRlIHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcblxyXG4ucHJpbnRlZFdhcm5pbmcge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcblxyXG4uY29udGV4dCB7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5jb250ZXh0Q29udGVudCB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uQ29kZXMge1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvbkNvZGVzR3JpZFRpdGxlcyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IC41ZnIgMy41ZnI7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uQ29kZXNUYWJsZUl0ZW1zR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgLjVmciAzLjVmcik7XHJcbn1cclxuXHJcbi5hdXRob3JpdHlUb01haW50YWluIHtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmF1dGhvcml0eVRvTWFpbnRhaW5HcmlkVGl0bGVzIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogM2ZyIDFmcjtcclxufVxyXG5cclxuLmF1dGhvcml0eVRvTWFpbnRhaW5JdGVtc0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDNmciAxZnIpO1xyXG59XHJcblxyXG4uZXF1aXBtZW50QW5kTWF0ZXJpYWxzIHtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmVxdWlwbWVudEFuZE1hdGVyaWFsc0dyaWRUaXRsZXMge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAuNWZyIDIuNWZyIDFmcjtcclxufVxyXG5cclxuLmVxdWlwbWVudEFuZE1hdGVyaWFsc0l0ZW1zR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgLjVmciAyLjVmciAxZnIpO1xyXG59XHJcblxyXG4ud29ya1ByZXBlcmF0aW9uIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG8gYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLnByZXN0YXJ0VGFza3NHcmlkVGl0bGVzIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxufVxyXG5cclxuLnByZXN0YXJ0VGFza3NJdGVtc0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmciAyLjBmciAxZnIpO1xyXG59XHJcblxyXG4uZXJyb3JUYXNrIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5wcmVzdGFydFRhc2tBY3Rpb25zQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi50YXNrSW5wdXRDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvbiB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDVmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG8gYXV0byBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci10b3A6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLnNwYW5IZWFkZXJUaXRsZSB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1iZy1jb2xvcik7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMi41dmg7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5zcGFuVGl0bGUge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXNlY29uZGFyeS1iZy1jb2xvcik7XHJcbiAgZm9udC1zaXplOiAydmg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLndvcmtFeGVjdXRpb25HcmlkVGl0bGVzIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IC41ZnIgMy41ZnIgLjI1ZnIgLjc1ZnI7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uSXRlbXNHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMy41ZnIgLjI1ZnIgLjc1ZnIpO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvbkVSUk9SSXRlbXNHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMy41ZnIgLjI1ZnIgLjc1ZnIpO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJlZDtcclxufVxyXG5cclxuLndvcmtFeGVjdXRpb25JdGVtc0dyaWQge1xyXG4gIGJvcmRlci1ib3R0b206IC0xcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uVGFza0NvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvblRhc2tDb250YWluZXIgaW1nIHtcclxuICB3aWR0aDogYXV0bztcclxuICBoZWlnaHQ6IDMwdmg7XHJcbiAgcGFkZGluZzogMCU7XHJcbn1cclxuXHJcbi50YXNrSW5wdXRGbGV4Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcbi50YXNrSW5wdXRHcmlkQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvIGF1dG87XHJcbn1cclxuXHJcbi5saW1pdHNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHJvdy1nYXA6IC41dmg7XHJcbn1cclxuXHJcbi53b3JrQ2xvc2VPdXQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxuICByb3ctZ2FwOiAuNXZoO1xyXG59XHJcblxyXG4uY29tbWVudHNBbmRPYnNDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmNvbW1lbnRzR3JpZENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxufVxyXG5cclxuLmNvbW1lbnRzQW5kT2JzR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDRmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbn1cclxuXHJcbi5jb21tZW50c0FuZEdlbmVyYWxPYnNJbnB1dCB7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmFkZGNvbW1lbnRDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAzLjVmciAuNWZyO1xyXG59XHJcblxyXG4uZnVydGhlcldvcmtSZXF1aXJlZENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uZnV0aGVyV29ya1JlcXVpcmVkR3JpZFRpdGxlcyB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxufVxyXG5cclxuLmZ1dGhlcldvcmtSZXF1aXJlZEl0ZW1zR3JpZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxufVxyXG5cclxuLmZ1dGhlcldvcmtSZXF1aXJlZEl0ZW1zRVJST1JHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5jbG9zZU91dENoZWNrbGlzdENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4ubm90aWZpY2F0aW9uSW5mb3JtYXRpb25Db250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgM2ZyO1xyXG59XHJcblxyXG4uY2xvc2VPdXRDaGVja2xpc3RHcmlkVGl0bGVzIHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMi4wZnIgMWZyO1xyXG59XHJcblxyXG4uY2xvc2VPdXRDaGVja2xpc3RHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmciAyLjBmciAxZnIpO1xyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmYge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxuICByb3ctZ2FwOiAuNXZoO1xyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZIZWFkZXJUaXRsZSB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1iZy1jb2xvcik7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMi41dmg7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZ3JpZC1jb2x1bW46IDEgLyA3O1xyXG59XHJcblxyXG4udGVjaG5pY2lhbiB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnIgMWZyIC41ZnIgMWZyIC41ZnI7XHJcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxuICBwYWRkaW5nLWJvdHRvbTogLjA1dmg7XHJcbiAgcGFkZGluZy1sZWZ0OiAuMDF2aDtcclxufVxyXG5cclxuLnN1cGVydmlzb3Ige1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyIDFmciAuNWZyIDFmciAuNWZyO1xyXG4gIGJvcmRlci10b3A6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbiAgcGFkZGluZy1ib3R0b206IC4wNXZoO1xyXG4gIHBhZGRpbmctbGVmdDogLjAxdmg7XHJcbn1cclxuXHJcbi5kb2N1bWVudE93bmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmciAxZnIgLjVmciAxZnIgLjVmcjtcclxuICBib3JkZXItdG9wOiAxcHggc29saWQgYmxhY2s7XHJcbiAgcGFkZGluZy1ib3R0b206IC4wNXZoO1xyXG4gIHBhZGRpbmctbGVmdDogLjAxdmg7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uU2lnbk9mZk5hbWUge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmNvbXBsZXRpb25TaWduT2ZmU2lnbmF0dXJlIHtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZUaW1lU3RhbXAge1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuLnNpZ25hdHVyZXtcclxuICB3aWR0aDphdXRvO1xyXG4gIGhlaWdodDogOHZoO1xyXG59Il19 */";
+    __webpack_exports__["default"] = "/*TODO need to play with vmin/wmin -> bind all values to vh and then add scaling for width*/\r\n\r\n.workDocumentContainer {\r\n  display: grid;\r\n  text-align: center;\r\n  padding: .5%;\r\n  gap: .5vh;\r\n  font-size: 1.5vh;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.headerTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vh;\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 3;\r\n}\r\n\r\n.Title {\r\n  background-color: var(--secondary-bg-color);\r\n  font-size: 2vh;\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.GridContainer {\r\n  height: 100%;\r\n  display: grid;\r\n  grid-template-rows: 1fr auto;\r\n  text-align: left;\r\n}\r\n\r\n.gridTitle {\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: left;\r\n      -ms-flex-pack: left;\r\n          justify-content: left;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  font-size: 1.8vh;\r\n}\r\n\r\n.workgridTitle {\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  font-size: 1.8vh\r\n}\r\n\r\n.workgridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.workgridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2.0vh;\r\n}\r\n\r\n.gridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: left;\r\n      -ms-flex-pack: left;\r\n          justify-content: left;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.gridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2vh;\r\n}\r\n\r\n.checkboxgridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.checkboxgridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2.0vh;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  height: 2vh;\r\n  width: 2vw;\r\n}\r\n\r\n.workgridItemActionTitle {\r\n  font-weight: bold;\r\n  font-size: 1.7vh;\r\n}\r\n\r\n.workTaskTitle {\r\n  display: grid;\r\n  grid-template-columns: auto auto;\r\n}\r\n\r\n.buttonContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  -webkit-column-gap: 1%;\r\n     -moz-column-gap: 1%;\r\n          column-gap: 1%;\r\n  ;\r\n}\r\n\r\n.inputbutton {\r\n  height: auto;\r\n  width: -webkit-min-content;\r\n  width: -moz-min-content;\r\n  width: min-content;\r\n  font-size: 1vh;\r\n  text-align: center;\r\n  background-color: lightblue;\r\n}\r\n\r\n.taskValueInput {\r\n  background-color: var(--input-bg-color);\r\n  height: 1.0vh;\r\n}\r\n\r\n.header {\r\n  color: white;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr 1fr;\r\n  grid-template-rows: 3fr 0.2fr;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-bottom: 1px solid black;\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.head:nth-child(2) {\r\n  margin-right: -1px;\r\n}\r\n\r\n.logoContainer {\r\n  background-color: var(--main-bg-color);\r\n  vertical-align: middle;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-right: 1px solid white;\r\n}\r\n\r\n.logoContainer img {\r\n  width: 100%;\r\n}\r\n\r\n.documentTitleContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n}\r\n\r\n.documentTitleContainerSub {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n.documentTitle {\r\n  font-weight: 900;\r\n  font-size: 3vh;\r\n}\r\n\r\n.documentType {\r\n  font-weight: bold;\r\n  font-size: 2vh;\r\n}\r\n\r\n.DTC-Title {\r\n  font-weight: bold;\r\n  font-size: 1.5vh;\r\n  text-align: right;\r\n}\r\n\r\n.DTC-Information {\r\n  font-size: 1.5vh;\r\n  text-align: left;\r\n  padding-left: 4px;\r\n}\r\n\r\n.documentInformationContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n  border-left: 1px solid white;\r\n}\r\n\r\n.DIC-Title {\r\n  font-weight: bold;\r\n  font-size: 1.5vh;\r\n}\r\n\r\n.DIC-Information {\r\n  font-size: 1.5vh;\r\n}\r\n\r\n.DIC-SubInformation {\r\n  font-size: 1vh;\r\n  font-style: italic;\r\n}\r\n\r\n.documentAccessedContainer {\r\n  grid-column: 1/5;\r\n  color: black;\r\n  background-color: var(--secondary-bg-color);\r\n  display: grid;\r\n  grid-template-columns: auto 3fr auto;\r\n  font-size: 1.2vh;\r\n}\r\n\r\n.DAC-Title {\r\n  font-weight: bold;\r\n  padding-left: 1px;\r\n}\r\n\r\n.accessDate {\r\n  text-align: left;\r\n}\r\n\r\n.printedWarning {\r\n  text-align: right;\r\n}\r\n\r\n.context {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.contextContent {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  height: 100%;\r\n  text-align: left;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.completionCodes {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.completionCodesGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 3.5fr;\r\n}\r\n\r\n.completionCodesTableItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr);\r\n}\r\n\r\n.authorityToMaintain {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.authorityToMaintainGridTitles {\r\n  display: grid;\r\n  grid-template-columns: 3fr 1fr;\r\n}\r\n\r\n.authorityToMaintainItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 3fr 1fr);\r\n}\r\n\r\n.equipmentAndMaterials {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.equipmentAndMaterialsGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr 1fr;\r\n}\r\n\r\n.equipmentAndMaterialsItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 2.5fr 1fr);\r\n}\r\n\r\n.workPreperation {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.prestartTasksGridTitles {\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.prestartTasksItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.errorTask {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n  background-color: red;\r\n}\r\n\r\n.prestartTaskActionsContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.taskInputContainer {\r\n  display: grid;\r\n  grid-template-columns: auto;\r\n}\r\n\r\n.workExecution {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-bottom: 1px solid black;\r\n  border-top: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.spanHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vh;\r\n  font-weight: 900;\r\n  text-align: center;\r\n}\r\n\r\n.spanTitle {\r\n  background-color: var(--secondary-bg-color);\r\n  font-size: 2vh;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  height: 100%;\r\n  border-bottom: 1px solid black;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.workExecutionGridTitles {\r\n  text-align: center;\r\n  display: grid;\r\n  grid-template-columns: .5fr 3.5fr .25fr .75fr;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n}\r\n\r\n.workExecutionERRORItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n  background-color: red;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  border-bottom: -1px solid black;\r\n}\r\n\r\n.workExecutionTaskContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.workExecutionTaskContainer img {\r\n  width: auto;\r\n  height: 30vh;\r\n  padding: 0%;\r\n}\r\n\r\n.taskInputFlexContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: row;\r\n          flex-direction: row;\r\n  width: 100%;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.taskInputGridContainer {\r\n  display: grid;\r\n  grid-template-columns: auto auto auto;\r\n}\r\n\r\n.limitsGrid {\r\n  display: grid;\r\n  row-gap: .5vh;\r\n}\r\n\r\n.workCloseOut {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n  row-gap: .5vh;\r\n}\r\n\r\n.commentsAndObsContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.commentsGridContainer {\r\n  display: grid;\r\n}\r\n\r\n.commentsAndObsGrid {\r\n  display: grid;\r\n  grid-template-columns: 4fr;\r\n  grid-template-rows: auto;\r\n}\r\n\r\n.commentsAndGeneralObsInput {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.addcommentContainer {\r\n  display: grid;\r\n  grid-template-columns: 3.5fr .5fr;\r\n}\r\n\r\n.furtherWorkRequiredContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.futherWorkRequiredGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.futherWorkRequiredItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.futherWorkRequiredItemsERRORGrid {\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n  background-color: red;\r\n}\r\n\r\n.closeOutChecklistContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.notificationInformationContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr;\r\n}\r\n\r\n.closeOutChecklistGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.closeOutChecklistGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.completionSignOff {\r\n  display: grid;\r\n  grid-template-rows: 5fr;\r\n  grid-template-rows: auto;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n  row-gap: .5vh;\r\n}\r\n\r\n.completionSignOffHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vh;\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 7;\r\n}\r\n\r\n.technician {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n  border-top: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  padding-bottom: .05vh;\r\n  padding-left: .01vh;\r\n}\r\n\r\n.supervisor {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n  border-top: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  padding-bottom: .05vh;\r\n  padding-left: .01vh;\r\n}\r\n\r\n.documentOwner {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n  border-top: 1px solid black;\r\n  padding-bottom: .05vh;\r\n  padding-left: .01vh;\r\n}\r\n\r\n.completionSignOffName {\r\n  display: grid;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffSignature {\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffTimeStamp {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.signature{\r\n  width:auto;\r\n  height: 8vh;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvd29yay1kb2N1bWVudC93b3JrLWRvY3VtZW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsMkZBQTJGOztBQUUzRjtFQUNFLGFBQWE7RUFDYixrQkFBa0I7RUFDbEIsWUFBWTtFQUNaLFNBQVM7RUFDVCxnQkFBZ0I7RUFDaEIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLDJDQUEyQztFQUMzQyxjQUFjO0VBQ2QsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0FBQ3pCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYiw0QkFBNEI7RUFDNUIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHNCQUFxQjtNQUFyQixtQkFBcUI7VUFBckIscUJBQXFCO0VBQ3JCLDRCQUE0QjtFQUM1Qiw4QkFBOEI7RUFDOUIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLDRCQUE0QjtFQUM1Qiw4QkFBOEI7RUFDOUI7QUFDRjs7QUFFQTtFQUNFLFlB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L0I7O0FBRUE7RUFDRSw0QkFBNEI7QUFDOUI7O0FBQ0E7RUFDRSxVQUFVO0VBQ1YsV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvd29yay1kb2N1bWVudC93b3JrLWRvY3VtZW50LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKlRPRE8gbmVlZCB0byBwbGF5IHdpdGggdm1pbi93bWluIC0+IGJpbmQgYWxsIHZhbHVlcyB0byB2aCBhbmQgdGhlbiBhZGQgc2NhbGluZyBmb3Igd2lkdGgqL1xyXG5cclxuLndvcmtEb2N1bWVudENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgcGFkZGluZzogLjUlO1xyXG4gIGdhcDogLjV2aDtcclxuICBmb250LXNpemU6IDEuNXZoO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmhlYWRlclRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAyLjV2aDtcclxuICBmb250LXdlaWdodDogOTAwO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBncmlkLWNvbHVtbjogMSAvIDM7XHJcbn1cclxuXHJcbi5UaXRsZSB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5LWJnLWNvbG9yKTtcclxuICBmb250LXNpemU6IDJ2aDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4uR3JpZENvbnRhaW5lciB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiAxZnIgYXV0bztcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcblxyXG4uZ3JpZFRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogbGVmdDtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxuICBmb250LXNpemU6IDEuOHZoO1xyXG59XHJcblxyXG4ud29ya2dyaWRUaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxuICBmb250LXNpemU6IDEuOHZoXHJcbn1cclxuXHJcbi53b3JrZ3JpZEl0ZW0ge1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB3aWR0aDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi53b3JrZ3JpZEl0ZW0gaW1nIHtcclxuICBwYWRkaW5nLXRvcDogMSU7XHJcbiAgd2lkdGg6IGF1dG87XHJcbiAgaGVpZ2h0OiAyLjB2aDtcclxufVxyXG5cclxuLmdyaWRJdGVtIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogbGVmdDtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uZ3JpZEl0ZW0gaW1nIHtcclxuICBwYWRkaW5nLXRvcDogMSU7XHJcbiAgd2lkdGg6IGF1dG87XHJcbiAgaGVpZ2h0OiAydmg7XHJcbn1cclxuXHJcbi5jaGVja2JveGdyaWRJdGVtIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5jaGVja2JveGdyaWRJdGVtIGltZyB7XHJcbiAgcGFkZGluZy10b3A6IDElO1xyXG4gIHdpZHRoOiBhdXRvO1xyXG4gIGhlaWdodDogMi4wdmg7XHJcbn1cclxuXHJcbmlucHV0W3R5cGU9Y2hlY2tib3hdIHtcclxuICBoZWlnaHQ6IDJ2aDtcclxuICB3aWR0aDogMnZ3O1xyXG59XHJcblxyXG4ud29ya2dyaWRJdGVtQWN0aW9uVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMS43dmg7XHJcbn1cclxuXHJcbi53b3JrVGFza1RpdGxlIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvO1xyXG59XHJcblxyXG4uYnV0dG9uQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmcjtcclxuICBjb2x1bW4tZ2FwOiAxJTtcclxuICA7XHJcbn1cclxuXHJcbi5pbnB1dGJ1dHRvbiB7XHJcbiAgaGVpZ2h0OiBhdXRvO1xyXG4gIHdpZHRoOiBtaW4tY29udGVudDtcclxuICBmb250LXNpemU6IDF2aDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRibHVlO1xyXG59XHJcblxyXG4udGFza1ZhbHVlSW5wdXQge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWlucHV0LWJnLWNvbG9yKTtcclxuICBoZWlnaHQ6IDEuMHZoO1xyXG59XHJcblxyXG4uaGVhZGVyIHtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAzZnIgMWZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogM2ZyIDAuMmZyO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5oZWFkOm50aC1jaGlsZCgyKSB7XHJcbiAgbWFyZ2luLXJpZ2h0OiAtMXB4O1xyXG59XHJcblxyXG4ubG9nb0NvbnRhaW5lciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1iZy1jb2xvcik7XHJcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIHdoaXRlO1xyXG59XHJcblxyXG4ubG9nb0NvbnRhaW5lciBpbWcge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4uZG9jdW1lbnRUaXRsZUNvbnRhaW5lciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1iZy1jb2xvcik7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLWF1dG8tcm93czogYXV0bztcclxuICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuXHJcbi5kb2N1bWVudFRpdGxlQ29udGFpbmVyU3ViIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmcjtcclxufVxyXG5cclxuLmRvY3VtZW50VGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiA5MDA7XHJcbiAgZm9udC1zaXplOiAzdmg7XHJcbn1cclxuXHJcbi5kb2N1bWVudFR5cGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMnZoO1xyXG59XHJcblxyXG4uRFRDLVRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IDEuNXZoO1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcblxyXG4uRFRDLUluZm9ybWF0aW9uIHtcclxuICBmb250LXNpemU6IDEuNXZoO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgcGFkZGluZy1sZWZ0OiA0cHg7XHJcbn1cclxuXHJcbi5kb2N1bWVudEluZm9ybWF0aW9uQ29udGFpbmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtYXV0by1yb3dzOiBhdXRvO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIHdoaXRlO1xyXG59XHJcblxyXG4uRElDLVRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IDEuNXZoO1xyXG59XHJcblxyXG4uRElDLUluZm9ybWF0aW9uIHtcclxuICBmb250LXNpemU6IDEuNXZoO1xyXG59XHJcblxyXG4uRElDLVN1YkluZm9ybWF0aW9uIHtcclxuICBmb250LXNpemU6IDF2aDtcclxuICBmb250LXN0eWxlOiBpdGFsaWM7XHJcbn1cclxuXHJcbi5kb2N1bWVudEFjY2Vzc2VkQ29udGFpbmVyIHtcclxuICBncmlkLWNvbHVtbjogMS81O1xyXG4gIGNvbG9yOiBibGFjaztcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIDNmciBhdXRvO1xyXG4gIGZvbnQtc2l6ZTogMS4ydmg7XHJcbn1cclxuXHJcbi5EQUMtVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIHBhZGRpbmctbGVmdDogMXB4O1xyXG59XHJcblxyXG4uYWNjZXNzRGF0ZSB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxufVxyXG5cclxuLnByaW50ZWRXYXJuaW5nIHtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG5cclxuLmNvbnRleHQge1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uY29udGV4dENvbnRlbnQge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvbkNvZGVzIHtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmNvbXBsZXRpb25Db2Rlc0dyaWRUaXRsZXMge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAuNWZyIDMuNWZyO1xyXG59XHJcblxyXG4uY29tcGxldGlvbkNvZGVzVGFibGVJdGVtc0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMy41ZnIpO1xyXG59XHJcblxyXG4uYXV0aG9yaXR5VG9NYWludGFpbiB7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5hdXRob3JpdHlUb01haW50YWluR3JpZFRpdGxlcyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDNmciAxZnI7XHJcbn1cclxuXHJcbi5hdXRob3JpdHlUb01haW50YWluSXRlbXNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAzZnIgMWZyKTtcclxufVxyXG5cclxuLmVxdWlwbWVudEFuZE1hdGVyaWFscyB7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5lcXVpcG1lbnRBbmRNYXRlcmlhbHNHcmlkVGl0bGVzIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogLjVmciAyLjVmciAxZnI7XHJcbn1cclxuXHJcbi5lcXVpcG1lbnRBbmRNYXRlcmlhbHNJdGVtc0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMi41ZnIgMWZyKTtcclxufVxyXG5cclxuLndvcmtQcmVwZXJhdGlvbiB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvIGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5wcmVzdGFydFRhc2tzR3JpZFRpdGxlcyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAyLjBmciAxZnI7XHJcbn1cclxuXHJcbi5wcmVzdGFydFRhc2tzSXRlbXNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxufVxyXG5cclxuLmVycm9yVGFzayB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyIDIuMGZyIDFmcik7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xyXG59XHJcblxyXG4ucHJlc3RhcnRUYXNrQWN0aW9uc0NvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4udGFza0lucHV0Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0bztcclxufVxyXG5cclxuLndvcmtFeGVjdXRpb24ge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvIGF1dG8gYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItdG9wOiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5zcGFuSGVhZGVyVGl0bGUge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDIuNXZoO1xyXG4gIGZvbnQtd2VpZ2h0OiA5MDA7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4uc3BhblRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gIGZvbnQtc2l6ZTogMnZoO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uR3JpZFRpdGxlcyB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAuNWZyIDMuNWZyIC4yNWZyIC43NWZyO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvbkl0ZW1zR3JpZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAuNWZyIDMuNWZyIC4yNWZyIC43NWZyKTtcclxufVxyXG5cclxuLndvcmtFeGVjdXRpb25FUlJPUkl0ZW1zR3JpZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAuNWZyIDMuNWZyIC4yNWZyIC43NWZyKTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uSXRlbXNHcmlkIHtcclxuICBib3JkZXItYm90dG9tOiAtMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvblRhc2tDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLndvcmtFeGVjdXRpb25UYXNrQ29udGFpbmVyIGltZyB7XHJcbiAgd2lkdGg6IGF1dG87XHJcbiAgaGVpZ2h0OiAzMHZoO1xyXG4gIHBhZGRpbmc6IDAlO1xyXG59XHJcblxyXG4udGFza0lucHV0RmxleENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4udGFza0lucHV0R3JpZENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gYXV0byBhdXRvO1xyXG59XHJcblxyXG4ubGltaXRzR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICByb3ctZ2FwOiAuNXZoO1xyXG59XHJcblxyXG4ud29ya0Nsb3NlT3V0IHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogNWZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbiAgcm93LWdhcDogLjV2aDtcclxufVxyXG5cclxuLmNvbW1lbnRzQW5kT2JzQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5jb21tZW50c0dyaWRDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbn1cclxuXHJcbi5jb21tZW50c0FuZE9ic0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG59XHJcblxyXG4uY29tbWVudHNBbmRHZW5lcmFsT2JzSW5wdXQge1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5hZGRjb21tZW50Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMy41ZnIgLjVmcjtcclxufVxyXG5cclxuLmZ1cnRoZXJXb3JrUmVxdWlyZWRDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmZ1dGhlcldvcmtSZXF1aXJlZEdyaWRUaXRsZXMge1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAyLjBmciAxZnI7XHJcbn1cclxuXHJcbi5mdXRoZXJXb3JrUmVxdWlyZWRJdGVtc0dyaWQge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyIDIuMGZyIDFmcik7XHJcbn1cclxuXHJcbi5mdXRoZXJXb3JrUmVxdWlyZWRJdGVtc0VSUk9SR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAyLjBmciAxZnI7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xyXG59XHJcblxyXG4uY2xvc2VPdXRDaGVja2xpc3RDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLm5vdGlmaWNhdGlvbkluZm9ybWF0aW9uQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDNmcjtcclxufVxyXG5cclxuLmNsb3NlT3V0Q2hlY2tsaXN0R3JpZFRpdGxlcyB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxufVxyXG5cclxuLmNsb3NlT3V0Q2hlY2tsaXN0R3JpZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxufVxyXG5cclxuLmNvbXBsZXRpb25TaWduT2ZmIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogNWZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbiAgcm93LWdhcDogLjV2aDtcclxufVxyXG5cclxuLmNvbXBsZXRpb25TaWduT2ZmSGVhZGVyVGl0bGUge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDIuNXZoO1xyXG4gIGZvbnQtd2VpZ2h0OiA5MDA7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGdyaWQtY29sdW1uOiAxIC8gNztcclxufVxyXG5cclxuLnRlY2huaWNpYW4ge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyIDFmciAuNWZyIDFmciAuNWZyO1xyXG4gIGJvcmRlci10b3A6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbiAgcGFkZGluZy1ib3R0b206IC4wNXZoO1xyXG4gIHBhZGRpbmctbGVmdDogLjAxdmg7XHJcbn1cclxuXHJcbi5zdXBlcnZpc29yIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmciAxZnIgLjVmciAxZnIgLjVmcjtcclxuICBib3JkZXItdG9wOiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIHBhZGRpbmctYm90dG9tOiAuMDV2aDtcclxuICBwYWRkaW5nLWxlZnQ6IC4wMXZoO1xyXG59XHJcblxyXG4uZG9jdW1lbnRPd25lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnIgMWZyIC41ZnIgMWZyIC41ZnI7XHJcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIHBhZGRpbmctYm90dG9tOiAuMDV2aDtcclxuICBwYWRkaW5nLWxlZnQ6IC4wMXZoO1xyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZOYW1lIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uU2lnbk9mZlNpZ25hdHVyZSB7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmNvbXBsZXRpb25TaWduT2ZmVGltZVN0YW1wIHtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcbi5zaWduYXR1cmV7XHJcbiAgd2lkdGg6YXV0bztcclxuICBoZWlnaHQ6IDh2aDtcclxufSJdfQ== */";
     /***/
   },
 
@@ -6776,26 +6945,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(WorkDocumentComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this13 = this;
+          var _this16 = this;
 
           this.closeoutTaskTracker = new Map();
           this.overallDocumentComments = new Array();
 
           if (history.state.data.new) {
             this.HTTPSService.GetNewDocumentRequest(history.state.data.UUID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function (data) {
-              _this13.makeSaveValueButtonsAvaliable = true;
-              _this13.currentWorkDocumentData = data;
-              _this13.loadedDocument = true;
-              _this13.inputDisabled = _this13.currentWorkDocumentData.Submitted;
+              _this16.makeSaveValueButtonsAvaliable = true;
+              _this16.currentWorkDocumentData = data;
+              _this16.loadedDocument = true;
+              _this16.inputDisabled = _this16.currentWorkDocumentData.Submitted;
               var _iteratorNormalCompletion26 = true;
               var _didIteratorError26 = false;
               var _iteratorError26 = undefined;
 
               try {
-                for (var _iterator26 = _this13.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step26; !(_iteratorNormalCompletion26 = (_step26 = _iterator26.next()).done); _iteratorNormalCompletion26 = true) {
+                for (var _iterator26 = _this16.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step26; !(_iteratorNormalCompletion26 = (_step26 = _iterator26.next()).done); _iteratorNormalCompletion26 = true) {
                   var closeOutTask = _step26.value;
 
-                  _this13.closeoutTaskTracker.set(closeOutTask, false);
+                  _this16.closeoutTaskTracker.set(closeOutTask, false);
                 }
               } catch (err) {
                 _didIteratorError26 = true;
@@ -6817,10 +6986,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var _iteratorError27 = undefined;
 
               try {
-                for (var _iterator27 = _this13.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step27; !(_iteratorNormalCompletion27 = (_step27 = _iterator27.next()).done); _iteratorNormalCompletion27 = true) {
+                for (var _iterator27 = _this16.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step27; !(_iteratorNormalCompletion27 = (_step27 = _iterator27.next()).done); _iteratorNormalCompletion27 = true) {
                   var completionCode = _step27.value;
 
-                  _this13.iconValues.set(completionCode.Name, completionCode);
+                  _this16.iconValues.set(completionCode.Name, completionCode);
                 }
               } catch (err) {
                 _didIteratorError27 = true;
@@ -6837,28 +7006,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 }
               }
 
-              _this13.currentWorkDocumentData.GeneralComments = new Array();
+              _this16.currentWorkDocumentData.GeneralComments = new Array();
             }, function (error) {
-              _this13.errorService.error(error);
+              _this16.errorService.error(error);
             });
           } else {
             //will need to load in any entered information as well
             if (history.state.data.from === 'Incomplete') {
               this.HTTPSService.GetIncompleteDocumentRequest(history.state.data.name).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function (data) {
-                _this13.currentWorkDocumentData = data;
-                _this13.loadedDocument = true;
-                _this13.inputDisabled = _this13.currentWorkDocumentData.Submitted;
-                _this13.makeSaveValueButtonsAvaliable = true; //Loop through tasks to setup
+                _this16.currentWorkDocumentData = data;
+                _this16.loadedDocument = true;
+                _this16.inputDisabled = _this16.currentWorkDocumentData.Submitted;
+                _this16.makeSaveValueButtonsAvaliable = true; //Loop through tasks to setup
 
                 var _iteratorNormalCompletion28 = true;
                 var _didIteratorError28 = false;
                 var _iteratorError28 = undefined;
 
                 try {
-                  for (var _iterator28 = _this13.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step28; !(_iteratorNormalCompletion28 = (_step28 = _iterator28.next()).done); _iteratorNormalCompletion28 = true) {
+                  for (var _iterator28 = _this16.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step28; !(_iteratorNormalCompletion28 = (_step28 = _iterator28.next()).done); _iteratorNormalCompletion28 = true) {
                     var closeOutTask = _step28.value;
 
-                    _this13.closeoutTaskTracker.set(closeOutTask, false);
+                    _this16.closeoutTaskTracker.set(closeOutTask, false);
                   }
                 } catch (err) {
                   _didIteratorError28 = true;
@@ -6882,10 +7051,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError29 = undefined;
 
                 try {
-                  for (var _iterator29 = _this13.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step29; !(_iteratorNormalCompletion29 = (_step29 = _iterator29.next()).done); _iteratorNormalCompletion29 = true) {
+                  for (var _iterator29 = _this16.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step29; !(_iteratorNormalCompletion29 = (_step29 = _iterator29.next()).done); _iteratorNormalCompletion29 = true) {
                     var completionCode = _step29.value;
 
-                    _this13.iconValues.set(completionCode.Name, completionCode);
+                    _this16.iconValues.set(completionCode.Name, completionCode);
                   } //Also put in each worktasks comments in
 
                 } catch (err) {
@@ -6908,12 +7077,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError30 = undefined;
 
                 try {
-                  for (var _iterator30 = _this13.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step30; !(_iteratorNormalCompletion30 = (_step30 = _iterator30.next()).done); _iteratorNormalCompletion30 = true) {
+                  for (var _iterator30 = _this16.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step30; !(_iteratorNormalCompletion30 = (_step30 = _iterator30.next()).done); _iteratorNormalCompletion30 = true) {
                     var workTask = _step30.value;
                     console.log(workTask.CompletionCode);
-                    triggerinformation = _this13.compareValue(workTask, Number(workTask.SubmittedValue));
+                    triggerinformation = _this16.compareValue(workTask, Number(workTask.SubmittedValue));
 
-                    _this13.updateTriggers(workTask, triggerinformation.trigger);
+                    _this16.updateTriggers(workTask, triggerinformation.trigger);
                   }
                 } catch (err) {
                   _didIteratorError30 = true;
@@ -6930,31 +7099,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   }
                 }
 
-                if (_this13.currentWorkDocumentData.FutherWorkTasksInformation.length) {
-                  _this13.displayFurtherWork = true;
+                if (_this16.currentWorkDocumentData.FutherWorkTasksInformation.length) {
+                  _this16.displayFurtherWork = true;
                 }
 
-                _this13.addComments();
+                _this16.addComments();
               }, function (error) {
-                _this13.errorService.error(error);
+                _this16.errorService.error(error);
               });
             } else if (history.state.data.from === 'Review') {
               //httpcall to review document and lock all but new comments and final part and have a new accept/decline button
               this.HTTPSService.GetReviewDocumentRequest(history.state.data.name).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function (data) {
-                _this13.currentWorkDocumentData = data;
-                _this13.loadedDocument = true;
-                _this13.inputDisabled = _this13.currentWorkDocumentData.Submitted;
-                _this13.makeSaveValueButtonsAvaliable = false;
-                _this13.reviewstate = true;
+                _this16.currentWorkDocumentData = data;
+                _this16.loadedDocument = true;
+                _this16.inputDisabled = _this16.currentWorkDocumentData.Submitted;
+                _this16.makeSaveValueButtonsAvaliable = false;
+                _this16.reviewstate = true;
                 var _iteratorNormalCompletion31 = true;
                 var _didIteratorError31 = false;
                 var _iteratorError31 = undefined;
 
                 try {
-                  for (var _iterator31 = _this13.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step31; !(_iteratorNormalCompletion31 = (_step31 = _iterator31.next()).done); _iteratorNormalCompletion31 = true) {
+                  for (var _iterator31 = _this16.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step31; !(_iteratorNormalCompletion31 = (_step31 = _iterator31.next()).done); _iteratorNormalCompletion31 = true) {
                     var closeOutTask = _step31.value;
 
-                    _this13.closeoutTaskTracker.set(closeOutTask, false);
+                    _this16.closeoutTaskTracker.set(closeOutTask, false);
                   }
                 } catch (err) {
                   _didIteratorError31 = true;
@@ -6978,10 +7147,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError32 = undefined;
 
                 try {
-                  for (var _iterator32 = _this13.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step32; !(_iteratorNormalCompletion32 = (_step32 = _iterator32.next()).done); _iteratorNormalCompletion32 = true) {
+                  for (var _iterator32 = _this16.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step32; !(_iteratorNormalCompletion32 = (_step32 = _iterator32.next()).done); _iteratorNormalCompletion32 = true) {
                     var completionCode = _step32.value;
 
-                    _this13.iconValues.set(completionCode.Name, completionCode);
+                    _this16.iconValues.set(completionCode.Name, completionCode);
                   }
                 } catch (err) {
                   _didIteratorError32 = true;
@@ -7003,11 +7172,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError33 = undefined;
 
                 try {
-                  for (var _iterator33 = _this13.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step33; !(_iteratorNormalCompletion33 = (_step33 = _iterator33.next()).done); _iteratorNormalCompletion33 = true) {
+                  for (var _iterator33 = _this16.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step33; !(_iteratorNormalCompletion33 = (_step33 = _iterator33.next()).done); _iteratorNormalCompletion33 = true) {
                     var workTask = _step33.value;
-                    triggerinformation = _this13.compareValue(workTask, Number(workTask.SubmittedValue));
+                    triggerinformation = _this16.compareValue(workTask, Number(workTask.SubmittedValue));
 
-                    _this13.updateTriggers(workTask, triggerinformation.trigger);
+                    _this16.updateTriggers(workTask, triggerinformation.trigger);
                   }
                 } catch (err) {
                   _didIteratorError33 = true;
@@ -7024,9 +7193,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   }
                 }
 
-                _this13.addComments();
+                _this16.addComments();
               }, function (error) {
-                _this13.errorService.error(error);
+                _this16.errorService.error(error);
               });
             } //Bind icons and address for use
 
@@ -7204,7 +7373,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitPrestartTask",
         value: function submitPrestartTask(taskUUID, skipped) {
-          var _this14 = this;
+          var _this17 = this;
 
           var prestartTask = this.currentWorkDocumentData.PrestartTasksInformation.filter(function (task) {
             return task.UUID === taskUUID;
@@ -7219,20 +7388,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 //no comment so stop the skip
                 return;
               } else {
-                _this14.submitComment(prestartTask.Name + ": " + returnComment, taskUUID);
+                _this17.submitComment(prestartTask.Name + ": " + returnComment, taskUUID);
 
                 data = {
-                  DocumentUUID: _this14.currentWorkDocumentData.UUID,
+                  DocumentUUID: _this17.currentWorkDocumentData.UUID,
                   TaskUUID: taskUUID,
                   SubmittedValues: {
-                    CompletionKey: _this14.iconValues.get('NotCompleted').CompletionKey,
+                    CompletionKey: _this17.iconValues.get('NotCompleted').CompletionKey,
                     Submitted: true
                   }
                 };
-                prestartTask.CompletionCode = _this14.iconValues.get('NotCompleted').IconHyperLink;
+                prestartTask.CompletionCode = _this17.iconValues.get('NotCompleted').IconHyperLink;
                 prestartTask.Submitted = true;
 
-                _this14.UpdateValue(data);
+                _this17.UpdateValue(data);
               }
             });
 
@@ -7261,7 +7430,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitWorkTask",
         value: function submitWorkTask(taskUUID, typeOfInput, skipped) {
-          var _this15 = this;
+          var _this18 = this;
 
           var userInput;
           var valueToCheck;
@@ -7280,13 +7449,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 //no comment so stop the skip
                 return;
               } else {
-                _this15.submitComment(workTask.Name + ": " + returnComment, taskUUID);
+                _this18.submitComment(workTask.Name + ": " + returnComment, taskUUID);
 
                 data = {
-                  DocumentUUID: _this15.currentWorkDocumentData.UUID,
+                  DocumentUUID: _this18.currentWorkDocumentData.UUID,
                   TaskUUID: taskUUID,
                   SubmittedValues: {
-                    CompletionKey: _this15.iconValues.get('NotCompleted').CompletionKey,
+                    CompletionKey: _this18.iconValues.get('NotCompleted').CompletionKey,
                     Submitted: true,
                     SubmittedValue: ''
                   }
@@ -7296,10 +7465,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   workTask.Error = false;
                 }
 
-                workTask.CompletionCode = _this15.iconValues.get('NotCompleted').IconHyperLink;
+                workTask.CompletionCode = _this18.iconValues.get('NotCompleted').IconHyperLink;
                 workTask.Submitted = true;
 
-                _this15.UpdateValue(data);
+                _this18.UpdateValue(data);
               }
             });
           } else {
@@ -7407,7 +7576,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateTriggers",
         value: function updateTriggers(workTask, triggerValue) {
-          var _this16 = this;
+          var _this19 = this;
 
           if (workTask.TaskLinks) {
             var _iteratorNormalCompletion41 = true;
@@ -7419,17 +7588,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var triggerlinks = _step41.value;
 
                 if (triggerlinks.TriggerCondition === triggerValue) {
-                  _this16.closeoutTaskTracker.set(triggerlinks.UUID, true); //And need to display the contianer of the new class.
+                  _this19.closeoutTaskTracker.set(triggerlinks.UUID, true); //And need to display the contianer of the new class.
 
 
-                  if (!_this16.displayFurtherWork || !_this16.displayCloseoutTasks) {
+                  if (!_this19.displayFurtherWork || !_this19.displayCloseoutTasks) {
                     //Find what type of task
-                    if (_this16.currentWorkDocumentData.FutherWorkTasksInformation.filter(function (task) {
+                    if (_this19.currentWorkDocumentData.FutherWorkTasksInformation.filter(function (task) {
                       return task.UUID === triggerlinks.UUID;
                     }).length) {
-                      _this16.displayFurtherWork = true;
+                      _this19.displayFurtherWork = true;
                     } else {
-                      _this16.displayCloseoutTasks = true;
+                      _this19.displayCloseoutTasks = true;
                     }
                   }
                 }
@@ -7457,7 +7626,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitComment",
         value: function submitComment(commentInfo, taskUUID) {
-          var _this17 = this;
+          var _this20 = this;
 
           var commentSubmit;
           var currentUserType;
@@ -7480,13 +7649,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           console.log(comment);
           console.log(taskUUID);
           this.HTTPSService.SubmitComment(commentSubmit).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function (error) {
-            _this17.errorService.error(error);
+            _this20.errorService.error(error);
           });
         }
       }, {
         key: "submitCloseoutTask",
         value: function submitCloseoutTask(taskUUID, skipped) {
-          var _this18 = this;
+          var _this21 = this;
 
           var closeoutTask = this.currentWorkDocumentData.CloseoutTasksInformation.filter(function (task) {
             return task.UUID === taskUUID;
@@ -7501,20 +7670,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 //no comment so stop the skip
                 return;
               } else {
-                _this18.submitComment(closeoutTask.Name + ": " + returnComment, taskUUID);
+                _this21.submitComment(closeoutTask.Name + ": " + returnComment, taskUUID);
 
                 data = {
-                  DocumentUUID: _this18.currentWorkDocumentData.UUID,
+                  DocumentUUID: _this21.currentWorkDocumentData.UUID,
                   TaskUUID: taskUUID,
                   SubmittedValues: {
-                    CompletionKey: _this18.iconValues.get('NotCompleted').CompletionKey,
+                    CompletionKey: _this21.iconValues.get('NotCompleted').CompletionKey,
                     Submitted: true
                   }
                 };
-                closeoutTask.CompletionCode = _this18.iconValues.get('NotCompleted').IconHyperLink;
+                closeoutTask.CompletionCode = _this21.iconValues.get('NotCompleted').IconHyperLink;
                 closeoutTask.Submitted = true;
 
-                _this18.UpdateValue(data);
+                _this21.UpdateValue(data);
 
                 if (closeoutTask.Error) {
                   closeoutTask.Error = false;
@@ -7581,17 +7750,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "UpdateValue",
         value: function UpdateValue(data) {
-          var _this19 = this;
+          var _this22 = this;
 
           //send off data ->Only return of error, otherwise nothing will be returned
           this.HTTPSService.UpdateValue(data).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function (error) {
-            _this19.errorService.error(error);
+            _this22.errorService.error(error);
           });
         }
       }, {
         key: "generateTaskObservationComment",
         value: function generateTaskObservationComment(taskUUID, taskName) {
-          var _this20 = this;
+          var _this23 = this;
 
           console.log('generateTaskObservationComment');
           var title = "New Comment For Task: " + taskName;
@@ -7603,14 +7772,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //no comment so stop comment generation
               return;
             } else {
-              _this20.submitComment(taskName + ": " + returnComment, taskUUID);
+              _this23.submitComment(taskName + ": " + returnComment, taskUUID);
             }
           });
         }
       }, {
         key: "generateGeneralObservationComment",
         value: function generateGeneralObservationComment() {
-          var _this21 = this;
+          var _this24 = this;
 
           console.log('generateGeneralObservationComment');
           var title = "New General Comment For Work Document " + this.currentWorkDocumentData.Name;
@@ -7622,7 +7791,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //no comment so stop the skip
               return;
             } else {
-              _this21.submitComment(returnComment, 'None');
+              _this24.submitComment(returnComment, 'None');
             }
           });
         }
@@ -7784,7 +7953,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitSheet",
         value: function submitSheet() {
-          var _this22 = this;
+          var _this25 = this;
 
           var dateTime = new Date(); //Check All inputs to see if they are filled out
           //Lock Document
@@ -7797,19 +7966,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             this.HTTPSService.SubmitWorkDocument(this.currentWorkDocumentData.UUID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function () {
               console.log('waiting 10sec');
               setTimeout(function () {
-                _this22.router.navigate(['/dashboard/Welcome']);
+                _this25.router.navigate(['/dashboard/Welcome']);
               }, 10000);
             }, function (error) {
               console.log(error);
 
-              _this22.errorService.error(error);
+              _this25.errorService.error(error);
             });
           }
         }
       }, {
         key: "submitReview",
         value: function submitReview(accepted) {
-          var _this23 = this;
+          var _this26 = this;
 
           if (accepted) {
             this.currentWorkDocumentData.DocumentReviewed = true;
@@ -7818,10 +7987,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.HTTPSService.SubmitReview(this.currentWorkDocumentData.UUID, accepted).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(function () {
             console.log('waiting 10sec');
             setTimeout(function () {
-              _this23.router.navigate(['/dashboard/Welcome']);
+              _this26.router.navigate(['/dashboard/Welcome']);
             }, 10000);
           }, function (error) {
-            _this23.errorService.error(error);
+            _this26.errorService.error(error);
           });
         }
       }]);

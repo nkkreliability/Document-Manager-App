@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./account-dashboard.component.css']
 })
 export class AccountDashboardComponent implements OnInit {
-
+  time = new Date();
   currentUser: UserInformation
 
   constructor(
@@ -18,6 +18,9 @@ export class AccountDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigate(['/dashboard/Welcome']);
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
   }
 
   WelcomeButtonClick() {

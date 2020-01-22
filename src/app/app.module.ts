@@ -28,7 +28,7 @@ import { DashboardModule } from './account-dashboard/account-dashboard.module';
 import { WorkDocumentComponent, CommentDialog } from './work-document/work-document.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { TitleMessageService } from './Services/TitleMessageService';
 
 @NgModule({
   declarations: [
@@ -60,6 +60,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
   ],
   providers: [
+    TitleMessageService,
     AuthenticatorGuardService,
     ErrorMessageService,
     AuthenticatorService,

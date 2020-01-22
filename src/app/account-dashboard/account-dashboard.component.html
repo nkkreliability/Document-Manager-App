@@ -1,16 +1,18 @@
-<button (click)="HideShowClick()">hide and show nav</button>
+<div class='otherinfo'>
+    <button (click)="HideShowClick()">hide and show nav</button>
+    {{ time | date: 'hh:mm:ss a' }}
+</div>
+
 <div id=dash class=dashboardcontainer>
     <div id=navbar class=navigation>
-        <button class=sidebarbutton (click)="WelcomeButtonClick()">Home</button>
-        <button class=sidebarbutton (click)="AvaliableDocumentsButtonClick()">Avaliable Documents</button>
-        <button class=sidebarbutton (click)="IncompleteDocumentsAvaliableClick()">Incomplete Documents</button>
-        <button class=sidebarbutton (click)="DocumentsReviewClick()">Review</button>
+        <button class=sidebarbutton (click)="WelcomeButtonClick()">Home Page</button>
+        <button class=sidebarbutton (click)="AvaliableDocumentsButtonClick()">New Documents</button>
+        <button class=sidebarbutton (click)="IncompleteDocumentsAvaliableClick()">Current Documents</button>
+        <button class=sidebarbutton (click)="DocumentsReviewClick()">Review Documents</button>
         <!--Will need a ngIf based on if account is a document owner/reviewer-->
-        <button class=sidebarbutton (click)="GraphicsClick()">Data</button>
+        <button class=sidebarbutton (click)="GraphicsClick()">Graphics</button>
     </div>
     <div class=outlet>
         <router-outlet></router-outlet>
     </div>
 </div>
-
-<p><a [routerLink]="['/login']">Logout</a></p>
