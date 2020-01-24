@@ -151,6 +151,7 @@ export class WorkDocumentComponent implements OnInit {
       dialogBoxObs = this.generateSkippingTaskComment(prestartTask.Name);
       dialogBoxObs.subscribe((returnComment: string) => {
         if (!returnComment) {//no comment so stop the skip
+          console.log("no comment");
           return;
         } else {
           this.submitComment(prestartTask.Name + ": " + returnComment, taskUUID);
@@ -165,11 +166,12 @@ export class WorkDocumentComponent implements OnInit {
           prestartTask.CompletionCode = this.iconValues.get('NotCompleted').IconHyperLink;
           prestartTask.Submitted = true;
           this.UpdateValue(data);
+          if (prestartTask.Error) {
+            prestartTask.Error = false;
+          }
         }
       });
-      if (prestartTask.Error) {
-        prestartTask.Error = false;
-      }
+
     } else {
       data = {
         DocumentUUID: this.currentWorkDocumentData.UUID,

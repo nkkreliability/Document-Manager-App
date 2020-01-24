@@ -1,7 +1,14 @@
 <div class=avaliabledocumentscontainer>
-    <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
-        <div>{{documentinfo.Name}}</div>
-        <div class=documentContext>{{documentinfo.Context}}</div>
-        <button class=selectionButton (click)=getDocument(documentinfo.DocumentUUID)>Create Document</button>
+    <div class=newDocumentsTitlesContainer>
+        <div class=newDocumentTitle>Document Name</div>
+        <div class=newDocumentTitle>Information</div>
+        <div class=newDocumentTitle>Create New Document</div>
+    </div>
+    <div class=newDocumentsGridContainer>
+        <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
+            <div class=newDocumentInformation>{{documentinfo.Name}}</div>
+            <div class=newDocumentInformation>{{documentinfo.Context}}</div>
+            <button class=selectionButton (click)=getDocument(documentinfo.DocumentUUID)>Create Document</button>
+        </div>
     </div>
 </div>

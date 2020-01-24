@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { newDocumentInformation, genericReturn, WorkDocument, avaliableIncompleteDocuments, NotificationToSubmit, documentSubmit, TaskInformationToSend, CommentInformationToSend, avaliableReviewDocuments, ServerData, GraphTasksAvaliable, RequestGraphData } from "../_GlobalValues/httpObjectInterfaces";
+import { newDocumentInformation, genericReturn, WorkDocument, NotificationToSubmit, documentSubmit, TaskInformationToSend, CommentInformationToSend, avaliableReviewDocuments, ServerData, GraphTasksAvaliable, RequestGraphData, avaliableIncompleteDocuments } from "../_GlobalValues/httpObjectInterfaces";
 import { UserInformation } from '../Authenticators/UserInformation';
 
 export interface IHTTPSRequest {

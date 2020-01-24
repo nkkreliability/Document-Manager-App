@@ -6,7 +6,7 @@
 }
 
 .Title{
-text-align: center;
+    text-align: center;
     line-height:50px;
     color: white;
 font-size: calc(16px + 1vw)

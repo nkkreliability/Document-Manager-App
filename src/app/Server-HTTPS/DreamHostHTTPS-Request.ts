@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInformation } from '../Authenticators/UserInformation';
 import { environment } from 'src/environments/environment';
-import { newDocumentInformation, genericReturn, WorkDocument, avaliableIncompleteDocuments, TaskDataReturn, NotificationToSubmit, documentSubmit, TaskInformationToSend, CommentInformationToSend, avaliableReviewDocuments, ServerData, GraphTasksAvaliable, RequestGraphData } from '../_GlobalValues/httpObjectInterfaces';
+import { newDocumentInformation, genericReturn, WorkDocument, TaskDataReturn, NotificationToSubmit, documentSubmit, TaskInformationToSend, CommentInformationToSend, avaliableReviewDocuments, ServerData, GraphTasksAvaliable, RequestGraphData, avaliableIncompleteDocuments } from '../_GlobalValues/httpObjectInterfaces';
 
 @Injectable()
 export class DreamHostHTTPSRequest implements HTTPSRequestService {

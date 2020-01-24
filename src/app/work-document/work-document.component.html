@@ -43,63 +43,63 @@
             <div class=printedWarning>Printed copies of document are uncontrolled</div>
         </div>
     </div>
-    <div class=context>
-        <div class=Title>Context & Purpose</div>
-        <div class=contextContent>{{currentWorkDocumentData.Context}}</div>
+    <div class=sectionContainer>
+        <div class=sectionTitle>Context & Purpose</div>
+        <div class=informationText>{{currentWorkDocumentData.Context}}</div>
     </div>
-    <div class=completionCodes>
-        <div class=Title>Completion Codes</div>
+    <div class=sectionContainer>
+        <div class=sectionTitle>Completion Codes</div>
         <div class=GridContainer>
             <div class=completionCodesGridTitles>
-                <div class=workgridTitle>Legend</div>
-                <div class=gridTitle>Completion Code Description</div>
+                <div class=columnTitle>Legend</div>
+                <div class=columnTitle>Completion Code Description</div>
             </div>
             <div class=completionCodesTableItemsGrid
                 *ngFor="let CodeInformation of currentWorkDocumentData.CompletionCodes">
                 <div class=checkboxgridItem><img src={{CodeInformation.IconHyperLink}}> </div>
-                <div class=gridItem>{{CodeInformation.Description}}</div>
+                <div class=informationText>{{CodeInformation.Description}}</div>
             </div>
         </div>
     </div>
-    <div class=authorityToMaintain>
-        <div class=Title>Authority to Maintain</div>
+    <div class=sectionContainer>
+        <div class=sectionTitle>Authority to Maintain</div>
         <div class=Container>
             <div class=authorityToMaintainGridTitles>
-                <div class=gridTitle>Competency</div>
-                <div class=gridTitle>Completion Code</div>
+                <div class=columnTitle>Competency</div>
+                <div class=columnTitle>Completion Code</div>
             </div>
             <div class=authorityToMaintainItemsGrid
                 *ngFor="let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation">
-                <div class=gridItem>{{AuthorityValue.CompetencyInformation}}</div>
-                <div class=gridItem>{{AuthorityValue.AuthorityCode}}</div>
+                <div class=informationText>{{AuthorityValue.CompetencyInformation}}</div>
+                <div class=informationText>{{AuthorityValue.AuthorityCode}}</div>
             </div>
         </div>
     </div>
-    <div class=equipmentAndMaterials>
-        <div class=Title>Equipment & Materials</div>
+    <div class=sectionContainer>
+        <div class=sectionTitle>Equipment & Materials</div>
         <div class=GridContainer>
             <div class=equipmentAndMaterialsGridTitles>
-                <div class=gridTitle>Quantity</div>
-                <div class=gridTitle>Information</div>
-                <div class=gridTitle>Material Number</div>
+                <div class=columnTitle>Quantity</div>
+                <div class=columnTitle>Information</div>
+                <div class=columnTitle>Material Number</div>
             </div>
             <div class=equipmentAndMaterialsItemsGrid
                 *ngFor="let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation">
-                <div class=gridItem>{{equipmentMaterialValue.Quantity}}</div>
-                <div class=gridItem>{{equipmentMaterialValue.Information}}</div>
-                <div class=gridItem>{{equipmentMaterialValue.MaterialNumber}}</div>
+                <div class=informationText>{{equipmentMaterialValue.Quantity}}</div>
+                <div class=informationText>{{equipmentMaterialValue.Information}}</div>
+                <div class=informationText>{{equipmentMaterialValue.MaterialNumber}}</div>
             </div>
         </div>
     </div>
-    <div *ngIf="currentWorkDocumentData.PrestartTasksInformation" class=workPreperation>
+    <div *ngIf="currentWorkDocumentData.PrestartTasksInformation" class=sectionContainer>
         <div class=headerTitle>Work Preperation</div>
-        <div class=Title>Pre-Start Checklist</div>
+        <div class=sectionTitle>Pre-Start Checklist</div>
         <!--Spans section-->
         <div class=GridContainer>
             <div class=prestartTasksGridTitles>
-                <div class=workgridTitle>Duration(hrs)</div>
-                <div class=workgridTitle>Tasks</div>
-                <div class=workgridTitle>Completion Code</div>
+                <div class=columnTitle>Duration(hrs)</div>
+                <div class=columnTitle>Tasks</div>
+                <div class=columnTitle>Completion Code</div>
             </div>
             <div *ngFor="let prestartTask of currentWorkDocumentData.PrestartTasksInformation">
                 <div id={{prestartTask.UUID}}
@@ -134,10 +134,10 @@
         <!--Spans section-->
         <div class=GridContainer>
             <div class=workExecutionGridTitles>
-                <div class=workgridTitle>Duration(hrs)</div>
-                <div class=workgridTitle>Tasks</div>
-                <div class=workgridTitle>Limits</div>
-                <div class=workgridTitle>Completion Code</div>
+                <div class=columnTitle>Duration(hrs)</div>
+                <div class=columnTitle>Tasks</div>
+                <div class=columnTitle>Limits</div>
+                <div class=columnTitle>Completion Code</div>
             </div>
             <div *ngFor="let workTask of currentWorkDocumentData.WorkTasksInformation">
                 <div id={{workTask.UUID}}
@@ -183,24 +183,23 @@
     </div>
     <div class=workCloseOut>
         <div class=spanHeaderTitle>Work Close-Out</div>
-        <div class=commentsAndObsContainer>
-            <div class=Title>Comments & General Observations</div>
-            <div class=commentsGridContainer?>
-                <button class=inputbutton (click)="generateGeneralObservationComment()">Add New Comment</button>
+        <div class=CommentsSectionContainer>
+            <div class=sectionTitle>Comments & General Observations</div>
+            <div class=CommentsContainer>
                 <div class=commentsAndObsGrid *ngFor="let comment of overallDocumentComments">
-                    <div class=gridItem>{{comment}}</div>
+                    <div class=informationText>{{comment}}</div>
                 </div>
 
             </div>
+            <button class=inputbutton (click)="generateGeneralObservationComment()">Add New Comment</button>
         </div>
-        <div *ngIf="currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork"
-            class=furtherWorkRequiredContainer>
-            <div class=Title>Further Work Required</div>
+        <div *ngIf="currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork" class=sectionContainer>
+            <div class=sectionTitle>Further Work Required</div>
             <div class=GridContainer>
                 <div class=futherWorkRequiredGridTitles>
-                    <div class=gridTitle>NotificationCode</div>
-                    <div class=gridTitle>Notification Description</div>
-                    <div class=workgridTitle>Completion Code</div>
+                    <div class=columnTitle>NotificationCode</div>
+                    <div class=columnTitle>Notification Description</div>
+                    <div class=columnTitle>Completion Code</div>
                     <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
                 </div>
                 <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
@@ -225,14 +224,13 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentWorkDocumentData.CloseoutTasksInformation && displayCloseoutTasks"
-            class=closeOutChecklistContainer>
-            <div class=Title>Close-Out Checklist</div>
+        <div *ngIf="currentWorkDocumentData.CloseoutTasksInformation && displayCloseoutTasks" class=sectionContainer>
+            <div class=sectionTitle>Close-Out Checklist</div>
             <div class=GridContainer>
                 <div class=closeOutChecklistGridTitles>
-                    <div class=workgridTitle>Duration(hrs)</div>
-                    <div class=workgridTitle>Tasks</div>
-                    <div class=workgridTitle>Completion Code</div>
+                    <div class=columnTitle>Duration(hrs)</div>
+                    <div class=columnTitle>Tasks</div>
+                    <div class=columnTitle>Completion Code</div>
                 </div>
 
                 <div *ngFor="let closeOutTask of currentWorkDocumentData.CloseoutTasksInformation">
@@ -268,12 +266,12 @@
         <!--TODO will need to do others for other submits in section-->
         <div class=technician>
             <div class=completionSignOffHeaderTitle>Completion Sign-Off</div>
-            <div class=Title>Technician Name</div>
+            <div class=sectionTitle>Technician Name</div>
             <div class=completionSignOffName>
                 <div>{{currentWorkDocumentData.Technician}}</div>
                 <div class=DIC-SubInformation>{{currentWorkDocumentData.TechnicianPosition}}</div>
             </div>
-            <div class=Title>Technician Signature</div>
+            <div class=sectionTitle>Technician Signature</div>
             <div class=completionSignOffSignature>
                 <div *ngIf="!currentWorkDocumentData.Submitted">
                     <button (click)="submitSheet()">Submit</button>
@@ -284,18 +282,18 @@
                 </div>
             </div>
             <!--Have a button with submit that placeholds the signature-->
-            <div class=Title>Completion Timestamp</div>
+            <div class=sectionTitle>Completion Timestamp</div>
             <div class=completionSignOffTimeStamp>
                 <div>{{currentWorkDocumentData.SubmitDate}}</div>
             </div>
         </div>
         <div class=supervisor>
-            <div class=Title>Supervisor Name</div>
+            <div class=sectionTitle>Supervisor Name</div>
             <div class=completionSignOffName>
                 <div>{{currentWorkDocumentData.Reviewer}}</div>
                 <div class=DIC-SubInformation>{{currentWorkDocumentData.ReviewerPosition}}</div>
             </div>
-            <div class=Title>Supervisor Signature</div>
+            <div class=sectionTitle>Supervisor Signature</div>
             <div class=completionSignOffSignature>
                 <div *ngIf="reviewstate && currentWorkDocumentData.Submitted">
                     <button (click)="submitReview(true)">Accept</button>
@@ -306,16 +304,16 @@
                     <img class=signature src="">
                 </div>
             </div>
-            <div class=Title>Review Date</div>
+            <div class=sectionTitle>Review Date</div>
             <div class=completionSignOffTimeStamp></div>
             <!--Owner if required due to something not done and signed off by supervisor-->
         </div>
         <div class=documentOwner>
-            <div class=Title>Document Owners Name</div>
+            <div class=sectionTitle>Document Owners Name</div>
             <div class=completionSignOffName></div>
-            <div class=Title>Document Owners Signature</div>
+            <div class=sectionTitle>Document Owners Signature</div>
             <div class=completionSignOffSignature></div>
-            <div class=Title>Review Date</div>
+            <div class=sectionTitle>Review Date</div>
             <div class=completionSignOffTimeStamp></div>
         </div>
     </div>

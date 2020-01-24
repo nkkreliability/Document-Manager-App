@@ -1,9 +1,17 @@
 <div class=incompleteavaliabledocumentscontainer>
-
-    <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
-        <h1 class=documentbutton>{{documentinfo.DocumentName}}</h1>
-        <p>Created {{documentinfo.DateCreated}}</p>
-        <p>Last Modified {{documentinfo.DateLastModified}}</p>
-        <button (click)=getDocument(documentinfo.DocumentUUID)>open</button>
+    <div class=incompleteDocumentsTitlesContainer>
+        <div class=incompleteDocumenttitle>Document Name</div>
+        <div class=incompleteDocumenttitle>Date Created</div>
+        <div class=incompleteDocumenttitle>Date Last Modified</div>
+        <div class=incompleteDocumenttitle>Open Document</div>
+    </div>
+    <div class=incompleteDocumentsGridContainer>
+        <!-- //created then last mod columns-->
+        <div *ngFor="let documentinfo of avaliableDocuments; index as i" class=document>
+            <div class=incompleteDocumentInformation>{{documentinfo.DocumentName}}</div>
+            <div class=incompleteDocumentInformation> {{documentinfo.DateCreated}}</div>
+            <div class=incompleteDocumentInformation>{{documentinfo.DateLastModified}}</div>
+            <button class=selectionButton (click)=getDocument(documentinfo.DocumentUUID)>open</button>
+        </div>
     </div>
 </div>

@@ -101,10 +101,12 @@ body {
 .document {
     display: grid;
     grid-template-columns: repeat(1, auto auto auto);
-    background-color: rgb(81, 81, 87);
+    background-color: black;
+    color: white;
 }
 
 .selectionButton{
-    height: 4vw;/*change in abit*/
-    background-color: lavender; 
+    height: calc(19px + 1vw);/*change in abit*/
+    background-color: lavender;
+    
 }
