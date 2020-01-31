@@ -1,9 +1,10 @@
 <div>
-    <h1 mat-dialog-title>{{title}}</h1>
+    <h1 mat-dialog-title>{{data.Title}}</h1>
     <mat-dialog-content [formGroup]="form">
+
         <input matInput placeholder="Comment" formControlName="comment">
 
     </mat-dialog-content>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button (click)="saveComment()" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="saveComment()" cdkFocusInitial>Submit Comment</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
 </div>

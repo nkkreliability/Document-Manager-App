@@ -48,46 +48,8 @@
   font-size: 1.8vw;
 }
 
-.workgridTitle {
-  font-weight: bold;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  font-size: 1.8vw
-}
 
-.workgridItem {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-}
 
-.workgridItem img {
-  padding-top: 1%;
-  width: auto;
-  height: 2.0vw;
-}
-
-.gridItem {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-}
-
-.gridItem img {
-  padding-top: 1%;
-  width: auto;
-  height: 2vw;
-}
 
 .checkboxgridItem {
   height: 100%;
@@ -95,7 +57,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-    background-color: white;
+  background-color: white;
 }
 
 .checkboxgridItem img {
@@ -135,116 +97,10 @@ input[type=checkbox] {
   background-color: lightblue;
 }
 
-.taskValueInput {
-  background-color: var(--input-bg-color);
-  height: 1.0vw;
-}
 
-.header {
-  color: white;
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 3fr 0.2fr;
-  align-items: center;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
 
-.head:nth-child(2) {
-  margin-right: -1px;
-}
 
-.logoContainer {
-  background-color: var(--main-bg-color);
-  vertical-align: middle;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-right: 1px solid white;
-}
 
-.logoContainer img {
-  width: 100%;
-}
-
-.documentTitleContainer {
-  background-color: var(--main-bg-color);
-  display: grid;
-  grid-auto-rows: auto;
-  height: 100%;
-}
-
-.documentTitleContainerSub {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.documentTitle {
-  font-weight: 900;
-  font-size: 3vw;
-}
-
-.documentType {
-  font-weight: bold;
-  font-size: 2vw;
-}
-
-.DTC-Title {
-  font-weight: bold;
-  font-size: 1.5vw;
-  text-align: right;
-}
-
-.DTC-Information {
-  font-size: 1.5vw;
-  text-align: left;
-  padding-left: 4px;
-}
-
-.documentInformationContainer {
-  background-color: var(--main-bg-color);
-  display: grid;
-  grid-auto-rows: auto;
-  height: 100%;
-  border-left: 1px solid white;
-}
-
-.DIC-Title {
-  font-weight: bold;
-  font-size: 1.5vw;
-}
-
-.DIC-Information {
-  font-size: 1.5vw;
-}
-
-.DIC-SubInformation {
-  font-size: 1vw;
-  font-style: italic;
-}
-
-.documentAccessedContainer {
-  grid-column: 1/5;
-  color: black;
-  background-color: var(--secondary-bg-color);
-  display: grid;
-  grid-template-columns: auto 3fr auto;
-  font-size: 1.2vw;
-}
-
-.DAC-Title {
-  font-weight: bold;
-  padding-left: 1px;
-}
-
-.accessDate {
-  text-align: left;
-}
-
-.printedWarning {
-  text-align: right;
-}
 
 .context {
   align-items: center;
@@ -333,11 +189,6 @@ input[type=checkbox] {
   border-color: black;
 }
 
-.prestartTasksGridTitles {
-  display: grid;
-  grid-template-columns: 1fr 2.0fr 1fr;
-}
-
 .prestartTasksItemsGrid {
   display: grid;
   grid-template-rows: auto;
@@ -372,29 +223,9 @@ input[type=checkbox] {
   border-right: 1px solid black;
 }
 
-.spanHeaderTitle {
-  background-color: var(--main-bg-color);
-  color: white;
-  font-size: 2.5vw;
-  font-weight: 900;
-  text-align: center;
-}
 
-.spanTitle {
-  background-color: var(--secondary-bg-color);
-  font-size: 2vw;
-  font-weight: bold;
-  text-align: center;
-  height: 100%;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-}
 
-.workExecutionGridTitles {
-  text-align: center;
-  display: grid;
-  grid-template-columns: .5fr 3.5fr .25fr .75fr;
-}
+
 
 .workExecutionItemsGrid {
   text-align: center;
@@ -415,18 +246,6 @@ input[type=checkbox] {
 
 .workExecutionItemsGrid {
   border-bottom: -1px solid black;
-}
-
-.workExecutionTaskContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.workExecutionTaskContainer img {
-  width: auto;
-  height: 30vw;
-  padding: 0%;
 }
 
 .taskInputFlexContainer {
@@ -541,50 +360,11 @@ input[type=checkbox] {
   grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
 }
 
-.completionSignOff {
-  display: grid;
-  grid-template-rows: 5fr;
-  grid-template-rows: auto;
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
-  row-gap: .5vw;
-}
 
-.completionSignOffHeaderTitle {
-  background-color: var(--main-bg-color);
-  color: white;
-  font-size: 2.5vw;
-  font-weight: 900;
-  text-align: center;
-  grid-column: 1 / 7;
-}
 
-.technician {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  padding-bottom: .05vw;
-  padding-left: .01vw;
-}
 
-.supervisor {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  padding-bottom: .05vw;
-  padding-left: .01vw;
-}
 
-.documentOwner {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;
-  border-top: 1px solid black;
-  padding-bottom: .05vw;
-  padding-left: .01vw;
-}
+
 
 .completionSignOffName {
   display: grid;
@@ -609,13 +389,16 @@ input[type=checkbox] {
 
 
 /* New CSS 2020*/
+/*TODO will need to account for padding with borders etc*/
 .informationText{
+  line-height: calc(15px + 1.5vw);
   font-size: calc(3px + 1.5vw);
   color: black;
   text-align: left;
   background-color:white;
-  height: 100%;
-  padding-left: 1px;
+
+  padding-left: 5px;
+  border-left: 1px solid black;
 }
 
 .sectionTitle{
@@ -625,8 +408,7 @@ input[type=checkbox] {
 }
 
 .sectionTitleContainer{
-  
-  height: auto;
+    height: auto;
   text-align: center;
 }
 
@@ -635,7 +417,7 @@ input[type=checkbox] {
     align-items: center;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  border: 1px solid black;
+  outline:solid;
 }
 
 .columnTitle{
@@ -644,6 +426,9 @@ input[type=checkbox] {
   text-align: left;
   background-color:white;
   font-size: calc(3px + 1.5vw);
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+    padding-left: 5px;
 }
 
 .CommentsSectionContainer{
@@ -652,17 +437,21 @@ input[type=checkbox] {
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 3.5fr .5fr;
-  border: 1px solid black;
+}
+
+.workGridCodeContainer{
+  height: 100%;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  border-left: 1px solid black;
 }
 
 .CompletionCodeContainer{
-  align-items: center;
-  justify-content: center;
-  background-color:white;
+background-color:white;
 }
 
 .CompletionCodeContainer img{
-  width: auto;
   height: 2.0vw;
 }
 
@@ -670,9 +459,7 @@ input[type=checkbox] {
 
 }
 
-.WorkTaskGrid{
 
-}
 
 .FurtherWorkRequiredGrid{
 
@@ -680,4 +467,324 @@ input[type=checkbox] {
 
 .CloseOutTaskGrid{
   
+}
+
+.completionCodesGridTitles{
+border-bottom: 1px solid black;
+}
+
+.authorityToMaintainGridTitles{
+border-bottom: 1px solid black;
+}
+
+.equipmentAndMaterialsGridTitles{
+  border-bottom: 1px solid black;
+}
+
+.prestartTasksGridTitles{
+  display: grid;
+  grid-template-columns: 1fr 2.0fr 1fr;
+  border-bottom: 1px solid black;
+}
+
+.SectionContainerTopTitle{
+    display: grid;
+  grid-template-columns: 5fr;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  outline:solid;
+}
+
+.TitleSpan{
+    background-color: var(--secondary-bg-color);
+  font-size: 2vw;
+  font-weight: bold;
+  text-align: center;
+  height: 100%;
+  border-bottom: 1px solid black;
+}
+
+.GridContainer{
+  display: grid;
+  align-items: center;
+}
+
+
+
+
+.WorkExecutionGridTitles{
+  display: grid;
+  grid-template-columns: .5fr 2.5fr .5fr .5fr;
+  text-align: center;
+}
+
+.WorkTaskGrid{
+  align-items: center;
+  display: grid;
+  grid-template-columns: .5fr 2.5fr .5fr .5fr;
+}
+
+.workGridcolumnTitle{
+    font-weight: bold;
+  height: 100%;
+  text-align: left;
+  background-color:white;
+  font-size: calc(3px + 1.5vw);
+  border-bottom: 1px solid black;
+border-left: 1px solid black;
+  padding-left: 5px;
+}
+
+.workGridcolumnTitle:first-child{
+  border-left: none;
+}
+
+.limitsGridContainer{
+  height: 100%;
+  border-left: 1px solid black;
+  display: grid;
+  align-items: center;
+}
+
+.limitsGrid{
+  display: grid;
+  vertical-align: middle;
+}
+
+.workGridInformationText{
+    font-size: calc(3px + 1.5vw);
+  color: black;
+  text-align: left;
+  padding-left: 5px;
+
+}
+
+.workGridInformationSubTitle{
+  font-weight: bold;
+      font-size: calc(3px + 1.5vw);
+  color: black;
+  text-align: left;
+  padding-left: 5px;
+}
+
+.workExecutionTaskContainer{
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  border-left: 1px solid black;
+}
+
+.workGridItemTitle{
+  text-align: center;
+    font-weight: bold;
+  height: 100%;
+  text-align: center;
+  font-size: calc(3px + 1.5vw);
+
+}
+.workGridItemImage{
+  align-self: center;
+
+}
+.workGridItemImage img{
+ width: 40vw;
+ padding-left: 5px;
+}
+
+.workGridItemInformationContainer{
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+padding-bottom: 5px;
+padding-left: 5px;
+}
+
+
+.userInput {
+  background-color: var(--input-bg-color);
+  height: calc(3px + 1.5vw);
+  width: 10vw;
+  font-size: calc(3px + 1.5vw);
+  color: black;
+}
+.worktaskInformation{
+    font-size: calc(3px + 1.5vw);
+    text-align: right;
+}
+
+.workGridItemButtonContainer{
+    display: grid;
+grid-template-columns: 1fr 1fr 1fr; 
+padding-bottom: 5px;
+padding-left: 5px;
+}
+
+.workGridInputButton{
+  font-size: calc(3px + 1.5vw);
+  text-align: center;
+  width: fit-content;
+  background-color: lightblue;
+}
+.workCloseOut{
+    outline:solid;
+}
+
+
+.spanHeaderTitle {
+  background-color: var(--main-bg-color);
+  color: white;
+  font-size: calc(20px + 1.5vw);
+  font-weight: 900;
+  text-align: center;
+}
+
+.CommentsContainer{
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  height: 100%;
+  background-color: white;
+}
+.Comment{
+    font-size: calc(3px + 1.5vw);
+  color: black;
+  text-align: left;
+  background-color:white;
+
+  padding-left: 5px;
+
+}
+
+.completionSignOff{
+  background-color: var(--secondary-bg-color);
+  outline:solid;
+  display: grid;
+  grid-template-rows: 5fr;
+  grid-template-rows: auto;
+}
+.completionSignOffHeaderTitle {
+  background-color: var(--main-bg-color);
+  color: white;
+  font-size: calc(20px + 1.5vw);
+  font-weight: 900;
+  text-align: center;
+  grid-column: 1 / 7;
+}
+.completionSignOffRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;
+}
+
+.completionSignOffData{
+    background-color: white;
+      border-bottom: 1px solid black;
+}
+
+.completionTitles{
+    font-size: calc(5px + 1.5vw);
+  color: black;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
+
+/*Header*/
+
+.header {
+  background-color: var(--main-bg-color);
+  outline:solid;
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 3fr 0.2fr;
+  align-items: center;
+}
+
+.headLogoContainer{
+  border-right: 1px solid white;
+}
+
+.logoConheadLogoContainertainer img {
+  width: 100%;
+}
+
+.DIC-Title {
+  font-weight: bold;
+  font-size: calc(1px + 1.0vw);
+}
+
+.DIC-Information {
+  font-size: calc(1px + 1.0vw);
+  text-align: center;
+}
+
+
+
+.documentTitleContainer {
+  background-color: var(--main-bg-color);
+  display: grid;
+  grid-auto-rows: auto;
+  height: 100%;
+}
+
+.documentTitleContainerSub {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.documentTitle {
+  font-weight: 900;
+  font-size: 3vw;
+}
+
+.documentType {
+  font-weight: bold;
+  font-size: 2vw;
+}
+
+.DTC-Title {
+  font-weight: bold;
+  font-size: 1.5vw;
+}
+
+.DTC-Information {
+  font-size: 1.5vw;
+  text-align: left;
+  padding-left: 4px;
+}
+
+.documentInformationContainer {
+  background-color: var(--main-bg-color);
+  display: grid;
+  text-align: left;
+  grid-auto-rows: auto;
+  height: 100%;
+  border-left: 1px solid white;
+}
+
+
+
+.DIC-SubInformation {
+  font-size: 1vw;
+  font-style: italic;
+}
+
+.documentAccessedContainer {
+  grid-column: 1/5;
+  color: black;
+  background-color: var(--secondary-bg-color);
+  display: grid;
+  grid-template-columns: auto 3fr auto;
+  font-size: 1.2vw;
+}
+
+.DAC-Title {
+  font-weight: bold;
+  padding-left: 1px;
+}
+
+.accessDate {
+  text-align: left;
+}
+
+.printedWarning {
+  text-align: right;
 }

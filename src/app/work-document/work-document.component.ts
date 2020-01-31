@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { PrestartValues, CloseoutTaskValues, CompareValueReturn, TypeOfInput, ValidTriggerValue, AlarmTriggerValue, AlertTriggerValue } from '../_GlobalValues/global-values';
-import { WorkDocument, TasksInformation, TaskInformationToSend, WorkTasksInformation, CommentInformationToSend, NotificationToSubmit, FutherWorkTasksInformation, documentSubmit, CompletionCode } from '../_GlobalValues/httpObjectInterfaces';
+import { WorkDocument, TasksInformation, TaskInformationToSend, WorkTasksInformation, CommentInformationToSend, NotificationToSubmit, FutherWorkTasksInformation, documentSubmit, CompletionCode, CommentPopUpData } from '../_GlobalValues/httpObjectInterfaces';
 import { HTTPSRequestService } from '../Server-HTTPS/IHTTPS-Request';
 import { ErrorMessageService } from '../error-messages/error-messageService';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -22,7 +22,7 @@ export class WorkDocumentComponent implements OnInit {
   makeSaveValueButtonsAvaliable: boolean;
   currentWorkDocumentData: WorkDocument;
   loadedDocument = false;
-  closeoutTaskTracker: Map<string, boolean>;
+  furtherWorkTaskTracker: Map<string, boolean>;
   inputDisabled: boolean;
   iconValues: Map<string, CompletionCode> = new Map<string, CompletionCode>();
   displayFurtherWork = false;
@@ -33,9 +33,9 @@ export class WorkDocumentComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog
   ) { }
-
+  //TODO will need to change from closeout task to further work
   ngOnInit() {
-    this.closeoutTaskTracker = new Map();
+    this.furtherWorkTaskTracker = new Map();
     this.overallDocumentComments = new Array<string>();
     if (history.state.data.new) {
       this.HTTPSService.GetNewDocumentRequest(history.state.data.UUID).pipe(first())
@@ -45,12 +45,15 @@ export class WorkDocumentComponent implements OnInit {
           this.loadedDocument = true;
           this.inputDisabled = this.currentWorkDocumentData.Submitted;
           for (let closeOutTask of this.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs) {
-            this.closeoutTaskTracker.set(closeOutTask, false);
+            this.furtherWorkTaskTracker.set(closeOutTask, false);
           }
           for (let completionCode of this.currentWorkDocumentData.CompletionCodes) {
             this.iconValues.set(completionCode.Name, completionCode);
           }
           this.currentWorkDocumentData.GeneralComments = new Array();
+          if (this.currentWorkDocumentData.CloseoutTasksInformation.length) {
+            this.displayCloseoutTasks = true;
+          }
         },
           error => {
             this.errorService.error(error)
@@ -65,7 +68,7 @@ export class WorkDocumentComponent implements OnInit {
             this.makeSaveValueButtonsAvaliable = true;
             //Loop through tasks to setup
             for (let closeOutTask of this.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs) {
-              this.closeoutTaskTracker.set(closeOutTask, false);
+              this.furtherWorkTaskTracker.set(closeOutTask, false);
             }
             let triggerinformation: CompareValueReturn;
             //Is abit slow but needed
@@ -78,8 +81,8 @@ export class WorkDocumentComponent implements OnInit {
               triggerinformation = this.compareValue(workTask, Number(workTask.SubmittedValue));
               this.updateTriggers(workTask, triggerinformation.trigger);
             }
-            if (this.currentWorkDocumentData.FutherWorkTasksInformation.length) {
-              this.displayFurtherWork = true;
+            if (this.currentWorkDocumentData.CloseoutTasksInformation.length) {
+              this.displayCloseoutTasks = true;
             }
             this.addComments();
           },
@@ -95,7 +98,7 @@ export class WorkDocumentComponent implements OnInit {
             this.makeSaveValueButtonsAvaliable = false;
             this.reviewstate = true;
             for (let closeOutTask of this.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs) {
-              this.closeoutTaskTracker.set(closeOutTask, false);
+              this.furtherWorkTaskTracker.set(closeOutTask, false);
             }
             let triggerinformation: CompareValueReturn;
             //Is abit slow but needed
@@ -326,7 +329,7 @@ export class WorkDocumentComponent implements OnInit {
     if (workTask.TaskLinks) {
       for (let triggerlinks of workTask.TaskLinks) {
         if (triggerlinks.TriggerCondition === triggerValue) {
-          this.closeoutTaskTracker.set(triggerlinks.UUID, true);
+          this.furtherWorkTaskTracker.set(triggerlinks.UUID, true);
           //And need to display the contianer of the new class.
           if (!this.displayFurtherWork || !this.displayCloseoutTasks) {
             //Find what type of task
@@ -456,9 +459,12 @@ export class WorkDocumentComponent implements OnInit {
 
   generateTaskObservationComment(taskUUID: string, taskName: string) {
     console.log('generateTaskObservationComment');
-    let title: string = "New Comment For Task: " + taskName;
+    let dataToSend: CommentPopUpData = {
+      Title: "New Comment For Task: " + taskName,
+      ShowExcuses: false,
+    }
     const dialogRef = this.dialog.open(CommentDialog, {
-      data: title
+      data: dataToSend
     });
     dialogRef.afterClosed().subscribe((returnComment: string) => {
       if (!returnComment) {//no comment so stop comment generation
@@ -472,9 +478,12 @@ export class WorkDocumentComponent implements OnInit {
 
   generateGeneralObservationComment() {
     console.log('generateGeneralObservationComment');
-    let title: string = "New General Comment For Work Document " + this.currentWorkDocumentData.Name;
+    let dataToSend: CommentPopUpData = {
+      Title: "New General Comment For Work Document " + this.currentWorkDocumentData.Name,
+      ShowExcuses: false,
+    }
     const dialogRef = this.dialog.open(CommentDialog, {
-      data: title
+      data: dataToSend
     });
     dialogRef.afterClosed().subscribe((returnComment: string) => {
       if (!returnComment) {//no comment so stop the skip
@@ -487,9 +496,13 @@ export class WorkDocumentComponent implements OnInit {
 
   generateSkippingTaskComment(taskName: string): Observable<any> {
     console.log('generateSkippingTaskComment');
-    let title: string = "Enter Reason for Skipping Task: " + taskName;
+    let dataToSend: CommentPopUpData = {
+      Title: "Enter Reason for Skipping Task: " + taskName,
+      ExcuseComments: this.currentWorkDocumentData.ExcuseComments,
+      ShowExcuses: true,
+    }
     const dialogRef = this.dialog.open(CommentDialog, {
-      data: title
+      data: dataToSend
     });
     return dialogRef.afterClosed();
   }
@@ -528,7 +541,7 @@ export class WorkDocumentComponent implements OnInit {
       }
     }
     for (let closeOutTask of this.currentWorkDocumentData.CloseoutTasksInformation) {
-      if (this.closeoutTaskTracker.get(closeOutTask.UUID)) {
+      if (this.furtherWorkTaskTracker.get(closeOutTask.UUID)) {
         if (!closeOutTask.Submitted) {//No value "submitted" will need to highlight it
           allInputsFilled = false;
           closeOutTask.Error = true;
@@ -580,10 +593,6 @@ export class WorkDocumentComponent implements OnInit {
   }
 }
 
-
-
-
-
 @Component({
   selector: 'comment-dialog',
   templateUrl: 'comment-dialog.html',
@@ -592,8 +601,8 @@ export class CommentDialog {
   //TODO https://material.angular.io/components/dialog/overview 
 
   form: FormGroup;
-  comment: string
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: CommentPopUpData,
     public dialogRef: MatDialogRef<WorkDocumentComponent>,
     private formBuilder: FormBuilder,
   ) {
@@ -603,6 +612,9 @@ export class CommentDialog {
     this.form = this.formBuilder.group({
       comment: ['']
     })
+    if (this.data.ShowExcuses) {
+      this.data.ExcuseComments.push("Other");
+    }
   }
 
   saveComment() {
