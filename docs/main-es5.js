@@ -343,7 +343,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class='otherinfo'>\r\n    <button (click)=\"HideShowClick()\">hide and show nav</button>\r\n    {{ time | date: 'hh:mm:ss a' }}\r\n</div>\r\n\r\n<div id=dash class=dashboardcontainer>\r\n    <div id=navbar class=navigation>\r\n        <button class=sidebarbutton (click)=\"WelcomeButtonClick()\">Home Page</button>\r\n        <button class=sidebarbutton (click)=\"AvaliableDocumentsButtonClick()\">New Documents</button>\r\n        <button class=sidebarbutton (click)=\"IncompleteDocumentsAvaliableClick()\">Current Documents</button>\r\n        <button class=sidebarbutton (click)=\"DocumentsReviewClick()\">Review Documents</button>\r\n        <!--Will need a ngIf based on if account is a document owner/reviewer-->\r\n        <button class=sidebarbutton (click)=\"GraphicsClick()\">Graphics</button>\r\n    </div>\r\n    <div class=outlet>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
+    __webpack_exports__["default"] = "<div class='otherinfo'>\r\n    {{ time | date: 'hh:mm:ss a' }}\r\n</div>\r\n\r\n<div id=dash class=dashboardcontainer>\r\n    <div id=navbar class=navigation>\r\n        <button class=sidebarbutton (click)=\"WelcomeButtonClick()\">Home Page</button>\r\n        <button class=sidebarbutton (click)=\"AvaliableDocumentsButtonClick()\">New Documents</button>\r\n        <button class=sidebarbutton (click)=\"IncompleteDocumentsAvaliableClick()\">Current Documents</button>\r\n        <button class=sidebarbutton (click)=\"DocumentsReviewClick()\">Review Documents</button>\r\n        <!--Will need a ngIf based on if account is a document owner/reviewer-->\r\n        <button class=sidebarbutton (click)=\"GraphicsClick()\">Graphics</button>\r\n    </div>\r\n    <div class=outlet>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
     /***/
   },
 
@@ -563,7 +563,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"TitleArea\">\r\n\r\n        <img class=\"Logo\" src=\"{{LogoImage}}\">\r\n        <div class=\"Title\">{{title}}</div>\r\n        <div class=\"UserInformation\" *ngIf=\"loggedIn\">\r\n                {{username}}\r\n                <!--TODO logout button here-->\r\n                <button (click)=\"logout()\">Logout</button>\r\n        </div>\r\n</div>";
+    __webpack_exports__["default"] = "<div class=\"TitleArea\">\r\n\r\n        <img class=\"navigation\" src=\"https://nks-maintenance.online/Server/public/images/Icons/Hamburger_icon.png\"\r\n                (click)=\"NavigationClick()\">\r\n        <div class=\"Title\">{{title}}</div>\r\n        <img class=\"Logo\" src=\"{{LogoImage}}\">\r\n        <div class=\"UserInformation\" *ngIf=\"loggedIn\">\r\n                {{username}}\r\n                <!--TODO logout button here-->\r\n                <button (click)=\"logout()\">Logout</button>\r\n        </div>\r\n</div>";
     /***/
   },
 
@@ -683,7 +683,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<!--\n    TODO - By defalt hide all images, and have a button to show/hide all up the top and a button by each image to show/hide\n    TODO - load tasks and notifications based on values in worktasks submitted, will be difficult as multiple may result in the same task?\n-->\n<div class=workDocumentContainer *ngIf=\"loadedDocument\">\n    <div class=header>\n        <div class=headLogoContainer>\n            <img class=logo src=\"{{currentWorkDocumentData.Logo}}\">\n        </div>\n        <div class=documentTitleContainer>\n            <div class=documentType>{{currentWorkDocumentData.Type}}</div>\n            <div class=documentTitle>{{currentWorkDocumentData.Title}}</div>\n            <div class=documentTitleContainerSub>\n                <div class=DTC-Title>Responsible Work Centre:</div>\n                <div class=DTC-Information>{{currentWorkDocumentData.WorkCenter}}</div>\n            </div>\n\n            <div class=documentTitleContainerSub>\n                <div class=DTC-Information>Total Time Required - {{currentWorkDocumentData.TotalDuration}} hours</div>\n\n            </div>\n\n        </div>\n        <div class=documentInformationContainer>\n            <div class=documentInformationContainerSub>\n                <div class=DIC-Title>Document #:</div>\n                <div class=DIC-Information>{{currentWorkDocumentData.SapID}}</div>\n            </div>\n            <div class=documentInformationContainerSub>\n                <div class=DIC-Title>DocumentRevision:</div>\n                <div class=DIC-Information>{{currentWorkDocumentData.Revision}}</div>\n            </div>\n            <div class=documentInformationContainerSub>\n                <div class=DIC-Title>Document Creator:</div>\n                <div class=DIC-Information>{{currentWorkDocumentData.Owner}}</div>\n                <div class=DIC-SubInformation>{{currentWorkDocumentData.OwnerPosition}}</div>\n            </div>\n        </div>\n\n        <div class=documentAccessedContainer>\n            <div class=DAC-Title>Document Accessed:</div>\n            <div class=accessDate>{{currentWorkDocumentData.AccessDate}}</div>\n            <div class=printedWarning>Printed copies of document are uncontrolled</div>\n        </div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Context & Purpose</div>\n        <div class=informationText>{{currentWorkDocumentData.Context}}</div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Completion Codes</div>\n        <div class=GridContainer>\n            <div class=completionCodesGridTitles>\n                <div class=columnTitle>Icon</div>\n                <div class=columnTitle>Completion Code Description</div>\n            </div>\n            <div class=completionCodesTableItemsGrid\n                *ngFor=\"let CodeInformation of currentWorkDocumentData.CompletionCodes\">\n                <div class=CompletionCodeContainer><img src={{CodeInformation.IconHyperLink}}> </div>\n                <div class=informationText>{{CodeInformation.Description}}</div>\n            </div>\n        </div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Authority to Maintain</div>\n        <div class=Container>\n            <div class=authorityToMaintainGridTitles>\n                <div class=columnTitle>Competency</div>\n                <div class=columnTitle>Completion Code</div>\n            </div>\n            <div class=authorityToMaintainItemsGrid\n                *ngFor=\"let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation\">\n                <div class=informationText>{{AuthorityValue.CompetencyInformation}}</div>\n                <div class=informationText>{{AuthorityValue.AuthorityCode}}</div>\n            </div>\n        </div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Equipment & Materials</div>\n        <div class=GridContainer>\n            <div class=equipmentAndMaterialsGridTitles>\n                <div class=columnTitle>Qty</div>\n                <div class=columnTitle>Information</div>\n                <div class=columnTitle>Material Number</div>\n            </div>\n            <div class=equipmentAndMaterialsItemsGrid\n                *ngFor=\"let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation\">\n                <div class=informationText>{{equipmentMaterialValue.Quantity}}</div>\n                <div class=informationText>{{equipmentMaterialValue.Information}}</div>\n                <div class=informationText>{{equipmentMaterialValue.MaterialNumber}}</div>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"currentWorkDocumentData.PrestartTasksInformation\" class=sectionContainer>\n        <div class=headerTitle>Work Preperation</div>\n        <div class=sectionTitle>Pre-Start Checklist</div>\n        <!--Spans section-->\n        <div class=GridContainer>\n            <div class=prestartTasksGridTitles>\n                <div class=columnTitle>Time</div>\n                <div class=columnTitle>Tasks</div>\n                <div class=columnTitle>Code</div>\n            </div>\n            <div *ngFor=\"let prestartTask of currentWorkDocumentData.PrestartTasksInformation\">\n                <div id={{prestartTask.UUID}}\n                    [ngClass]=\"{'errorTask': prestartTask.Error, 'prestartTasksItemsGrid': !prestartTask.Error}\">\n                    <div class=informationText>{{prestartTask.Duration}}</div>\n                    <div class=informationText>\n                        <div class=prestartTaskActionsContainer>\n                            <div class=workTaskTitle>\n                                <div class=workgridItemActionTitle>{{prestartTask.Name}}</div>\n                                <button class=inputbutton *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitPrestartTask(prestartTask.UUID,true)\">Skip</button>\n                            </div>\n                            <button class=inputbutton\n                                (click)=\"generateTaskObservationComment(prestartTask.UUID,prestartTask.Name)\">Add\n                                comment</button>\n                            <div class=taskItem>{{prestartTask.Information}}</div>\n                            <div class=buttonContainer>\n                                <button class=inputbutton *ngIf=\"makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitPrestartTask(prestartTask.UUID,false)\">Complete</button>\n\n                            </div>\n                        </div>\n                    </div>\n                    <div class=CompletionCodeContainer><img src={{prestartTask.CompletionCode}}></div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=SectionContainerTopTitle>\n        <div class=spanHeaderTitle>Work Execution</div>\n        <div class=TitleSpan>Work Instructions</div>\n        <!--Spans section-->\n        <div class=GridContainer>\n            <div class=WorkExecutionGridTitles>\n                <div class=workGridcolumnTitle>Time</div>\n                <div class=workGridcolumnTitle>Tasks</div>\n                <div class=workGridcolumnTitle>Limits</div>\n                <div class=workGridcolumnTitle>Code</div>\n            </div>\n            <div *ngFor=\"let workTask of currentWorkDocumentData.WorkTasksInformation\">\n                <div id={{workTask.UUID}}\n                    [ngClass]=\"{'workExecutionERRORItemsGrid': workTask.Error, 'WorkTaskGrid': !workTask.Error}\">\n                    <div class=workGridInformationText>{{workTask.Duration}}</div>\n                    <div class=workExecutionTaskContainer>\n                        <div class=workGridItemTitle>{{workTask.Name}}</div>\n                        <!--TODO will need to see what the value of typeOfInput is to determine what to show-->\n                        <div class=workGridItemImage> <img\n                                src=\"https://nks-maintenance.online/Server/public/images/Pictures/image.png\"></div>\n                        <div class=workGridItemInformationContainer>\n                            <div class=worktaskInformation>{{workTask.Information}}</div>\n                            <!--//TODO https://stackoverflow.com/questions/41465542/angular2-input-field-to-accept-only-numbers-->\n                            <input [disabled]=\"inputDisabled\" class=userInput id=\"{{workTask.InputID}}\"\n                                [value]=workTask.SubmittedValue>\n                        </div>\n                        <div class=workGridItemButtonContainer>\n                            <button *ngIf=\"makeSaveValueButtonsAvaliable\" class=workGridInputButton\n                                (click)=\"submitWorkTask(workTask.UUID,workTask.TypeOfInput,false)\">SaveValue</button>\n                            <button class=workGridInputButton *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                (click)=\"submitWorkTask(workTask.UUID,workTask.TypeOfInput,true)\">Skip Task</button>\n                            <button class=workGridInputButton\n                                (click)=\"generateTaskObservationComment(workTask.UUID,workTask.Name)\">Add\n                                comment</button>\n                        </div>\n                    </div>\n                    <div class=limitsGridContainer>\n                        <div class=limitsGrid>\n                            <!--Check if value exists and if does display, High and Low-->\n                            <div class=workGridInformationSubTitle>{{workTask.UnitsTitle}}:</div>\n                            <div class=workGridInformationText *ngIf=\"workTask.Values.High\">\n                                &lt;{{workTask.Values.High}}{{workTask.Units}} </div>\n                            <div class=workGridInformationText *ngIf=\"workTask.Values.Low\">\n                                &gt;{{workTask.Values.Low}}{{workTask.Units}}</div>\n                        </div>\n                    </div>\n                    <div class=workGridCodeContainer>\n                        <div class=CompletionCodeContainer><img src={{workTask.CompletionCode}}></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=SectionContainerTopTitle>\n        <div class=spanHeaderTitle>Work Close-Out</div>\n        <div class=CommentsSectionContainer>\n            <div class=sectionTitle>Comments & General Observations</div>\n            <div class=CommentsContainer>\n                <div class=commentsAndObsGrid *ngFor=\"let comment of overallDocumentComments\">\n                    <div class=Comment>{{comment}}</div>\n                </div>\n\n            </div>\n            <button class=inputbutton (click)=\"generateGeneralObservationComment()\">Add New Comment</button>\n        </div>\n        <div *ngIf=\"currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork\" class=sectionContainer>\n            <div class=sectionTitle>Further Work Required</div>\n            <div class=GridContainer>\n                <div class=futherWorkRequiredGridTitles>\n                    <div class=columnTitle>NotificationCode</div>\n                    <div class=columnTitle>Notification Description</div>\n                    <div class=columnTitle>Completion Code</div>\n                    <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->\n                </div>\n                <div *ngFor=\"let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation\">\n                    <div *ngIf=\"furtherWorkTaskTracker.get(closeOutTask.UUID)\"\n                        [ngClass]=\"{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}\">\n                        <div class=workgridItem>\n                            <div class=notificationInfoContainer>\n                                <input [disabled]=\"inputDisabled\" id={{furtherwork.UUID}}\n                                    [value]=furtherwork.SubmittedValue>\n                                <button *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitFurtherWorkRequired(furtherwork.UUID)\">Save\n                                    Code</button>\n                                <button class=inputbutton\n                                    (click)=\"generateTaskObservationComment(furtherwork.UUID,furtherwork.Name)\">Add\n                                    comment</button>\n                            </div>\n                        </div>\n                        <div class=informationText>{{furtherwork.Information}}</div>\n                        <div class=CompletionCodeContainer><img src={{furtherwork.CompletionCode}}></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div *ngIf=\"currentWorkDocumentData.CloseoutTasksInformation && displayCloseoutTasks\" class=sectionContainer>\n        <div class=sectionTitle>Close-Out Checklist</div>\n        <div class=GridContainer>\n            <div class=closeOutChecklistGridTitles>\n                <div class=columnTitle>Duration(hrs)</div>\n                <div class=columnTitle>Tasks</div>\n                <div class=columnTitle>Completion Code</div>\n            </div>\n\n            <div *ngFor=\"let closeOutTask of currentWorkDocumentData.CloseoutTasksInformation\">\n                <div id={{closeOutTask.Name}}\n                    [ngClass]=\"{'errorTask': closeOutTask.Error, 'closeOutChecklistGrid': !closeOutTask.Error}\">\n\n                    <div class=informationText>{{closeOutTask.duration}}</div>\n                    <div class=workgridItem>\n                        <!--TODO will need a grid style-->\n                        <div class=prestartTaskActionsContainer>\n                            <div class=workTaskTitle>\n                                <div class=workgridItemActionTitle>{{closeOutTask.Name}}</div>\n                                <button class=inputbutton *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitCloseoutTask(closeOutTask.UUID,true)\">Skip</button>\n                            </div>\n                            <div class=taskItem>{{closeOutTask.information}}</div>\n                            <div class=buttonContainer>\n                                <button class=inputbutton *ngIf=\"makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitCloseoutTask(closeOutTask.UUID,false)\">Complete</button>\n                                <button class=inputbutton\n                                    (click)=\"generateTaskObservationComment(closeOutTask.UUID,closeOutTask.Name)\">Add\n                                    comment</button>\n                            </div>\n\n                        </div>\n                    </div>\n                    <div class=CompletionCodeContainer><img src={{closeOutTask.CompletionCode}}></div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=completionSignOff>\n        <!--TODO will need to do others for other submits in section-->\n        <div class=completionSignOffRow>\n            <div class=completionSignOffHeaderTitle>Completion Sign-Off</div>\n            <div class=completionTitles>Technician Name</div>\n            <div class=completionSignOffData>\n                <div>{{currentWorkDocumentData.Technician}}</div>\n                <div class=DIC-SubInformation>{{currentWorkDocumentData.TechnicianPosition}}</div>\n            </div>\n            <div class=completionTitles>Technician Signature</div>\n            <div class=completionSignOffData>\n                <div *ngIf=\"!currentWorkDocumentData.Submitted\">\n                    <button (click)=\"submitSheet()\">Submit</button>\n                    <!--Send technicianID value -->\n                </div>\n                <div *ngIf=\"currentWorkDocumentData.Submitted\">\n                    <img class=signature src=\"\">\n                </div>\n            </div>\n            <!--Have a button with submit that placeholds the signature-->\n            <div class=completionTitles>Completion Timestamp</div>\n            <div class=completionSignOffData>\n                <div>{{currentWorkDocumentData.SubmitDate}}</div>\n            </div>\n        </div>\n        <div class=completionSignOffRow>\n            <div class=completionTitles>Supervisor Name</div>\n            <div class=completionSignOffData>\n                <div>{{currentWorkDocumentData.Reviewer}}</div>\n                <div class=DIC-SubInformation>{{currentWorkDocumentData.ReviewerPosition}}</div>\n            </div>\n            <div class=completionTitles>Supervisor Signature</div>\n            <div class=completionSignOffData>\n                <div *ngIf=\"reviewstate && currentWorkDocumentData.Submitted\">\n                    <button (click)=\"submitReview(true)\">Accept</button>\n                    <button (click)=\"submitReview(false)\">Decline</button>\n                    <!--Send technicianID value -->\n                </div>\n                <div *ngIf=\"reviewstate && currentWorkDocumentData.Submitted\">\n                    <img class=signature src=\"\">\n                </div>\n            </div>\n            <div class=completionTitles>Review Date</div>\n            <div class=completionSignOffData></div>\n            <!--Owner if required due to something not done and signed off by supervisor-->\n        </div>\n        <div class=completionSignOffRow>\n            <div class=completionTitles>Document Owners Name</div>\n            <div class=completionSignOffData></div>\n            <div class=completionTitles>Document Owners Signature</div>\n            <div class=completionSignOffData></div>\n            <div class=completionTitles>Review Date</div>\n            <div class=completionSignOffData></div>\n        </div>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<!--\n    TODO - By defalt hide all images, and have a button to show/hide all up the top and a button by each image to show/hide\n    TODO - load tasks and notifications based on values in worktasks submitted, will be difficult as multiple may result in the same task?\n-->\n<div class=workDocumentContainer *ngIf=\"loadedDocument\">\n    <div class=header>\n        <div class=headLogoContainer>\n            <img src=\"https://nks-maintenance.online/Server/public/images/Logo/NKKReliabilityLogo(White).png\">\n        </div>\n        <div class=documentTitleContainer>\n            <div class=documentType>{{currentWorkDocumentData.Type}}</div>\n            <div class=documentTitle>{{currentWorkDocumentData.Title}}</div>\n            <div class=documentTitleContainerSub>\n                <div class=DTC-Title>Responsible Work Centre:</div>\n                <div class=DTC-Information>{{currentWorkDocumentData.WorkCenter}}</div>\n            </div>\n\n            <div class=documentTitleContainerSub>\n                <div class=DTC-Information>Total Time Required - {{currentWorkDocumentData.TotalDuration}} hours</div>\n\n            </div>\n\n        </div>\n        <div class=documentInformationContainer>\n            <div class=documentInformationContainerSub>\n                <div class=DIC-Title>Document #:</div>\n                <div class=DIC-Information>{{currentWorkDocumentData.SapID}}</div>\n            </div>\n            <div class=documentInformationContainerSub>\n                <div class=DIC-Title>DocumentRevision:</div>\n                <div class=DIC-Information>{{currentWorkDocumentData.Revision}}</div>\n            </div>\n            <div class=documentInformationContainerSub>\n                <div class=DIC-Title>Document Creator:</div>\n                <div class=DIC-Information>{{currentWorkDocumentData.Owner}}</div>\n                <div class=DIC-SubInformation>{{currentWorkDocumentData.OwnerPosition}}</div>\n            </div>\n        </div>\n\n        <div class=documentAccessedContainer>\n            <div class=DAC-Title>Document Accessed:</div>\n            <div class=accessDate>{{currentWorkDocumentData.AccessDate}}</div>\n            <div class=printedWarning>Printed copies of document are uncontrolled</div>\n        </div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Context & Purpose</div>\n        <div class=informationText>{{currentWorkDocumentData.Context}}</div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Completion Codes</div>\n        <div class=GridContainer>\n            <div class=completionCodesGridTitles>\n                <div class=columnTitle>Icon</div>\n                <div class=columnTitle>Completion Code Description</div>\n            </div>\n            <div class=completionCodesTableItemsGrid\n                *ngFor=\"let CodeInformation of currentWorkDocumentData.CompletionCodes\">\n                <div class=CompletionCodeContainer><img src={{CodeInformation.IconHyperLink}}> </div>\n                <div class=informationText>{{CodeInformation.Description}}</div>\n            </div>\n        </div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Authority to Maintain</div>\n        <div class=Container>\n            <div class=authorityToMaintainGridTitles>\n                <div class=columnTitle>Competency</div>\n                <div class=columnTitle>Completion Code</div>\n            </div>\n            <div class=authorityToMaintainItemsGrid\n                *ngFor=\"let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation\">\n                <div class=informationText>{{AuthorityValue.CompetencyInformation}}</div>\n                <div class=informationText>{{AuthorityValue.AuthorityCode}}</div>\n            </div>\n        </div>\n    </div>\n    <div class=sectionContainer>\n        <div class=sectionTitle>Equipment & Materials</div>\n        <div class=GridContainer>\n            <div class=equipmentAndMaterialsGridTitles>\n                <div class=columnTitle>Qty</div>\n                <div class=columnTitle>Information</div>\n                <div class=columnTitle>Material<br>Number</div>\n            </div>\n            <div class=equipmentAndMaterialsItemsGrid\n                *ngFor=\"let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation\">\n                <div class=informationText>{{equipmentMaterialValue.Quantity}}</div>\n                <div class=informationText>{{equipmentMaterialValue.Information}}</div>\n                <div class=informationText>{{equipmentMaterialValue.MaterialNumber}}</div>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"currentWorkDocumentData.PrestartTasksInformation\" class=sectionContainer>\n        <div class=headerTitle>Work Preperation</div>\n        <div class=sectionTitle>Pre-Start Checklist</div>\n        <!--Spans section-->\n        <div class=GridContainer>\n            <div class=prestartTasksGridTitles>\n                <div class=columnTitle>Duration</div>\n                <div class=columnTitle>Tasks</div>\n                <div class=columnTitle>Completion Code</div>\n            </div>\n            <div *ngFor=\"let prestartTask of currentWorkDocumentData.PrestartTasksInformation\">\n                <div id={{prestartTask.UUID}}\n                    [ngClass]=\"{'errorTask': prestartTask.Error, 'prestartTasksItemsGrid': !prestartTask.Error}\">\n                    <div class=informationText>{{prestartTask.Duration}}mins</div>\n                    <div class=informationText>\n                        <div class=prestartTaskActionsContainer>\n                            <div class=workTaskTitle>\n                                <div class=workgridItemActionTitle>{{prestartTask.Name}}</div>\n                                <button class=inputbutton *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitPrestartTask(prestartTask.UUID,true)\">Skip</button>\n                            </div>\n                            <button class=inputbutton\n                                (click)=\"generateTaskObservationComment(prestartTask.UUID,prestartTask.Name)\">Add\n                                comment</button>\n                            <div class=taskItem>{{prestartTask.Information}}</div>\n                            <div class=buttonContainer>\n                                <button class=inputbutton *ngIf=\"makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitPrestartTask(prestartTask.UUID,false)\">Complete</button>\n\n                            </div>\n                        </div>\n                    </div>\n                    <div class=CompletionCodeContainer><img src={{prestartTask.CompletionCode}}></div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=SectionContainerTopTitle>\n        <div class=spanHeaderTitle>Work Execution</div>\n        <div class=TitleSpan>Work Instructions</div>\n        <!--Spans section-->\n        <div class=GridContainer>\n            <div class=WorkExecutionGridTitles>\n                <div class=workGridcolumnTitle>Duration</div>\n                <div class=workGridcolumnTitle>Tasks</div>\n                <div class=workGridcolumnTitle>Limits</div>\n                <div class=workGridcolumnTitle>Completion<br>Code</div>\n            </div>\n            <div *ngFor=\"let workTask of currentWorkDocumentData.WorkTasksInformation\">\n                <div id={{workTask.UUID}}\n                    [ngClass]=\"{'workExecutionERRORItemsGrid': workTask.Error, 'WorkTaskGrid': !workTask.Error}\">\n                    <div class=workGridInformationText>{{workTask.Duration}}mins</div>\n                    <div class=workExecutionTaskContainer>\n                        <div class=workGridItemTitle>&bull; {{workTask.Name}}</div>\n                        <!--TODO will need to see what the value of typeOfInput is to determine what to show-->\n                        <div class=workGridItemImage> <img\n                                src=\"https://nks-maintenance.online/Server/public/images/Pictures/image.png\"></div>\n                        <div class=workGridItemInformationContainer>\n                            <div class=worktaskInformation>{{workTask.Information}}:&nbsp;&nbsp;\n                                <!--//TODO https://stackoverflow.com/questions/41465542/angular2-input-field-to-accept-only-numbers-->\n                                <input [disabled]=\"inputDisabled\" class=worktaskuserInput id=\"{{workTask.InputID}}\"\n                                    [value]=workTask.SubmittedValue></div>\n                        </div>\n                        <div class=workGridItemButtonContainer>\n                            <button *ngIf=\"makeSaveValueButtonsAvaliable\" class=workGridInputButton\n                                (click)=\"submitWorkTask(workTask.UUID,workTask.TypeOfInput,false)\">SaveValue</button>\n                            <div class=workGridButtonSeperator></div>\n                            <button class=workGridInputButton *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                (click)=\"submitWorkTask(workTask.UUID,workTask.TypeOfInput,true)\">Skip Task</button>\n                            <div class=workGridButtonSeperator></div>\n                            <button class=workGridInputButton\n                                (click)=\"generateTaskObservationComment(workTask.UUID,workTask.Name)\">Add\n                                comment</button>\n                        </div>\n                    </div>\n                    <div class=limitsGridContainer>\n                        <div class=limitsGrid>\n                            <!--Check if value exists and if does display, High and Low-->\n                            <div class=workGridInformationSubTitle>{{workTask.UnitsTitle}}:</div>\n                            <div class=workGridInformationText *ngIf=\"workTask.Values.High\">\n                                &lt;{{workTask.Values.High}}{{workTask.Units}} </div>\n                            <div class=workGridInformationText *ngIf=\"workTask.Values.Low\">\n                                &gt;{{workTask.Values.Low}}{{workTask.Units}}</div>\n                        </div>\n                    </div>\n                    <div class=workGridCodeContainer>\n                        <div class=CompletionCodeContainer><img src={{workTask.CompletionCode}}></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=SectionContainerTopTitle>\n        <div class=spanHeaderTitle>Work Close-Out</div>\n        <div class=CommentsSectionContainer>\n            <div class=sectionTitle>Comments &<br>General<br>Observations</div>\n            <div class=CommentsContainer>\n                <div class=commentsAndObsGrid *ngFor=\"let comment of overallDocumentComments\">\n                    <div class=Comment>{{comment}}</div>\n                </div>\n\n            </div>\n            <button class=inputbutton (click)=\"generateGeneralObservationComment()\">Add New Comment</button>\n        </div>\n        <div *ngIf=\"currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork\" class=sectionContainer>\n            <div class=sectionTitle>Further Work Required</div>\n            <div class=GridContainer>\n                <div class=futherWorkRequiredGridTitles>\n                    <div class=columnTitle>NotificationCode</div>\n                    <div class=columnTitle>Notification Description</div>\n                    <div class=columnTitle>Completion<br>Code</div>\n                    <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->\n                </div>\n                <div *ngFor=\"let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation\">\n                    <div *ngIf=\"furtherWorkTaskTracker.get(closeOutTask.UUID)\"\n                        [ngClass]=\"{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}\">\n                        <div class=workgridItem>\n                            <div class=notificationInfoContainer>\n                                <input [disabled]=\"inputDisabled\" id={{furtherwork.UUID}}\n                                    [value]=furtherwork.SubmittedValue>\n                                <button *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitFurtherWorkRequired(furtherwork.UUID)\">Save\n                                    Code</button>\n                                <button class=inputbutton\n                                    (click)=\"generateTaskObservationComment(furtherwork.UUID,furtherwork.Name)\">Add\n                                    comment</button>\n                            </div>\n                        </div>\n                        <div class=informationText>{{furtherwork.Information}}</div>\n                        <div class=CompletionCodeContainer><img src={{furtherwork.CompletionCode}}></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div *ngIf=\"currentWorkDocumentData.CloseoutTasksInformation && displayCloseoutTasks\" class=sectionContainer>\n        <div class=sectionTitle>Close-Out Checklist</div>\n        <div class=GridContainer>\n            <div class=closeOutChecklistGridTitles>\n                <div class=columnTitle>Duration</div>\n                <div class=columnTitle>Tasks</div>\n                <div class=columnTitle>Completion<br>Code</div>\n            </div>\n\n            <div *ngFor=\"let closeOutTask of currentWorkDocumentData.CloseoutTasksInformation\">\n                <div id={{closeOutTask.Name}}\n                    [ngClass]=\"{'errorTask': closeOutTask.Error, 'closeOutChecklistGrid': !closeOutTask.Error}\">\n\n                    <div class=informationText>{{closeOutTask.Duration}}mins</div>\n                    <div class=workgridItem>\n                        <!--TODO will need a grid style-->\n                        <div class=prestartTaskActionsContainer>\n                            <div class=workTaskTitle>\n                                <div class=workgridItemActionTitle>{{closeOutTask.Name}}</div>\n                                <button class=inputbutton *ngIf=\" makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitCloseoutTask(closeOutTask.UUID,true)\">Skip</button>\n                            </div>\n                            <div class=taskItem>{{closeOutTask.information}}</div>\n                            <div class=buttonContainer>\n                                <button class=inputbutton *ngIf=\"makeSaveValueButtonsAvaliable\"\n                                    (click)=\"submitCloseoutTask(closeOutTask.UUID,false)\">Complete</button>\n                                <button class=inputbutton\n                                    (click)=\"generateTaskObservationComment(closeOutTask.UUID,closeOutTask.Name)\">Add\n                                    comment</button>\n                            </div>\n\n                        </div>\n                    </div>\n                    <div class=CompletionCodeContainer><img src={{closeOutTask.CompletionCode}}></div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=completionSignOff>\n        <!--TODO will need to do others for other submits in section-->\n        <div class=completionSignOffRow>\n            <div class=completionSignOffHeaderTitle>Signature</div>\n            <div class=completionTitles>Technician Name</div>\n            <div class=completionSignOffData>\n                <div>{{currentWorkDocumentData.Technician}}</div>\n                <div class=DIC-SubInformation>{{currentWorkDocumentData.TechnicianPosition}}</div>\n            </div>\n            <div class=completionTitles>Signature</div>\n            <div class=completionSignOffData>\n                <div *ngIf=\"!currentWorkDocumentData.Submitted\">\n                    <button (click)=\"submitSheet()\">Submit</button>\n                    <!--Send technicianID value -->\n                </div>\n                <div *ngIf=\"currentWorkDocumentData.Submitted\">\n                    <img class=signature src=\"\">\n                </div>\n            </div>\n            <!--Have a button with submit that placeholds the signature-->\n            <div class=completionTitles>Completion<br>Date</div>\n            <div class=completionSignOffData>\n                <div>{{currentWorkDocumentData.SubmitDate}}</div>\n            </div>\n        </div>\n        <div class=completionSignOffRow>\n            <div class=completionTitles>Supervisor<br>Name</div>\n            <div class=completionSignOffData>\n                <div>{{currentWorkDocumentData.Reviewer}}</div>\n                <div class=DIC-SubInformation>{{currentWorkDocumentData.ReviewerPosition}}</div>\n            </div>\n            <div class=completionTitles>Supervisor<br>Signature</div>\n            <div class=completionSignOffData>\n                <div *ngIf=\"reviewstate && currentWorkDocumentData.Submitted\">\n                    <button (click)=\"submitReview(true)\">Accept</button>\n                    <button (click)=\"submitReview(false)\">Decline</button>\n                    <!--Send technicianID value -->\n                </div>\n                <div *ngIf=\"reviewstate && currentWorkDocumentData.Submitted\">\n                    <img class=signature src=\"\">\n                </div>\n            </div>\n            <div class=completionTitles>Review<br>Date</div>\n            <div class=completionSignOffData></div>\n            <!--Owner if required due to something not done and signed off by supervisor-->\n        </div>\n        <div class=completionSignOffRow>\n            <div class=completionTitles>Owners<br>Name</div>\n            <div class=completionSignOffData></div>\n            <div class=completionTitles>Owners<br>Signature</div>\n            <div class=completionSignOffData></div>\n            <div class=completionTitles>Review<br>Date</div>\n            <div class=completionSignOffData></div>\n        </div>\n    </div>\n</div>";
     /***/
   },
 
@@ -1931,25 +1931,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       function TitleMessageService() {
         _classCallCheck(this, TitleMessageService);
 
-        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.userName = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.displayNavigation = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
       }
 
       _createClass(TitleMessageService, [{
         key: "logginIn",
         value: function logginIn(message) {
-          this.subject.next({
-            text: message
-          });
+          this.userName.next(message);
         }
       }, {
         key: "loggingOut",
         value: function loggingOut() {
-          this.subject.next();
+          this.userName.next();
         }
       }, {
         key: "getMessage",
         value: function getMessage() {
-          return this.subject.asObservable();
+          return this.userName.asObservable();
+        }
+      }, {
+        key: "navigationButtonClicked",
+        value: function navigationButtonClicked() {
+          this.displayNavigation.next();
+        }
+      }, {
+        key: "getDisplayNavigation",
+        value: function getDisplayNavigation() {
+          return this.displayNavigation.asObservable();
         }
       }]);
 
@@ -2889,27 +2898,48 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../Services/TitleMessageService */
+    "./src/app/Services/TitleMessageService.ts");
 
     var AccountDashboardComponent =
     /*#__PURE__*/
     function () {
-      function AccountDashboardComponent(router) {
+      function AccountDashboardComponent(messageService, router) {
+        var _this3 = this;
+
         _classCallCheck(this, AccountDashboardComponent);
 
+        this.messageService = messageService;
         this.router = router;
         this.time = new Date();
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.subscription = this.messageService.getDisplayNavigation().subscribe(function (data) {
+          if (_this3.showNavigationBar) {
+            _this3.showNavigationBar = false;
+            document.getElementById('navbar').style.display = 'none';
+            document.getElementById('dash').style.gridTemplateColumns = '1fr';
+          } else {
+            _this3.showNavigationBar = true;
+            document.getElementById('navbar').style.display = 'grid';
+            document.getElementById('dash').style.gridTemplateColumns = '1fr 4fr';
+          }
+        });
       }
 
       _createClass(AccountDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this3 = this;
+          var _this4 = this;
 
           this.router.navigate(['/dashboard/Welcome']);
           setInterval(function () {
-            _this3.time = new Date();
+            _this4.time = new Date();
           }, 1000);
+          this.showNavigationBar = true;
         }
       }, {
         key: "WelcomeButtonClick",
@@ -2937,15 +2967,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.router.navigate(['/dashboard/Graphics']);
         }
       }, {
-        key: "HideShowClick",
-        value: function HideShowClick() {
-          if (document.getElementById('navbar').style.display === 'none') {
-            document.getElementById('navbar').style.display = 'grid';
-            document.getElementById('dash').style.gridTemplateColumns = '1fr 4fr';
-          } else {
-            document.getElementById('navbar').style.display = 'none';
-            document.getElementById('dash').style.gridTemplateColumns = '1fr';
-          }
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.subscription.unsubscribe();
         }
       }]);
 
@@ -2954,6 +2978,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     AccountDashboardComponent.ctorParameters = function () {
       return [{
+        type: _Services_TitleMessageService__WEBPACK_IMPORTED_MODULE_3__["TitleMessageService"]
+      }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
       }];
     };
@@ -3154,12 +3180,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AvaliableDocumentsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this4 = this;
+          var _this5 = this;
 
           this.HTTPSService.GetAvaliableNewWorkDocumentsRequest().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
-            _this4.avaliableDocuments = data;
+            _this5.avaliableDocuments = data;
           }, function (error) {
-            _this4.errorService.error(error);
+            _this5.errorService.error(error);
           });
         }
       }, {
@@ -3370,7 +3396,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(GraphicsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this5 = this;
+          var _this6 = this;
 
           this.numberofCallBacksLeft = 0;
           this.allDatesSelected = false;
@@ -3378,9 +3404,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           //this.graphMetaData.StartDateDisplayed = null;
 
           this.HTTPSService.GetDocumentsForGraph().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (data) {
-            _this5.documents = data;
+            _this6.documents = data;
           }, function (error) {
-            _this5.errorService.error(error);
+            _this6.errorService.error(error);
           });
           this.lineChartData = [{
             data: []
@@ -3871,7 +3897,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "HTTPSCallForGraphData",
         value: function HTTPSCallForGraphData(requestData) {
-          var _this6 = this;
+          var _this7 = this;
 
           console.log('HTTPSCallForGraphData()');
           this.HTTPSService.GetTaskDataForGraph(requestData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (serverData) {
@@ -3898,10 +3924,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var newDocumentInformation = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedGraphData"]();
                       newDocumentInformation.DocumentUUID = taskEntry.DocumentUUID;
                       var newOrganisedDocumentTasks = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
-                      newOrganisedDocumentTasks.TaskName = _this6.getTaskName(taskEntry);
+                      newOrganisedDocumentTasks.TaskName = _this7.getTaskName(taskEntry);
                       newOrganisedDocumentTasks.TaskUUID = taskEntry.TaskUUID;
                       var newDataEntry = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
-                      newDataEntry.Date = _this6.DateServerToFrontEnd(taskEntry.Date);
+                      newDataEntry.Date = _this7.DateServerToFrontEnd(taskEntry.Date);
                       newDataEntry.Value = taskEntry.SubmittedValue;
                       newOrganisedDocumentTasks.Data.push(newDataEntry);
                       newDocumentInformation.Tasks.push(newOrganisedDocumentTasks);
@@ -3913,12 +3939,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       var _newOrganisedDocumentTasks = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
 
-                      _newOrganisedDocumentTasks.TaskName = _this6.getTaskName(taskEntry);
+                      _newOrganisedDocumentTasks.TaskName = _this7.getTaskName(taskEntry);
                       _newOrganisedDocumentTasks.TaskUUID = taskEntry.TaskUUID;
 
                       var _newDataEntry = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
 
-                      _newDataEntry.Date = _this6.DateServerToFrontEnd(taskEntry.Date);
+                      _newDataEntry.Date = _this7.DateServerToFrontEnd(taskEntry.Date);
                       _newDataEntry.Value = taskEntry.SubmittedValue;
 
                       _newOrganisedDocumentTasks.Data.push(_newDataEntry); //Get existing document Object and add to it
@@ -3956,9 +3982,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       //Document and Task UUIDS. Will need to add in task data ordered by date
                       console.log("Existing Task Found");
 
-                      _this6.addTaskData(taskEntry, newDataToGraph);
+                      _this7.addTaskData(taskEntry, newDataToGraph);
 
-                      _this6.checkMetaDataDates(taskEntry, newGraphMetaData);
+                      _this7.checkMetaDataDates(taskEntry, newGraphMetaData);
                     }
 
                     console.log(taskEntry.TaskUUID);
@@ -3978,8 +4004,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   }
                 }
 
-                _this6.GraphData = newDataToGraph;
-                _this6.graphMetaData = newGraphMetaData;
+                _this7.GraphData = newDataToGraph;
+                _this7.graphMetaData = newGraphMetaData;
                 break;
 
               case src_app_GlobalValues_global_values__WEBPACK_IMPORTED_MODULE_7__["NewTasks"]:
@@ -3994,11 +4020,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     var _taskEntry = _step11.value;
 
                     //TODO look at moving into new functions. Make this a layer of logic instead of doing
-                    if (!_this6.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID)) {
+                    if (!_this7.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID)) {
                       //totally new document
-                      _this6.graphMetaData.DocumentUUIDS.push(_taskEntry.DocumentUUID);
+                      _this7.graphMetaData.DocumentUUIDS.push(_taskEntry.DocumentUUID);
 
-                      _this6.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
+                      _this7.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
 
                       var _newDocumentInformation = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedGraphData"]();
 
@@ -4006,31 +4032,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       var _newOrganisedDocumentTasks2 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
 
-                      _newOrganisedDocumentTasks2.TaskName = _this6.getTaskName(_taskEntry);
+                      _newOrganisedDocumentTasks2.TaskName = _this7.getTaskName(_taskEntry);
                       _newOrganisedDocumentTasks2.TaskUUID = _taskEntry.TaskUUID;
 
                       var _newDataEntry2 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
 
-                      _newDataEntry2.Date = _this6.DateServerToFrontEnd(_taskEntry.Date);
+                      _newDataEntry2.Date = _this7.DateServerToFrontEnd(_taskEntry.Date);
                       _newDataEntry2.Value = _taskEntry.SubmittedValue;
 
                       _newOrganisedDocumentTasks2.Data.push(_newDataEntry2);
 
                       _newDocumentInformation.Tasks.push(_newOrganisedDocumentTasks2);
 
-                      _this6.GraphData.push(_newDocumentInformation);
-                    } else if (_this6.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID) && !_this6.graphMetaData.TaskUUIDS.includes(_taskEntry.TaskUUID)) {
+                      _this7.GraphData.push(_newDocumentInformation);
+                    } else if (_this7.graphMetaData.DocumentUUIDS.includes(_taskEntry.DocumentUUID) && !_this7.graphMetaData.TaskUUIDS.includes(_taskEntry.TaskUUID)) {
                       //new task only.
-                      _this6.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
+                      _this7.graphMetaData.TaskUUIDS.push(_taskEntry.TaskUUID);
 
                       var _newOrganisedDocumentTasks3 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedDocumentTasks"]();
 
-                      _newOrganisedDocumentTasks3.TaskName = _this6.getTaskName(_taskEntry);
+                      _newOrganisedDocumentTasks3.TaskName = _this7.getTaskName(_taskEntry);
                       _newOrganisedDocumentTasks3.TaskUUID = _taskEntry.TaskUUID;
 
                       var _newDataEntry3 = new src_app_GlobalValues_httpObjectInterfaces__WEBPACK_IMPORTED_MODULE_8__["OrganisedTaskData"]();
 
-                      _newDataEntry3.Date = _this6.DateServerToFrontEnd(_taskEntry.Date);
+                      _newDataEntry3.Date = _this7.DateServerToFrontEnd(_taskEntry.Date);
                       _newDataEntry3.Value = _taskEntry.SubmittedValue;
 
                       _newOrganisedDocumentTasks3.Data.push(_newDataEntry3); //Get existing document Object and add to it
@@ -4041,7 +4067,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var _iteratorError12 = undefined;
 
                       try {
-                        for (var _iterator12 = _this6.GraphData[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+                        for (var _iterator12 = _this7.GraphData[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
                           var _document2 = _step12.value;
 
                           if (_document2.DocumentUUID === _taskEntry.DocumentUUID) {
@@ -4066,9 +4092,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     } else {
                       //Document and Task UUIDS. Will need to add in task data ordered by date
-                      _this6.addTaskData(_taskEntry, _this6.GraphData);
+                      _this7.addTaskData(_taskEntry, _this7.GraphData);
 
-                      _this6.checkMetaDataDates(_taskEntry, _this6.graphMetaData);
+                      _this7.checkMetaDataDates(_taskEntry, _this7.graphMetaData);
                     }
 
                     console.log(_taskEntry.TaskUUID);
@@ -4101,9 +4127,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   for (var _iterator13 = serverData.Data[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
                     var _taskEntry2 = _step13.value;
 
-                    _this6.addTaskData(_taskEntry2, _this6.GraphData);
+                    _this7.addTaskData(_taskEntry2, _this7.GraphData);
 
-                    _this6.checkMetaDataDates(_taskEntry2, _this6.graphMetaData);
+                    _this7.checkMetaDataDates(_taskEntry2, _this7.graphMetaData);
 
                     console.log(_taskEntry2.TaskUUID);
                   }
@@ -4126,13 +4152,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             console.log("finished HTTPSCallForGraphData() return");
-            console.log("Current this.DataToGraph = " + JSON.stringify(_this6.GraphData)); //This looks like a race condition, due to using webworkers. BUT each function is atomic so no need for mutex
+            console.log("Current this.DataToGraph = " + JSON.stringify(_this7.GraphData)); //This looks like a race condition, due to using webworkers. BUT each function is atomic so no need for mutex
 
-            if (! --_this6.numberofCallBacksLeft) {
-              _this6.SetupDataForGraph();
+            if (! --_this7.numberofCallBacksLeft) {
+              _this7.SetupDataForGraph();
             }
           }, function (error) {
-            _this6.errorService.error(error);
+            _this7.errorService.error(error);
           });
         }
       }, {
@@ -4724,17 +4750,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(IncompleteDocumentsAvaliableComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this7 = this;
+          var _this8 = this;
 
           this.HTTPSService.GetAvaliableIncompleteDocumentRequest().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
-            _this7.avaliableDocuments = data;
+            _this8.avaliableDocuments = data;
 
-            _this7.avaliableDocuments.forEach(function (document) {
-              document.DateCreated = _this7.DateServerToFrontEnd(document.DateCreated.toString());
-              document.DateLastModified = _this7.DateServerToFrontEnd(document.DateLastModified.toString());
+            _this8.avaliableDocuments.forEach(function (document) {
+              document.DateCreated = _this8.DateServerToFrontEnd(document.DateCreated.toString());
+              document.DateLastModified = _this8.DateServerToFrontEnd(document.DateLastModified.toString());
             });
           }, function (error) {
-            _this7.errorService.error(error);
+            _this8.errorService.error(error);
           });
         }
       }, {
@@ -4889,12 +4915,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ReviewComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this8 = this;
+          var _this9 = this;
 
           this.HTTPSService.GetAvaliableReviewDocuments().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
-            _this8.avaliableDocuments = data;
+            _this9.avaliableDocuments = data;
           }, function (error) {
-            _this8.errorService.error(error);
+            _this9.errorService.error(error);
           });
         }
       }, {
@@ -5556,7 +5582,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function ErrorMessageService(router) {
-        var _this9 = this;
+        var _this10 = this;
 
         _classCallCheck(this, ErrorMessageService);
 
@@ -5565,11 +5591,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.keepAfterNavigationChange = false;
         router.events.subscribe(function (event) {
           if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
-            if (_this9.keepAfterNavigationChange) {
+            if (_this10.keepAfterNavigationChange) {
               // only keep for a single location change
-              _this9.keepAfterNavigationChange = false;
+              _this10.keepAfterNavigationChange = false;
             } else {
-              _this9.subject.next();
+              _this10.subject.next();
             }
           }
         });
@@ -5685,10 +5711,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ErrorMessagesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this10 = this;
+          var _this11 = this;
 
           this.subscription = this.errorMessageService.getMessage().subscribe(function (message) {
-            _this10.message = message;
+            _this11.message = message;
           });
         }
       }, {
@@ -5825,7 +5851,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "resetPasswordButtonClick",
         value: function resetPasswordButtonClick() {
-          var _this11 = this;
+          var _this12 = this;
 
           this.submitted = true;
 
@@ -5834,12 +5860,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           this.HTTPSService.ForgotPasswordRequest(this.form.controls.username.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (data) {
-            _this11.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
+            _this12.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
             setTimeout(function () {
-              _this11.router.navigate(['/login']);
+              _this12.router.navigate(['/login']);
             }, 5000);
           }, function (error) {
-            return _this11.errorService.error(error);
+            return _this12.errorService.error(error);
           });
         }
       }, {
@@ -6004,7 +6030,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loginButtonClick",
         value: function loginButtonClick() {
-          var _this12 = this;
+          var _this13 = this;
 
           this.submitted = true; // stop here if form is invalid
 
@@ -6013,12 +6039,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           this.authenticatorService.login(this.form.controls.username.value, this.form.controls.password.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (data) {
-            _this12.userdata.userDataAvaliable(true); //Use this to instead set the banner/toolbar at the top to the name
+            _this13.userdata.userDataAvaliable(true); //Use this to instead set the banner/toolbar at the top to the name
 
 
-            _this12.router.navigate(['/']);
+            _this13.router.navigate(['/']);
           }, function (error) {
-            return _this12.errorService.error(error);
+            return _this13.errorService.error(error);
           });
         }
       }, {
@@ -6080,7 +6106,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".TitleArea{\r\n    display: grid;\r\n    grid-template-columns: 150px auto 200px;\r\n    width: 100%;\r\n    background-color: black;\r\n}\r\n\r\n.Title{\r\n    text-align: center;\r\n    line-height:50px;\r\n    color: white;\r\nfont-size: calc(16px + 1vw)\r\n}\r\n\r\n.Logo{\r\n    line-height:50px;\r\n    height: 50px;\r\n}\r\n\r\n.UserInformation{\r\n    line-height:50px;\r\n    color: white;\r\n    font-size: 15px;\r\n    text-align: right;\r\n    padding-right: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9nby1hbmQtdGl0bGUvbG9nby1hbmQtdGl0bGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7SUFDYix1Q0FBdUM7SUFDdkMsV0FBVztJQUNYLHVCQUF1QjtBQUMzQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixnQkFBZ0I7SUFDaEIsWUFBWTtBQUNoQjtBQUNBOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsWUFBWTtJQUNaLGVBQWU7SUFDZixpQkFBaUI7SUFDakIsbUJBQW1CO0FBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvbG9nby1hbmQtdGl0bGUvbG9nby1hbmQtdGl0bGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5UaXRsZUFyZWF7XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxNTBweCBhdXRvIDIwMHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLlRpdGxle1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgbGluZS1oZWlnaHQ6NTBweDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuZm9udC1zaXplOiBjYWxjKDE2cHggKyAxdncpXHJcbn1cclxuXHJcbi5Mb2dve1xyXG4gICAgbGluZS1oZWlnaHQ6NTBweDtcclxuICAgIGhlaWdodDogNTBweDtcclxufVxyXG5cclxuLlVzZXJJbmZvcm1hdGlvbntcclxuICAgIGxpbmUtaGVpZ2h0OjUwcHg7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7XHJcbn0iXX0= */";
+    __webpack_exports__["default"] = ".TitleArea{\r\n    display: grid;\r\n    grid-template-columns: 1fr 3fr 1fr 1fr;\r\n    width: 100%;\r\n    background-color: black;\r\n}\r\n\r\n.Title{\r\n    text-align: center;\r\n    line-height:50px;\r\n    color: white;\r\nfont-size: calc(16px + 1vw)\r\n}\r\n\r\n.Logo{\r\n    line-height:50px;\r\n    height: 50px;\r\n}\r\n\r\n.UserInformation{\r\n    line-height:50px;\r\n    color: white;\r\n    font-size: 15px;\r\n    text-align: right;\r\n    padding-right: 10px;\r\n}\r\n\r\n.navigation{\r\n        height: 50px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9nby1hbmQtdGl0bGUvbG9nby1hbmQtdGl0bGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7SUFDYixzQ0FBc0M7SUFDdEMsV0FBVztJQUNYLHVCQUF1QjtBQUMzQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixnQkFBZ0I7SUFDaEIsWUFBWTtBQUNoQjtBQUNBOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsWUFBWTtJQUNaLGVBQWU7SUFDZixpQkFBaUI7SUFDakIsbUJBQW1CO0FBQ3ZCOztBQUVBO1FBQ1EsWUFBWTtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2xvZ28tYW5kLXRpdGxlL2xvZ28tYW5kLXRpdGxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuVGl0bGVBcmVhe1xyXG4gICAgZGlzcGxheTogZ3JpZDtcclxuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDNmciAxZnIgMWZyO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLlRpdGxle1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgbGluZS1oZWlnaHQ6NTBweDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuZm9udC1zaXplOiBjYWxjKDE2cHggKyAxdncpXHJcbn1cclxuXHJcbi5Mb2dve1xyXG4gICAgbGluZS1oZWlnaHQ6NTBweDtcclxuICAgIGhlaWdodDogNTBweDtcclxufVxyXG5cclxuLlVzZXJJbmZvcm1hdGlvbntcclxuICAgIGxpbmUtaGVpZ2h0OjUwcHg7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7XHJcbn1cclxuXHJcbi5uYXZpZ2F0aW9ue1xyXG4gICAgICAgIGhlaWdodDogNTBweDtcclxufSJdfQ== */";
     /***/
   },
 
@@ -6144,7 +6170,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function LogoAndTitleComponent(messageService, router, authenticatorService) {
-        var _this13 = this;
+        var _this14 = this;
 
         _classCallCheck(this, LogoAndTitleComponent);
 
@@ -6157,12 +6183,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.title = 'Document Manager Application';
         this.subscription = this.messageService.getMessage().subscribe(function (message) {
           if (message) {
-            _this13.username = message.text;
-            _this13.loggedIn = true;
+            _this14.username = message;
+            _this14.loggedIn = true;
           } else {
             // clear messages when empty message received
-            _this13.username = '';
-            _this13.loggedIn = false;
+            _this14.username = '';
+            _this14.loggedIn = false;
           }
         });
       } //TODO will need a service with login information etc for displaying
@@ -6173,6 +6199,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnInit() {
           this.environment = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].environemnt;
           this.loggedIn = false;
+          this.trackingNavigationState = true;
+        }
+      }, {
+        key: "NavigationClick",
+        value: function NavigationClick() {
+          this.messageService.navigationButtonClicked();
+
+          if (this.trackingNavigationState) {
+            this.trackingNavigationState = false;
+          } else {
+            this.trackingNavigationState = true;
+          }
         }
       }, {
         key: "logout",
@@ -6338,7 +6376,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "registerAccountButtonClick",
         value: function registerAccountButtonClick() {
-          var _this14 = this;
+          var _this15 = this;
 
           this.submitted = true; //Check information is invalid, if so display errors and stop
 
@@ -6352,12 +6390,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               sapID: this.form.controls.sapID.value
             };
             this.HTTPSService.RegisterAccountRequest(info).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (data) {
-              _this14.feedbackinfo = 'Success! \n The request is being reviewed. You will recieve an email (' + _this14.form.controls.username.value + ') Returning you to login screen in 5 seconds';
+              _this15.feedbackinfo = 'Success! \n The request is being reviewed. You will recieve an email (' + _this15.form.controls.username.value + ') Returning you to login screen in 5 seconds';
               setTimeout(function () {
-                _this14.router.navigate(['/login']);
+                _this15.router.navigate(['/login']);
               }, 5000);
             }, function (error) {
-              _this14.errorService.error(error);
+              _this15.errorService.error(error);
             });
           }
         }
@@ -6651,7 +6689,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "resetPasswordButtonClick",
         value: function resetPasswordButtonClick() {
-          var _this15 = this;
+          var _this16 = this;
 
           this.submitted = true; //Check information is invalid, if so display errors and stop
 
@@ -6659,12 +6697,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             return;
           } else {
             this.HTTPSService.ResetPasswordRequest(this.form.controls.username.value, this.form.controls.password.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (data) {
-              _this15.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
+              _this16.feedbackinfo = 'Success! \n An email has been sent to: ' + data.data + ' Returning you to login screen in 5 seconds';
               setTimeout(function () {
-                _this15.router.navigate(['/login']);
+                _this16.router.navigate(['/login']);
               }, 5000);
             }, function (error) {
-              return _this15.errorService.error(error);
+              return _this16.errorService.error(error);
             });
           }
         }
@@ -6875,7 +6913,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "/*TODO need to play with vmin/wmin -> bind all values to vw and then add scaling for width*/\r\n\r\n.workDocumentContainer {\r\n  display: grid;\r\n  text-align: center;\r\n  padding: .5%;\r\n  gap: .5vw;\r\n  font-size: 1.5vw;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.headerTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vw;\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 3;\r\n}\r\n\r\n.Title {\r\n  background-color: var(--secondary-bg-color);\r\n  font-size: 2vw;\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.GridContainer {\r\n  height: 100%;\r\n  display: grid;\r\n  grid-template-rows: 1fr auto;\r\n  text-align: left;\r\n}\r\n\r\n.gridTitle {\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: left;\r\n      -ms-flex-pack: left;\r\n          justify-content: left;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  font-size: 1.8vw;\r\n}\r\n\r\n.checkboxgridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  background-color: white;\r\n}\r\n\r\n.checkboxgridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2.0vw;\r\n\r\n}\r\n\r\ninput[type=checkbox] {\r\n  height: 2vw;\r\n  width: 2vw;\r\n}\r\n\r\n.workgridItemActionTitle {\r\n  font-weight: bold;\r\n  font-size: 1.7vw;\r\n}\r\n\r\n.workTaskTitle {\r\n  display: grid;\r\n  grid-template-columns: auto auto;\r\n}\r\n\r\n.buttonContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  -webkit-column-gap: 1%;\r\n     -moz-column-gap: 1%;\r\n          column-gap: 1%;\r\n  ;\r\n}\r\n\r\n.inputbutton {\r\n  height: auto;\r\n  width: -webkit-min-content;\r\n  width: -moz-min-content;\r\n  width: min-content;\r\n  font-size: 1vw;\r\n  text-align: center;\r\n  background-color: lightblue;\r\n}\r\n\r\n.context {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.contextContent {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  height: 100%;\r\n  text-align: left;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.completionCodes {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.completionCodesGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 3.5fr;\r\n}\r\n\r\n.completionCodesTableItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr);\r\n}\r\n\r\n.authorityToMaintain {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.authorityToMaintainGridTitles {\r\n  display: grid;\r\n  grid-template-columns: 3fr 1fr;\r\n}\r\n\r\n.authorityToMaintainItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 3fr 1fr);\r\n}\r\n\r\n.equipmentAndMaterials {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.equipmentAndMaterialsGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr 1fr;\r\n}\r\n\r\n.equipmentAndMaterialsItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 2.5fr 1fr);\r\n}\r\n\r\n.workPreperation {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.prestartTasksItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.errorTask {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n  background-color: #FFCCCC;\r\n}\r\n\r\n.prestartTaskActionsContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.taskInputContainer {\r\n  display: grid;\r\n  grid-template-columns: auto;\r\n}\r\n\r\n.workExecution {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-bottom: 1px solid black;\r\n  border-top: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n}\r\n\r\n.workExecutionERRORItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n  background-color: #FFCCCC;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  border-bottom: -1px solid black;\r\n}\r\n\r\n.taskInputFlexContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: row;\r\n          flex-direction: row;\r\n  width: 100%;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.taskInputGridContainer {\r\n  display: grid;\r\n  grid-template-columns: auto auto auto;\r\n}\r\n\r\n.limitsGrid {\r\n  display: grid;\r\n  row-gap: .5vw;\r\n}\r\n\r\n.workCloseOut {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n  row-gap: .5vw;\r\n}\r\n\r\n.commentsAndObsContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.commentsGridContainer {\r\n  display: grid;\r\n}\r\n\r\n.commentsAndObsGrid {\r\n  display: grid;\r\n  grid-template-columns: 4fr;\r\n  grid-template-rows: auto;\r\n}\r\n\r\n.commentsAndGeneralObsInput {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.addcommentContainer {\r\n  display: grid;\r\n  grid-template-columns: 3.5fr .5fr;\r\n}\r\n\r\n.furtherWorkRequiredContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.futherWorkRequiredGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.futherWorkRequiredItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.futherWorkRequiredItemsERRORGrid {\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n  background-color: #FFCCCC;\r\n}\r\n\r\n.closeOutChecklistContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.notificationInformationContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr;\r\n}\r\n\r\n.closeOutChecklistGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.closeOutChecklistGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.completionSignOffName {\r\n  display: grid;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffSignature {\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffTimeStamp {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.signature{\r\n  width:auto;\r\n  height: 8vw;\r\n}\r\n\r\n/* New CSS 2020*/\r\n\r\n/*TODO will need to account for padding with borders etc*/\r\n\r\n.informationText{\r\n  line-height: calc(15px + 1.5vw);\r\n  font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  background-color:white;\r\n\r\n  padding-left: 5px;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.sectionTitle{\r\n  font-size: calc(5px + 1.5vw);\r\n  color: black;\r\n  font-weight: bold;\r\n}\r\n\r\n.sectionTitleContainer{\r\n    height: auto;\r\n  text-align: center;\r\n}\r\n\r\n.sectionContainer{\r\n  background-color: var(--secondary-bg-color);\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  outline:solid;\r\n}\r\n\r\n.columnTitle{\r\n  font-weight: bold;\r\n  height: 100%;\r\n  text-align: left;\r\n  background-color:white;\r\n  font-size: calc(3px + 1.5vw);\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n    padding-left: 5px;\r\n}\r\n\r\n.CommentsSectionContainer{\r\n  display: grid;\r\n  background-color: var(--secondary-bg-color);\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3.5fr .5fr;\r\n}\r\n\r\n.workGridCodeContainer{\r\n  height: 100%;\r\n  display: grid;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  text-align: center;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.CompletionCodeContainer{\r\nbackground-color:white;\r\n}\r\n\r\n.CompletionCodeContainer img{\r\n  height: 2.0vw;\r\n}\r\n\r\n.PrestartTaskGrid{\r\n\r\n}\r\n\r\n.FurtherWorkRequiredGrid{\r\n\r\n}\r\n\r\n.CloseOutTaskGrid{\r\n  \r\n}\r\n\r\n.completionCodesGridTitles{\r\nborder-bottom: 1px solid black;\r\n}\r\n\r\n.authorityToMaintainGridTitles{\r\nborder-bottom: 1px solid black;\r\n}\r\n\r\n.equipmentAndMaterialsGridTitles{\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.prestartTasksGridTitles{\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.SectionContainerTopTitle{\r\n    display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  outline:solid;\r\n}\r\n\r\n.TitleSpan{\r\n    background-color: var(--secondary-bg-color);\r\n  font-size: 2vw;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  height: 100%;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.GridContainer{\r\n  display: grid;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.WorkExecutionGridTitles{\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr .5fr .5fr;\r\n  text-align: center;\r\n}\r\n\r\n.WorkTaskGrid{\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr .5fr .5fr;\r\n}\r\n\r\n.workGridcolumnTitle{\r\n    font-weight: bold;\r\n  height: 100%;\r\n  text-align: left;\r\n  background-color:white;\r\n  font-size: calc(3px + 1.5vw);\r\n  border-bottom: 1px solid black;\r\nborder-left: 1px solid black;\r\n  padding-left: 5px;\r\n}\r\n\r\n.workGridcolumnTitle:first-child{\r\n  border-left: none;\r\n}\r\n\r\n.limitsGridContainer{\r\n  height: 100%;\r\n  border-left: 1px solid black;\r\n  display: grid;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.limitsGrid{\r\n  display: grid;\r\n  vertical-align: middle;\r\n}\r\n\r\n.workGridInformationText{\r\n    font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  padding-left: 5px;\r\n\r\n}\r\n\r\n.workGridInformationSubTitle{\r\n  font-weight: bold;\r\n      font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  padding-left: 5px;\r\n}\r\n\r\n.workExecutionTaskContainer{\r\n  display: grid;\r\n  grid-template-rows: auto auto auto auto;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.workGridItemTitle{\r\n  text-align: center;\r\n    font-weight: bold;\r\n  height: 100%;\r\n  text-align: center;\r\n  font-size: calc(3px + 1.5vw);\r\n\r\n}\r\n\r\n.workGridItemImage{\r\n  -ms-flex-item-align: center;\r\n      align-self: center;\r\n\r\n}\r\n\r\n.workGridItemImage img{\r\n width: 40vw;\r\n padding-left: 5px;\r\n}\r\n\r\n.workGridItemInformationContainer{\r\n\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\npadding-bottom: 5px;\r\npadding-left: 5px;\r\n}\r\n\r\n.userInput {\r\n  background-color: var(--input-bg-color);\r\n  height: calc(3px + 1.5vw);\r\n  width: 10vw;\r\n  font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n}\r\n\r\n.worktaskInformation{\r\n    font-size: calc(3px + 1.5vw);\r\n    text-align: right;\r\n}\r\n\r\n.workGridItemButtonContainer{\r\n    display: grid;\r\ngrid-template-columns: 1fr 1fr 1fr; \r\npadding-bottom: 5px;\r\npadding-left: 5px;\r\n}\r\n\r\n.workGridInputButton{\r\n  font-size: calc(3px + 1.5vw);\r\n  text-align: center;\r\n  width: -webkit-fit-content;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n  background-color: lightblue;\r\n}\r\n\r\n.workCloseOut{\r\n    outline:solid;\r\n}\r\n\r\n.spanHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: calc(20px + 1.5vw);\r\n  font-weight: 900;\r\n  text-align: center;\r\n}\r\n\r\n.CommentsContainer{\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n  height: 100%;\r\n  background-color: white;\r\n}\r\n\r\n.Comment{\r\n    font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  background-color:white;\r\n\r\n  padding-left: 5px;\r\n\r\n}\r\n\r\n.completionSignOff{\r\n  background-color: var(--secondary-bg-color);\r\n  outline:solid;\r\n  display: grid;\r\n  grid-template-rows: 5fr;\r\n  grid-template-rows: auto;\r\n}\r\n\r\n.completionSignOffHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: calc(20px + 1.5vw);\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 7;\r\n}\r\n\r\n.completionSignOffRow {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n}\r\n\r\n.completionSignOffData{\r\n    background-color: white;\r\n      border-bottom: 1px solid black;\r\n}\r\n\r\n.completionTitles{\r\n    font-size: calc(5px + 1.5vw);\r\n  color: black;\r\n  font-weight: bold;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n/*Header*/\r\n\r\n.header {\r\n  background-color: var(--main-bg-color);\r\n  outline:solid;\r\n  color: white;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr 1fr;\r\n  grid-template-rows: 3fr 0.2fr;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.headLogoContainer{\r\n  border-right: 1px solid white;\r\n}\r\n\r\n.logoConheadLogoContainertainer img {\r\n  width: 100%;\r\n}\r\n\r\n.DIC-Title {\r\n  font-weight: bold;\r\n  font-size: calc(1px + 1.0vw);\r\n}\r\n\r\n.DIC-Information {\r\n  font-size: calc(1px + 1.0vw);\r\n  text-align: center;\r\n}\r\n\r\n.documentTitleContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n}\r\n\r\n.documentTitleContainerSub {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n.documentTitle {\r\n  font-weight: 900;\r\n  font-size: 3vw;\r\n}\r\n\r\n.documentType {\r\n  font-weight: bold;\r\n  font-size: 2vw;\r\n}\r\n\r\n.DTC-Title {\r\n  font-weight: bold;\r\n  font-size: 1.5vw;\r\n}\r\n\r\n.DTC-Information {\r\n  font-size: 1.5vw;\r\n  text-align: left;\r\n  padding-left: 4px;\r\n}\r\n\r\n.documentInformationContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  text-align: left;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n  border-left: 1px solid white;\r\n}\r\n\r\n.DIC-SubInformation {\r\n  font-size: 1vw;\r\n  font-style: italic;\r\n}\r\n\r\n.documentAccessedContainer {\r\n  grid-column: 1/5;\r\n  color: black;\r\n  background-color: var(--secondary-bg-color);\r\n  display: grid;\r\n  grid-template-columns: auto 3fr auto;\r\n  font-size: 1.2vw;\r\n}\r\n\r\n.DAC-Title {\r\n  font-weight: bold;\r\n  padding-left: 1px;\r\n}\r\n\r\n.accessDate {\r\n  text-align: left;\r\n}\r\n\r\n.printedWarning {\r\n  text-align: right;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvd29yay1kb2N1bWVudC93b3JrLWRvY3VtZW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsMkZBQTJGOztBQUUzRjtFQUNFLGFBQWE7RUFDYixrQkFBa0I7RUFDbEIsWUFBWTtFQUNaLFNBQVM7RUFDVCxnQkFBZ0I7RUFDaEIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLDJDQUEyQztFQUMzQyxjQUFjO0VBQ2QsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0FBQ3pCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYiw0QkFBNEI7RUFDNUIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHNCQUFxQjtNQUFyQixtQkFBcUI7VUFBckIscUJBQXFCO0VBQ3JCLDRCQUE0QjtFQUM1Qiw4QkFBOEI7RUFDOUIsZ0JBQWdCO0FBQ2xCOztBQUtBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7RUFDWCxvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHVCQUF1QjtBQUN6Qjs7QUFFQTtFQUNFLGVBQWU7RUFDZixXQUFXO0VBQ1gsYUFBYTs7QUFFZjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxVQUFVO0FBQ1o7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLGdDQUFnQztBQUNsQzs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsc0JBQWM7S0FBZCxtQkFBYztVQUFkLGNBQWM7O0FBRWhCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLDBCQUFrQjtFQUFsQix1QkFBa0I7RUFBbEIsa0JBQWtCO0VBQ2xCLGNBQWM7RUFDZCxrQkFBa0I7RUFDbEIsMkJBQTJCO0FBQzdCOztBQU9BO0VBQ0UseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLG9CQUFhO0VBQWIsb0JBQWE7RUFBYixhQUFhO0VBQ2IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQiw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSx5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLGlDQUFpQztBQUNuQzs7QUFFQTtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsNENBQTRDO0FBQzlDOztBQUVBO0VBQ0UseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7QUFDaEM7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLHlDQUF5QztBQUMzQzs7QUFFQTtFQUNFLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IscUNBQXFDO0FBQ3ZDOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHdCQUF3QjtFQUN4QixnREFBZ0Q7QUFDbEQ7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLDZCQUE2QjtFQUM3Qix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsK0NBQStDO0FBQ2pEOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHdCQUF3QjtFQUN4QiwrQ0FBK0M7RUFDL0MseUJBQXlCO0FBQzNCOztBQUVBO0VBQ0Usb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYiw0QkFBc0I7RUFBdEIsNkJBQXNCO01BQXRCLDBCQUFzQjtVQUF0QixzQkFBc0I7RUFDdEIsV0FBVztBQUNiOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDJCQUEyQjtBQUM3Qjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwwQkFBMEI7RUFDMUIsa0NBQWtDO0VBQ2xDLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLDhCQUE4QjtFQUM5QiwyQkFBMkI7RUFDM0IsNkJBQTZCO0FBQy9COztBQU1BO0VBQ0Usa0JBQWtCO0VBQ2xCLDBCQUFxQjtNQUFyQixxQkFBcUI7RUFDckIsYUFBYTtFQUNiLHdCQUF3QjtFQUN4Qix3REFBd0Q7QUFDMUQ7O0FBRUE7RUFDRSxrQkFBa0I7RUFDbEIsMEJBQXFCO01BQXJCLHFCQUFxQjtFQUNyQixhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLHdEQUF3RDtFQUN4RCx5QkFBeUI7QUFDM0I7O0FBRUE7RUFDRSwrQkFBK0I7QUFDakM7O0FBRUE7RUFDRSxvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLDhCQUFtQjtFQUFuQiw2QkFBbUI7TUFBbkIsdUJBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixXQUFXO0VBQ1gsd0JBQXVCO01BQXZCLHFCQUF1QjtVQUF2Qix1QkFBdUI7QUFDekI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IscUNBQXFDO0FBQ3ZDOztBQUVBO0VBQ0UsYUFBYTtFQUNiLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwwQkFBMEI7RUFDMUIsd0JBQXdCO0VBQ3hCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0VBQ25CLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsd0JBQXdCO0VBQ3hCLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtBQUNmOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDBCQUEwQjtFQUMxQix3QkFBd0I7QUFDMUI7O0FBRUE7RUFDRSw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsaUNBQWlDO0FBQ25DOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5Qix3QkFBd0I7RUFDeEIseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsYUFBYTtFQUNiLG9DQUFvQztBQUN0Qzs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQiwwQkFBcUI7TUFBckIscUJBQXFCO0VBQ3JCLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsK0NBQStDO0FBQ2pEOztBQUVBO0VBQ0UsYUFBYTtFQUNiLG9DQUFvQztFQUNwQyx5QkFBeUI7QUFDM0I7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLHdCQUF3QjtFQUN4Qix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7QUFDaEM7O0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsYUFBYTtFQUNiLG9DQUFvQztBQUN0Qzs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQiwwQkFBcUI7TUFBckIscUJBQXFCO0VBQ3JCLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsK0NBQStDO0FBQ2pEOztBQVFBO0VBQ0UsYUFBYTtFQUNiLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLDRCQUE0QjtFQUM1Qiw2QkFBNkI7QUFDL0I7O0FBRUE7RUFDRSw0QkFBNEI7RUFDNUIsNkJBQTZCO0FBQy9COztBQUVBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUNBO0VBQ0UsVUFBVTtFQUNWLFdBQVc7QUFDYjs7QUFJQSxnQkFBZ0I7O0FBQ2hCLHlEQUF5RDs7QUFDekQ7RUFDRSwrQkFBK0I7RUFDL0IsNEJBQTRCO0VBQzVCLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsc0JBQXNCOztFQUV0QixpQkFBaUI7RUFDakIsNEJBQTRCO0FBQzlCOztBQUVBO0VBQ0UsNEJBQTRCO0VBQzVCLFlBQVk7RUFDWixpQkFBaUI7QUFDbkI7O0FBRUE7SUFDSSxZQUFZO0VBQ2Qsa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0UsMkNBQTJDO0lBQ3pDLHlCQUFtQjtRQUFuQixzQkFBbUI7WUFBbkIsbUJBQW1CO0VBQ3JCLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsYUFBYTtBQUNmOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsc0JBQXNCO0VBQ3RCLDRCQUE0QjtFQUM1Qiw0QkFBNEI7RUFDNUIsOEJBQThCO0lBQzVCLGlCQUFpQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwyQ0FBMkM7RUFDM0MseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLHFDQUFxQztBQUN2Qzs7QUFFQTtFQUNFLFlBQVk7RUFDWixhQUFhO0VBQ2IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsa0JBQWtCO0VBQ2xCLDRCQUE0QjtBQUM5Qjs7QUFFQTtBQUNBLHNCQUFzQjtBQUN0Qjs7QUFFQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTs7QUFFQTs7QUFJQTs7QUFFQTs7QUFFQTs7QUFFQTs7QUFFQTtBQUNBLDhCQUE4QjtBQUM5Qjs7QUFFQTtBQUNBLDhCQUE4QjtBQUM5Qjs7QUFFQTtFQUNFLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGFBQWE7RUFDYixvQ0FBb0M7RUFDcEMsOEJBQThCO0FBQ2hDOztBQUVBO0lBQ0ksYUFBYTtFQUNmLDBCQUEwQjtFQUMxQixrQ0FBa0M7RUFDbEMseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsYUFBYTtBQUNmOztBQUVBO0lBQ0ksMkNBQTJDO0VBQzdDLGNBQWM7RUFDZCxpQkFBaUI7RUFDakIsa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWiw4QkFBOEI7QUFDaEM7O0FBRUE7RUFDRSxhQUFhO0VBQ2IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7QUFDckI7O0FBS0E7RUFDRSxhQUFhO0VBQ2IsMkNBQTJDO0VBQzNDLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYiwyQ0FBMkM7QUFDN0M7O0FBRUE7SUFDSSxpQkFBaUI7RUFDbkIsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixzQkFBc0I7RUFDdEIsNEJBQTRCO0VBQzVCLDhCQUE4QjtBQUNoQyw0QkFBNEI7RUFDMUIsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsWUFBWTtFQUNaLDRCQUE0QjtFQUM1QixhQUFhO0VBQ2IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0FBQ3hCOztBQUVBO0lBQ0ksNEJBQTRCO0VBQzlCLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsaUJBQWlCOztBQUVuQjs7QUFFQTtFQUNFLGlCQUFpQjtNQUNiLDRCQUE0QjtFQUNoQyxZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLGFBQWE7RUFDYix1Q0FBdUM7RUFDdkMsNEJBQTRCO0FBQzlCOztBQUVBO0VBQ0Usa0JBQWtCO0lBQ2hCLGlCQUFpQjtFQUNuQixZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLDRCQUE0Qjs7QUFFOUI7O0FBQ0E7RUFDRSwyQkFBa0I7TUFBbEIsa0JBQWtCOztBQUVwQjs7QUFDQTtDQUNDLFdBQVc7Q0FDWCxpQkFBaUI7QUFDbEI7O0FBRUE7O0VBRUUsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQyxtQkFBbUI7QUFDbkIsaUJBQWlCO0FBQ2pCOztBQUdBO0VBQ0UsdUNBQXVDO0VBQ3ZDLHlCQUF5QjtFQUN6QixXQUFXO0VBQ1gsNEJBQTRCO0VBQzVCLFlBQVk7QUFDZDs7QUFDQTtJQUNJLDRCQUE0QjtJQUM1QixpQkFBaUI7QUFDckI7O0FBRUE7SUFDSSxhQUFhO0FBQ2pCLGtDQUFrQztBQUNsQyxtQkFBbUI7QUFDbkIsaUJBQWlCO0FBQ2pCOztBQUVBO0VBQ0UsNEJBQTRCO0VBQzVCLGtCQUFrQjtFQUNsQiwwQkFBa0I7RUFBbEIsdUJBQWtCO0VBQWxCLGtCQUFrQjtFQUNsQiwyQkFBMkI7QUFDN0I7O0FBQ0E7SUFDSSxhQUFhO0FBQ2pCOztBQUdBO0VBQ0Usc0NBQXNDO0VBQ3RDLFlBQVk7RUFDWiw2QkFBNkI7RUFDN0IsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLDRCQUE0QjtFQUM1Qiw2QkFBNkI7RUFDN0IsWUFBWTtFQUNaLHVCQUF1QjtBQUN6Qjs7QUFDQTtJQUNJLDRCQUE0QjtFQUM5QixZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLHNCQUFzQjs7RUFFdEIsaUJBQWlCOztBQUVuQjs7QUFFQTtFQUNFLDJDQUEyQztFQUMzQyxhQUFhO0VBQ2IsYUFBYTtFQUNiLHVCQUF1QjtFQUN2Qix3QkFBd0I7QUFDMUI7O0FBQ0E7RUFDRSxzQ0FBc0M7RUFDdEMsWUFBWTtFQUNaLDZCQUE2QjtFQUM3QixnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQjs7QUFDQTtFQUNFLGFBQWE7RUFDYixnREFBZ0Q7QUFDbEQ7O0FBRUE7SUFDSSx1QkFBdUI7TUFDckIsOEJBQThCO0FBQ3BDOztBQUVBO0lBQ0ksNEJBQTRCO0VBQzlCLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsOEJBQThCO0FBQ2hDOztBQUdBLFNBQVM7O0FBRVQ7RUFDRSxzQ0FBc0M7RUFDdEMsYUFBYTtFQUNiLFlBQVk7RUFDWixhQUFhO0VBQ2Isa0NBQWtDO0VBQ2xDLDZCQUE2QjtFQUM3Qix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLDZCQUE2QjtBQUMvQjs7QUFFQTtFQUNFLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQiw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSw0QkFBNEI7RUFDNUIsa0JBQWtCO0FBQ3BCOztBQUlBO0VBQ0Usc0NBQXNDO0VBQ3RDLGFBQWE7RUFDYixvQkFBb0I7RUFDcEIsWUFBWTtBQUNkOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixjQUFjO0FBQ2hCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtFQUNoQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsYUFBYTtFQUNiLGdCQUFnQjtFQUNoQixvQkFBb0I7RUFDcEIsWUFBWTtFQUNaLDRCQUE0QjtBQUM5Qjs7QUFJQTtFQUNFLGNBQWM7RUFDZCxrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsWUFBWTtFQUNaLDJDQUEyQztFQUMzQyxhQUFhO0VBQ2Isb0NBQW9DO0VBQ3BDLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRSxpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC93b3JrLWRvY3VtZW50L3dvcmstZG9jdW1lbnQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qVE9ETyBuZWVkIHRvIHBsYXkgd2l0aCB2bWluL3dtaW4gLT4gYmluZCBhbGwgdmFsdWVzIHRvIHZ3IGFuZCB0aGVuIGFkZCBzY2FsaW5nIGZvciB3aWR0aCovXHJcblxyXG4ud29ya0RvY3VtZW50Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBwYWRkaW5nOiAuNSU7XHJcbiAgZ2FwOiAuNXZ3O1xyXG4gIGZvbnQtc2l6ZTogMS41dnc7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uaGVhZGVyVGl0bGUge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDIuNXZ3O1xyXG4gIGZvbnQtd2VpZ2h0OiA5MDA7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGdyaWQtY29sdW1uOiAxIC8gMztcclxufVxyXG5cclxuLlRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gIGZvbnQtc2l6ZTogMnZ3O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcbi5HcmlkQ29udGFpbmVyIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IDFmciBhdXRvO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuXHJcbi5ncmlkVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBsZWZ0O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGZvbnQtc2l6ZTogMS44dnc7XHJcbn1cclxuXHJcblxyXG5cclxuXHJcbi5jaGVja2JveGdyaWRJdGVtIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xyXG59XHJcblxyXG4uY2hlY2tib3hncmlkSXRlbSBpbWcge1xyXG4gIHBhZGRpbmctdG9wOiAxJTtcclxuICB3aWR0aDogYXV0bztcclxuICBoZWlnaHQ6IDIuMHZ3O1xyXG5cclxufVxyXG5cclxuaW5wdXRbdHlwZT1jaGVja2JveF0ge1xyXG4gIGhlaWdodDogMnZ3O1xyXG4gIHdpZHRoOiAydnc7XHJcbn1cclxuXHJcbi53b3JrZ3JpZEl0ZW1BY3Rpb25UaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgZm9udC1zaXplOiAxLjd2dztcclxufVxyXG5cclxuLndvcmtUYXNrVGl0bGUge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIGF1dG87XHJcbn1cclxuXHJcbi5idXR0b25Db250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xyXG4gIGNvbHVtbi1nYXA6IDElO1xyXG4gIDtcclxufVxyXG5cclxuLmlucHV0YnV0dG9uIHtcclxuICBoZWlnaHQ6IGF1dG87XHJcbiAgd2lkdGg6IG1pbi1jb250ZW50O1xyXG4gIGZvbnQtc2l6ZTogMXZ3O1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBsaWdodGJsdWU7XHJcbn1cclxuXHJcblxyXG5cclxuXHJcblxyXG5cclxuLmNvbnRleHQge1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uY29udGV4dENvbnRlbnQge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvbkNvZGVzIHtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmNvbXBsZXRpb25Db2Rlc0dyaWRUaXRsZXMge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAuNWZyIDMuNWZyO1xyXG59XHJcblxyXG4uY29tcGxldGlvbkNvZGVzVGFibGVJdGVtc0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMy41ZnIpO1xyXG59XHJcblxyXG4uYXV0aG9yaXR5VG9NYWludGFpbiB7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5hdXRob3JpdHlUb01haW50YWluR3JpZFRpdGxlcyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDNmciAxZnI7XHJcbn1cclxuXHJcbi5hdXRob3JpdHlUb01haW50YWluSXRlbXNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAzZnIgMWZyKTtcclxufVxyXG5cclxuLmVxdWlwbWVudEFuZE1hdGVyaWFscyB7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5lcXVpcG1lbnRBbmRNYXRlcmlhbHNHcmlkVGl0bGVzIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogLjVmciAyLjVmciAxZnI7XHJcbn1cclxuXHJcbi5lcXVpcG1lbnRBbmRNYXRlcmlhbHNJdGVtc0dyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMi41ZnIgMWZyKTtcclxufVxyXG5cclxuLndvcmtQcmVwZXJhdGlvbiB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvIGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5wcmVzdGFydFRhc2tzSXRlbXNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxufVxyXG5cclxuLmVycm9yVGFzayB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyIDIuMGZyIDFmcik7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI0ZGQ0NDQztcclxufVxyXG5cclxuLnByZXN0YXJ0VGFza0FjdGlvbnNDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLnRhc2tJbnB1dENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG87XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogNWZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0byBhdXRvIGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG5cclxuXHJcblxyXG5cclxuLndvcmtFeGVjdXRpb25JdGVtc0dyaWQge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgLjVmciAzLjVmciAuMjVmciAuNzVmcik7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uRVJST1JJdGVtc0dyaWQge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgLjVmciAzLjVmciAuMjVmciAuNzVmcik7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI0ZGQ0NDQztcclxufVxyXG5cclxuLndvcmtFeGVjdXRpb25JdGVtc0dyaWQge1xyXG4gIGJvcmRlci1ib3R0b206IC0xcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi50YXNrSW5wdXRGbGV4Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcbi50YXNrSW5wdXRHcmlkQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvIGF1dG87XHJcbn1cclxuXHJcbi5saW1pdHNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHJvdy1nYXA6IC41dnc7XHJcbn1cclxuXHJcbi53b3JrQ2xvc2VPdXQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxuICByb3ctZ2FwOiAuNXZ3O1xyXG59XHJcblxyXG4uY29tbWVudHNBbmRPYnNDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG4uY29tbWVudHNHcmlkQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG59XHJcblxyXG4uY29tbWVudHNBbmRPYnNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxufVxyXG5cclxuLmNvbW1lbnRzQW5kR2VuZXJhbE9ic0lucHV0IHtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uYWRkY29tbWVudENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDMuNWZyIC41ZnI7XHJcbn1cclxuXHJcbi5mdXJ0aGVyV29ya1JlcXVpcmVkQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5mdXRoZXJXb3JrUmVxdWlyZWRHcmlkVGl0bGVzIHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMi4wZnIgMWZyO1xyXG59XHJcblxyXG4uZnV0aGVyV29ya1JlcXVpcmVkSXRlbXNHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmciAyLjBmciAxZnIpO1xyXG59XHJcblxyXG4uZnV0aGVyV29ya1JlcXVpcmVkSXRlbXNFUlJPUkdyaWQge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMi4wZnIgMWZyO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkNDQ0M7XHJcbn1cclxuXHJcbi5jbG9zZU91dENoZWNrbGlzdENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4ubm90aWZpY2F0aW9uSW5mb3JtYXRpb25Db250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgM2ZyO1xyXG59XHJcblxyXG4uY2xvc2VPdXRDaGVja2xpc3RHcmlkVGl0bGVzIHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMi4wZnIgMWZyO1xyXG59XHJcblxyXG4uY2xvc2VPdXRDaGVja2xpc3RHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmciAyLjBmciAxZnIpO1xyXG59XHJcblxyXG5cclxuXHJcblxyXG5cclxuXHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZOYW1lIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uU2lnbk9mZlNpZ25hdHVyZSB7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmNvbXBsZXRpb25TaWduT2ZmVGltZVN0YW1wIHtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcbi5zaWduYXR1cmV7XHJcbiAgd2lkdGg6YXV0bztcclxuICBoZWlnaHQ6IDh2dztcclxufVxyXG5cclxuXHJcblxyXG4vKiBOZXcgQ1NTIDIwMjAqL1xyXG4vKlRPRE8gd2lsbCBuZWVkIHRvIGFjY291bnQgZm9yIHBhZGRpbmcgd2l0aCBib3JkZXJzIGV0YyovXHJcbi5pbmZvcm1hdGlvblRleHR7XHJcbiAgbGluZS1oZWlnaHQ6IGNhbGMoMTVweCArIDEuNXZ3KTtcclxuICBmb250LXNpemU6IGNhbGMoM3B4ICsgMS41dncpO1xyXG4gIGNvbG9yOiBibGFjaztcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGJhY2tncm91bmQtY29sb3I6d2hpdGU7XHJcblxyXG4gIHBhZGRpbmctbGVmdDogNXB4O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5zZWN0aW9uVGl0bGV7XHJcbiAgZm9udC1zaXplOiBjYWxjKDVweCArIDEuNXZ3KTtcclxuICBjb2xvcjogYmxhY2s7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbn1cclxuXHJcbi5zZWN0aW9uVGl0bGVDb250YWluZXJ7XHJcbiAgICBoZWlnaHQ6IGF1dG87XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4uc2VjdGlvbkNvbnRhaW5lcntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBvdXRsaW5lOnNvbGlkO1xyXG59XHJcblxyXG4uY29sdW1uVGl0bGV7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjp3aGl0ZTtcclxuICBmb250LXNpemU6IGNhbGMoM3B4ICsgMS41dncpO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gICAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcbn1cclxuXHJcbi5Db21tZW50c1NlY3Rpb25Db250YWluZXJ7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAzLjVmciAuNWZyO1xyXG59XHJcblxyXG4ud29ya0dyaWRDb2RlQ29udGFpbmVye1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5Db21wbGV0aW9uQ29kZUNvbnRhaW5lcntcclxuYmFja2dyb3VuZC1jb2xvcjp3aGl0ZTtcclxufVxyXG5cclxuLkNvbXBsZXRpb25Db2RlQ29udGFpbmVyIGltZ3tcclxuICBoZWlnaHQ6IDIuMHZ3O1xyXG59XHJcblxyXG4uUHJlc3RhcnRUYXNrR3JpZHtcclxuXHJcbn1cclxuXHJcblxyXG5cclxuLkZ1cnRoZXJXb3JrUmVxdWlyZWRHcmlke1xyXG5cclxufVxyXG5cclxuLkNsb3NlT3V0VGFza0dyaWR7XHJcbiAgXHJcbn1cclxuXHJcbi5jb21wbGV0aW9uQ29kZXNHcmlkVGl0bGVze1xyXG5ib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5hdXRob3JpdHlUb01haW50YWluR3JpZFRpdGxlc3tcclxuYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uZXF1aXBtZW50QW5kTWF0ZXJpYWxzR3JpZFRpdGxlc3tcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5wcmVzdGFydFRhc2tzR3JpZFRpdGxlc3tcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5TZWN0aW9uQ29udGFpbmVyVG9wVGl0bGV7XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogNWZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0byBhdXRvIGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBvdXRsaW5lOnNvbGlkO1xyXG59XHJcblxyXG4uVGl0bGVTcGFue1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5LWJnLWNvbG9yKTtcclxuICBmb250LXNpemU6IDJ2dztcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLkdyaWRDb250YWluZXJ7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG5cclxuXHJcblxyXG4uV29ya0V4ZWN1dGlvbkdyaWRUaXRsZXN7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IC41ZnIgMi41ZnIgLjVmciAuNWZyO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLldvcmtUYXNrR3JpZHtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAuNWZyIDIuNWZyIC41ZnIgLjVmcjtcclxufVxyXG5cclxuLndvcmtHcmlkY29sdW1uVGl0bGV7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xyXG4gIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG5ib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIHBhZGRpbmctbGVmdDogNXB4O1xyXG59XHJcblxyXG4ud29ya0dyaWRjb2x1bW5UaXRsZTpmaXJzdC1jaGlsZHtcclxuICBib3JkZXItbGVmdDogbm9uZTtcclxufVxyXG5cclxuLmxpbWl0c0dyaWRDb250YWluZXJ7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG4ubGltaXRzR3JpZHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbn1cclxuXHJcbi53b3JrR3JpZEluZm9ybWF0aW9uVGV4dHtcclxuICAgIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcblxyXG59XHJcblxyXG4ud29ya0dyaWRJbmZvcm1hdGlvblN1YlRpdGxle1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgICBmb250LXNpemU6IGNhbGMoM3B4ICsgMS41dncpO1xyXG4gIGNvbG9yOiBibGFjaztcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIHBhZGRpbmctbGVmdDogNXB4O1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvblRhc2tDb250YWluZXJ7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG8gYXV0byBhdXRvIGF1dG87XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLndvcmtHcmlkSXRlbVRpdGxle1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuXHJcbn1cclxuLndvcmtHcmlkSXRlbUltYWdle1xyXG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcclxuXHJcbn1cclxuLndvcmtHcmlkSXRlbUltYWdlIGltZ3tcclxuIHdpZHRoOiA0MHZ3O1xyXG4gcGFkZGluZy1sZWZ0OiA1cHg7XHJcbn1cclxuXHJcbi53b3JrR3JpZEl0ZW1JbmZvcm1hdGlvbkNvbnRhaW5lcntcclxuXHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnI7XHJcbnBhZGRpbmctYm90dG9tOiA1cHg7XHJcbnBhZGRpbmctbGVmdDogNXB4O1xyXG59XHJcblxyXG5cclxuLnVzZXJJbnB1dCB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW5wdXQtYmctY29sb3IpO1xyXG4gIGhlaWdodDogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgd2lkdGg6IDEwdnc7XHJcbiAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuICBjb2xvcjogYmxhY2s7XHJcbn1cclxuLndvcmt0YXNrSW5mb3JtYXRpb257XHJcbiAgICBmb250LXNpemU6IGNhbGMoM3B4ICsgMS41dncpO1xyXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbn1cclxuXHJcbi53b3JrR3JpZEl0ZW1CdXR0b25Db250YWluZXJ7XHJcbiAgICBkaXNwbGF5OiBncmlkO1xyXG5ncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnIgMWZyOyBcclxucGFkZGluZy1ib3R0b206IDVweDtcclxucGFkZGluZy1sZWZ0OiA1cHg7XHJcbn1cclxuXHJcbi53b3JrR3JpZElucHV0QnV0dG9ue1xyXG4gIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIHdpZHRoOiBmaXQtY29udGVudDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBsaWdodGJsdWU7XHJcbn1cclxuLndvcmtDbG9zZU91dHtcclxuICAgIG91dGxpbmU6c29saWQ7XHJcbn1cclxuXHJcblxyXG4uc3BhbkhlYWRlclRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiBjYWxjKDIwcHggKyAxLjV2dyk7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5Db21tZW50c0NvbnRhaW5lcntcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG4uQ29tbWVudHtcclxuICAgIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjp3aGl0ZTtcclxuXHJcbiAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcblxyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZ7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5LWJnLWNvbG9yKTtcclxuICBvdXRsaW5lOnNvbGlkO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG59XHJcbi5jb21wbGV0aW9uU2lnbk9mZkhlYWRlclRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiBjYWxjKDIwcHggKyAxLjV2dyk7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZ3JpZC1jb2x1bW46IDEgLyA3O1xyXG59XHJcbi5jb21wbGV0aW9uU2lnbk9mZlJvdyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnIgMWZyIC41ZnIgMWZyIC41ZnI7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uU2lnbk9mZkRhdGF7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvblRpdGxlc3tcclxuICAgIGZvbnQtc2l6ZTogY2FsYyg1cHggKyAxLjV2dyk7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuXHJcbi8qSGVhZGVyKi9cclxuXHJcbi5oZWFkZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIG91dGxpbmU6c29saWQ7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgM2ZyIDFmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IDNmciAwLjJmcjtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG4uaGVhZExvZ29Db250YWluZXJ7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgd2hpdGU7XHJcbn1cclxuXHJcbi5sb2dvQ29uaGVhZExvZ29Db250YWluZXJ0YWluZXIgaW1nIHtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLkRJQy1UaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgZm9udC1zaXplOiBjYWxjKDFweCArIDEuMHZ3KTtcclxufVxyXG5cclxuLkRJQy1JbmZvcm1hdGlvbiB7XHJcbiAgZm9udC1zaXplOiBjYWxjKDFweCArIDEuMHZ3KTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcblxyXG5cclxuLmRvY3VtZW50VGl0bGVDb250YWluZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC1hdXRvLXJvd3M6IGF1dG87XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4uZG9jdW1lbnRUaXRsZUNvbnRhaW5lclN1YiB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnI7XHJcbn1cclxuXHJcbi5kb2N1bWVudFRpdGxlIHtcclxuICBmb250LXdlaWdodDogOTAwO1xyXG4gIGZvbnQtc2l6ZTogM3Z3O1xyXG59XHJcblxyXG4uZG9jdW1lbnRUeXBlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IDJ2dztcclxufVxyXG5cclxuLkRUQy1UaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgZm9udC1zaXplOiAxLjV2dztcclxufVxyXG5cclxuLkRUQy1JbmZvcm1hdGlvbiB7XHJcbiAgZm9udC1zaXplOiAxLjV2dztcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIHBhZGRpbmctbGVmdDogNHB4O1xyXG59XHJcblxyXG4uZG9jdW1lbnRJbmZvcm1hdGlvbkNvbnRhaW5lciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1iZy1jb2xvcik7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGdyaWQtYXV0by1yb3dzOiBhdXRvO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIHdoaXRlO1xyXG59XHJcblxyXG5cclxuXHJcbi5ESUMtU3ViSW5mb3JtYXRpb24ge1xyXG4gIGZvbnQtc2l6ZTogMXZ3O1xyXG4gIGZvbnQtc3R5bGU6IGl0YWxpYztcclxufVxyXG5cclxuLmRvY3VtZW50QWNjZXNzZWRDb250YWluZXIge1xyXG4gIGdyaWQtY29sdW1uOiAxLzU7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXNlY29uZGFyeS1iZy1jb2xvcik7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gM2ZyIGF1dG87XHJcbiAgZm9udC1zaXplOiAxLjJ2dztcclxufVxyXG5cclxuLkRBQy1UaXRsZSB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgcGFkZGluZy1sZWZ0OiAxcHg7XHJcbn1cclxuXHJcbi5hY2Nlc3NEYXRlIHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcblxyXG4ucHJpbnRlZFdhcm5pbmcge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcbiJdfQ== */";
+    __webpack_exports__["default"] = "/*TODO need to play with vmin/wmin -> bind all values to vw and then add scaling for width*/\r\n\r\n.workDocumentContainer {\r\n  display: grid;\r\n  text-align: center;\r\n  gap: .5%;\r\n}\r\n\r\n.headerTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: 2.5vw;\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 3;\r\n}\r\n\r\n.Title {\r\n  background-color: var(--secondary-bg-color);\r\n  font-size: 2vw;\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.GridContainer {\r\n  height: 100%;\r\n  display: grid;\r\n  grid-template-rows: 1fr auto;\r\n  text-align: left;\r\n}\r\n\r\n.gridTitle {\r\n  font-weight: bold;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: left;\r\n      -ms-flex-pack: left;\r\n          justify-content: left;\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n  font-size: 1.8vw;\r\n}\r\n\r\n.checkboxgridItem {\r\n  height: 100%;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  background-color: white;\r\n}\r\n\r\n.checkboxgridItem img {\r\n  padding-top: 1%;\r\n  width: auto;\r\n  height: 2.0vw;\r\n\r\n}\r\n\r\ninput[type=checkbox] {\r\n  height: 2vw;\r\n  width: 2vw;\r\n}\r\n\r\n.workgridItemActionTitle {\r\n  font-weight: bold;\r\n  font-size: 1.7vw;\r\n}\r\n\r\n.workTaskTitle {\r\n  display: grid;\r\n  grid-template-columns: auto auto;\r\n}\r\n\r\n.buttonContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  -webkit-column-gap: 1%;\r\n     -moz-column-gap: 1%;\r\n          column-gap: 1%;\r\n  ;\r\n}\r\n\r\n.inputbutton {\r\n  height: auto;\r\n  width: -webkit-min-content;\r\n  width: -moz-min-content;\r\n  width: min-content;\r\n  font-size: 1vw;\r\n  text-align: center;\r\n  background-color: lightblue;\r\n}\r\n\r\n.context {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.contextContent {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  height: 100%;\r\n  text-align: left;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.completionCodes {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.completionCodesGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 3.5fr;\r\n}\r\n\r\n.completionCodesTableItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr);\r\n}\r\n\r\n.authorityToMaintain {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.authorityToMaintainGridTitles {\r\n  display: grid;\r\n  grid-template-columns: 3fr 1fr;\r\n}\r\n\r\n.authorityToMaintainItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 3fr 1fr);\r\n}\r\n\r\n.equipmentAndMaterials {\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.equipmentAndMaterialsGridTitles {\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr 1fr;\r\n}\r\n\r\n.equipmentAndMaterialsItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 2.5fr 1fr);\r\n}\r\n\r\n.workPreperation {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.prestartTasksItemsGrid {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.errorTask {\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n  background-color: #FFCCCC;\r\n}\r\n\r\n.prestartTaskActionsContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.taskInputContainer {\r\n  display: grid;\r\n  grid-template-columns: auto;\r\n}\r\n\r\n.workExecution {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-bottom: 1px solid black;\r\n  border-top: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n}\r\n\r\n.workExecutionERRORItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);\r\n  background-color: #FFCCCC;\r\n}\r\n\r\n.workExecutionItemsGrid {\r\n  border-bottom: -1px solid black;\r\n}\r\n\r\n.taskInputFlexContainer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: row;\r\n          flex-direction: row;\r\n  width: 100%;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n}\r\n\r\n.taskInputGridContainer {\r\n  display: grid;\r\n  grid-template-columns: auto auto auto;\r\n}\r\n\r\n.limitsGrid {\r\n  display: grid;\r\n  row-gap: .5vw;\r\n}\r\n\r\n.workCloseOut {\r\n  display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n  row-gap: .5vw;\r\n}\r\n\r\n.commentsAndObsContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.commentsGridContainer {\r\n  display: grid;\r\n}\r\n\r\n.commentsAndObsGrid {\r\n  display: grid;\r\n  grid-template-columns: 4fr;\r\n  grid-template-rows: auto;\r\n}\r\n\r\n.commentsAndGeneralObsInput {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.addcommentContainer {\r\n  display: grid;\r\n  grid-template-columns: 3.5fr .5fr;\r\n}\r\n\r\n.furtherWorkRequiredContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.futherWorkRequiredGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.futherWorkRequiredItemsGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.futherWorkRequiredItemsERRORGrid {\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n  background-color: #FFCCCC;\r\n}\r\n\r\n.closeOutChecklistContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  grid-template-rows: auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-style: solid;\r\n  border-width: 1px;\r\n  border-color: black;\r\n}\r\n\r\n.notificationInformationContainer {\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr;\r\n}\r\n\r\n.closeOutChecklistGridTitles {\r\n  text-align: left;\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n}\r\n\r\n.closeOutChecklistGrid {\r\n  text-align: center;\r\n  -ms-flex-line-pack: center;\r\n      align-content: center;\r\n  display: grid;\r\n  grid-template-rows: auto;\r\n  grid-template-columns: repeat(1, 1fr 2.0fr 1fr);\r\n}\r\n\r\n.completionSignOffName {\r\n  display: grid;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffSignature {\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n}\r\n\r\n.completionSignOffTimeStamp {\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.signature{\r\n  width:auto;\r\n  height: 8vw;\r\n}\r\n\r\n/* New CSS 2020*/\r\n\r\n/*TODO will need to account for padding with borders etc*/\r\n\r\n.informationText{\r\n  line-height: calc(10px + 1.5vw);\r\n  font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  background-color:white;\r\n  padding-top: .5%;\r\n  padding-left: 5px;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.informationText:last-child{\r\n  padding-bottom: .5%;\r\n}\r\n\r\n.sectionTitle{\r\n  font-size: calc(5px + 1.5vw);\r\n  color: black;\r\n  font-weight: bold;\r\n}\r\n\r\n.sectionTitleContainer{\r\n    height: auto;\r\n  text-align: center;\r\n}\r\n\r\n.sectionContainer{\r\n  background-color: var(--secondary-bg-color);\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 4fr;\r\n  outline:solid;\r\n}\r\n\r\n.columnTitle{\r\n  font-weight: bold;\r\n  height: 100%;\r\n  text-align: left;\r\n  background-color:white;\r\n  font-size: calc(3px + 1.5vw);\r\n  border-left: 1px solid black;\r\n  border-bottom: 1px solid black;\r\n    padding-left: 5px;\r\n}\r\n\r\n.CommentsSectionContainer{\r\n  display: grid;\r\n  background-color: var(--secondary-bg-color);\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3.5fr .5fr;\r\n}\r\n\r\n.workGridCodeContainer{\r\n  height: 100%;\r\n  display: grid;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  text-align: center;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.CompletionCodeContainer{\r\nbackground-color:white;\r\n}\r\n\r\n.CompletionCodeContainer img{\r\n  height: 2.0vw;\r\n}\r\n\r\n.PrestartTaskGrid{\r\n\r\n}\r\n\r\n.FurtherWorkRequiredGrid{\r\n\r\n}\r\n\r\n.CloseOutTaskGrid{\r\n  \r\n}\r\n\r\n.completionCodesGridTitles{\r\nborder-bottom: 1px solid black;\r\n}\r\n\r\n.authorityToMaintainGridTitles{\r\nborder-bottom: 1px solid black;\r\n}\r\n\r\n.equipmentAndMaterialsGridTitles{\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.prestartTasksGridTitles{\r\n  display: grid;\r\n  grid-template-columns: 1fr 2.0fr 1fr;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.SectionContainerTopTitle{\r\n    display: grid;\r\n  grid-template-columns: 5fr;\r\n  grid-template-rows: auto auto auto;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  outline:solid;\r\n}\r\n\r\n.TitleSpan{\r\n    background-color: var(--secondary-bg-color);\r\n  font-size: 2vw;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  height: 100%;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n.GridContainer{\r\n  display: grid;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.WorkExecutionGridTitles{\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr .5fr .5fr;\r\n  text-align: center;\r\n}\r\n\r\n.WorkTaskGrid{\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: grid;\r\n  grid-template-columns: .5fr 2.5fr .5fr .5fr;\r\n}\r\n\r\n.workGridcolumnTitle{\r\n    font-weight: bold;\r\n  height: 100%;\r\n  text-align: left;\r\n  background-color:white;\r\n  font-size: calc(3px + 1.5vw);\r\n  border-bottom: 1px solid black;\r\nborder-left: 1px solid black;\r\n  padding-left: 5px;\r\n}\r\n\r\n.workGridcolumnTitle:first-child{\r\n  border-left: none;\r\n}\r\n\r\n.limitsGridContainer{\r\n  height: 100%;\r\n  border-left: 1px solid black;\r\n  display: grid;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.limitsGrid{\r\n  display: grid;\r\n  vertical-align: middle;\r\n}\r\n\r\n.workGridInformationText{\r\n    font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  padding-left: 5px;\r\n\r\n}\r\n\r\n.workGridInformationSubTitle{\r\n  font-weight: bold;\r\n      font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  padding-left: 5px;\r\n}\r\n\r\n.workExecutionTaskContainer{\r\n  display: grid;\r\n  grid-template-rows: auto auto auto auto;\r\n  border-left: 1px solid black;\r\n}\r\n\r\n.workGridItemTitle{\r\n  text-align: left;\r\n    font-weight: bold;\r\n  height: 100%;\r\n  font-size: calc(3px + 1.5vw);\r\n  padding-left: 5%;\r\n\r\n}\r\n\r\n.workGridItemImage{\r\n  -ms-flex-item-align: center;\r\n      align-self: center;\r\n  width: 2.5fr;\r\n}\r\n\r\n.workGridItemImage img{\r\npadding-left: 10%;\r\nwidth: 80%;\r\n}\r\n\r\n.worktaskInformation{\r\n  display: grid;\r\n  grid-template-columns: auto auto;\r\n    font-size: calc(3px + 1.5vw);\r\n\r\n    text-align: right;\r\n    padding-right: 10%;\r\n}\r\n\r\n.worktaskuserInput{\r\nbackground-color: var(--input-bg-color);\r\n  height: calc(3px + 1.5vw);\r\nfont-size: calc(3px + 1.5vw);\r\n  color: black;\r\n \r\n}\r\n\r\n.userInput {\r\n  \r\n  width: 10vw;\r\n  \r\n background-color: cadetblue;\r\n\r\n}\r\n\r\n.workGridItemButtonContainer{\r\ndisplay: -webkit-box;\r\ndisplay: -ms-flexbox;\r\ndisplay: flex;\r\npadding-bottom: 5px;\r\n-webkit-box-orient: horizontal;\r\n-webkit-box-direction: normal;\r\n    -ms-flex-direction: row;\r\n        flex-direction: row;\r\n-ms-flex-item-align: center;\r\n    align-self: center;\r\npadding-left: 20%;\r\n\r\n}\r\n\r\n.workGridInputButton{\r\n  font-size: calc(3px + 1.5vw);\r\n  text-align: center;\r\n  width: -webkit-fit-content;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n  background-color: lightblue;\r\n}\r\n\r\n.workGridButtonSeperator{\r\n  width: 2%;\r\n}\r\n\r\n.workCloseOut{\r\n    outline:solid;\r\n}\r\n\r\n.spanHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: calc(20px + 1.5vw);\r\n  font-weight: 900;\r\n  text-align: center;\r\n}\r\n\r\n.CommentsContainer{\r\n  border-left: 1px solid black;\r\n  border-right: 1px solid black;\r\n  height: 100%;\r\n  background-color: white;\r\n}\r\n\r\n.Comment{\r\n    font-size: calc(3px + 1.5vw);\r\n  color: black;\r\n  text-align: left;\r\n  background-color:white;\r\n\r\n  padding-left: 5px;\r\n\r\n}\r\n\r\n.completionSignOff{\r\n  background-color: var(--secondary-bg-color);\r\n  outline:solid;\r\n  display: grid;\r\n  grid-template-rows: 5fr;\r\n  grid-template-rows: auto;\r\n}\r\n\r\n.completionSignOffHeaderTitle {\r\n  background-color: var(--main-bg-color);\r\n  color: white;\r\n  font-size: calc(20px + 1.5vw);\r\n  font-weight: 900;\r\n  text-align: center;\r\n  grid-column: 1 / 7;\r\n}\r\n\r\n.completionSignOffRow {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;\r\n}\r\n\r\n.completionSignOffData{\r\n    background-color: white;\r\n      border-bottom: 1px solid black;\r\n}\r\n\r\n.completionTitles{\r\n    font-size: calc(5px + 1.5vw);\r\n  color: black;\r\n  font-weight: bold;\r\n  border-bottom: 1px solid black;\r\n}\r\n\r\n/*Header*/\r\n\r\n.header {\r\n  background-color: var(--main-bg-color);\r\n  outline:solid;\r\n  color: white;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3fr 1fr;\r\n  grid-template-rows: 3fr 0.2fr;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n\r\n.headLogoContainer{\r\n  border-right: 1px solid white;\r\n  width: 1fr;\r\n}\r\n\r\n.headLogoContainer img {\r\n  width: 90%;\r\n  padding-left: 5%;\r\n}\r\n\r\n.DIC-Title {\r\n  font-weight: bold;\r\n  font-size: calc(1px + 1.0vw);\r\n}\r\n\r\n.DIC-Information {\r\n  font-size: calc(1px + 1.0vw);\r\n  text-align: center;\r\n}\r\n\r\n.documentTitleContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n}\r\n\r\n.documentTitleContainerSub {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n.documentTitle {\r\n  font-weight: 900;\r\n  font-size: 3vw;\r\n}\r\n\r\n.documentType {\r\n  font-weight: bold;\r\n  font-size: 2vw;\r\n}\r\n\r\n.DTC-Title {\r\n  font-weight: bold;\r\n  font-size: 1.5vw;\r\n}\r\n\r\n.DTC-Information {\r\n  font-size: 1.5vw;\r\n  text-align: left;\r\n  padding-left: 4px;\r\n}\r\n\r\n.documentInformationContainer {\r\n  background-color: var(--main-bg-color);\r\n  display: grid;\r\n  text-align: left;\r\n  grid-auto-rows: auto;\r\n  height: 100%;\r\n  border-left: 1px solid white;\r\n}\r\n\r\n.DIC-SubInformation {\r\n  font-size: 1vw;\r\n  font-style: italic;\r\n}\r\n\r\n.documentAccessedContainer {\r\n  grid-column: 1/5;\r\n  color: black;\r\n  background-color: var(--secondary-bg-color);\r\n  display: grid;\r\n  grid-template-columns: auto 3fr auto;\r\n  font-size: 1.2vw;\r\n}\r\n\r\n.DAC-Title {\r\n  font-weight: bold;\r\n  padding-left: 1px;\r\n}\r\n\r\n.accessDate {\r\n  text-align: left;\r\n}\r\n\r\n.printedWarning {\r\n  text-align: right;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvd29yay1kb2N1bWVudC93b3JrLWRvY3VtZW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsMkZBQTJGOztBQUUzRjtFQUNFLGFBQWE7RUFDYixrQkFBa0I7RUFDbEIsUUFBUTtBQUNWOztBQUVBO0VBQ0Usc0NBQXNDO0VBQ3RDLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtFQUNsQixrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSwyQ0FBMkM7RUFDM0MsY0FBYztFQUNkLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQix3QkFBdUI7TUFBdkIscUJBQXVCO1VBQXZCLHVCQUF1QjtBQUN6Qjs7QUFFQTtFQUNFLFlBQVk7RUFDWixhQUFhO0VBQ2IsNEJBQTRCO0VBQzVCLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixzQkFBcUI7TUFBckIsbUJBQXFCO1VBQXJCLHFCQUFxQjtFQUNyQiw0QkFBNEI7RUFDNUIsOEJBQThCO0VBQzlCLGdCQUFnQjtBQUNsQjs7QUFLQTtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQix3QkFBdUI7TUFBdkIscUJBQXVCO1VBQXZCLHVCQUF1QjtFQUN2Qix1QkFBdUI7QUFDekI7O0FBRUE7RUFDRSxlQUFlO0VBQ2YsV0FBVztFQUNYLGFBQWE7O0FBRWY7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsVUFBVTtBQUNaOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixnQ0FBZ0M7QUFDbEM7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLHNCQUFjO0tBQWQsbUJBQWM7VUFBZCxjQUFjOztBQUVoQjs7QUFFQTtFQUNFLFlBQVk7RUFDWiwwQkFBa0I7RUFBbEIsdUJBQWtCO0VBQWxCLGtCQUFrQjtFQUNsQixjQUFjO0VBQ2Qsa0JBQWtCO0VBQ2xCLDJCQUEyQjtBQUM3Qjs7QUFPQTtFQUNFLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxvQkFBYTtFQUFiLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsNEJBQTRCO0FBQzlCOztBQUVBO0VBQ0UseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixpQ0FBaUM7QUFDbkM7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLDRDQUE0QztBQUM5Qzs7QUFFQTtFQUNFLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0FBQ2hDOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHdCQUF3QjtFQUN4Qix5Q0FBeUM7QUFDM0M7O0FBRUE7RUFDRSx5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHFDQUFxQztBQUN2Qzs7QUFFQTtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsZ0RBQWdEO0FBQ2xEOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5Qiw2QkFBNkI7RUFDN0IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLCtDQUErQztBQUNqRDs7QUFFQTtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsK0NBQStDO0VBQy9DLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLG9CQUFhO0VBQWIsb0JBQWE7RUFBYixhQUFhO0VBQ2IsNEJBQXNCO0VBQXRCLDZCQUFzQjtNQUF0QiwwQkFBc0I7VUFBdEIsc0JBQXNCO0VBQ3RCLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwyQkFBMkI7QUFDN0I7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsMEJBQTBCO0VBQzFCLGtDQUFrQztFQUNsQyx5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQiw4QkFBOEI7RUFDOUIsMkJBQTJCO0VBQzNCLDZCQUE2QjtBQUMvQjs7QUFNQTtFQUNFLGtCQUFrQjtFQUNsQiwwQkFBcUI7TUFBckIscUJBQXFCO0VBQ3JCLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsd0RBQXdEO0FBQzFEOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLDBCQUFxQjtNQUFyQixxQkFBcUI7RUFDckIsYUFBYTtFQUNiLHdCQUF3QjtFQUN4Qix3REFBd0Q7RUFDeEQseUJBQXlCO0FBQzNCOztBQUVBO0VBQ0UsK0JBQStCO0FBQ2pDOztBQUVBO0VBQ0Usb0JBQWE7RUFBYixvQkFBYTtFQUFiLGFBQWE7RUFDYiw4QkFBbUI7RUFBbkIsNkJBQW1CO01BQW5CLHVCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsV0FBVztFQUNYLHdCQUF1QjtNQUF2QixxQkFBdUI7VUFBdkIsdUJBQXVCO0FBQ3pCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHFDQUFxQztBQUN2Qzs7QUFFQTtFQUNFLGFBQWE7RUFDYixhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsMEJBQTBCO0VBQzFCLHdCQUF3QjtFQUN4QixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtFQUNuQixhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLHdCQUF3QjtFQUN4Qix5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwwQkFBMEI7RUFDMUIsd0JBQXdCO0FBQzFCOztBQUVBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLGlDQUFpQztBQUNuQzs7QUFFQTtFQUNFLGFBQWE7RUFDYiw4QkFBOEI7RUFDOUIsd0JBQXdCO0VBQ3hCLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGFBQWE7RUFDYixvQ0FBb0M7QUFDdEM7O0FBRUE7RUFDRSxrQkFBa0I7RUFDbEIsMEJBQXFCO01BQXJCLHFCQUFxQjtFQUNyQixhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLCtDQUErQztBQUNqRDs7QUFFQTtFQUNFLGFBQWE7RUFDYixvQ0FBb0M7RUFDcEMseUJBQXlCO0FBQzNCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5Qix3QkFBd0I7RUFDeEIseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIsbUJBQW1CO0VBQ25CLGlCQUFpQjtFQUNqQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0FBQ2hDOztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGFBQWE7RUFDYixvQ0FBb0M7QUFDdEM7O0FBRUE7RUFDRSxrQkFBa0I7RUFDbEIsMEJBQXFCO01BQXJCLHFCQUFxQjtFQUNyQixhQUFhO0VBQ2Isd0JBQXdCO0VBQ3hCLCtDQUErQztBQUNqRDs7QUFRQTtFQUNFLGFBQWE7RUFDYix3QkFBdUI7TUFBdkIscUJBQXVCO1VBQXZCLHVCQUF1QjtFQUN2Qiw0QkFBNEI7RUFDNUIsNkJBQTZCO0FBQy9COztBQUVBO0VBQ0UsNEJBQTRCO0VBQzVCLDZCQUE2QjtBQUMvQjs7QUFFQTtFQUNFLDRCQUE0QjtBQUM5Qjs7QUFDQTtFQUNFLFVBQVU7RUFDVixXQUFXO0FBQ2I7O0FBSUEsZ0JBQWdCOztBQUNoQix5REFBeUQ7O0FBQ3pEO0VBQ0UsK0JBQStCO0VBQy9CLDRCQUE0QjtFQUM1QixZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLHNCQUFzQjtFQUN0QixnQkFBZ0I7RUFDaEIsaUJBQWlCO0VBQ2pCLDRCQUE0QjtBQUM5Qjs7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLDRCQUE0QjtFQUM1QixZQUFZO0VBQ1osaUJBQWlCO0FBQ25COztBQUVBO0lBQ0ksWUFBWTtFQUNkLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLDJDQUEyQztJQUN6Qyx5QkFBbUI7UUFBbkIsc0JBQW1CO1lBQW5CLG1CQUFtQjtFQUNyQixhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLHNCQUFzQjtFQUN0Qiw0QkFBNEI7RUFDNUIsNEJBQTRCO0VBQzVCLDhCQUE4QjtJQUM1QixpQkFBaUI7QUFDckI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsMkNBQTJDO0VBQzNDLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYixxQ0FBcUM7QUFDdkM7O0FBRUE7RUFDRSxZQUFZO0VBQ1osYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGtCQUFrQjtFQUNsQiw0QkFBNEI7QUFDOUI7O0FBRUE7QUFDQSxzQkFBc0I7QUFDdEI7O0FBRUE7RUFDRSxhQUFhO0FBQ2Y7O0FBRUE7O0FBRUE7O0FBSUE7O0FBRUE7O0FBRUE7O0FBRUE7O0FBRUE7QUFDQSw4QkFBOEI7QUFDOUI7O0FBRUE7QUFDQSw4QkFBOEI7QUFDOUI7O0FBRUE7RUFDRSw4QkFBOEI7QUFDaEM7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isb0NBQW9DO0VBQ3BDLDhCQUE4QjtBQUNoQzs7QUFFQTtJQUNJLGFBQWE7RUFDZiwwQkFBMEI7RUFDMUIsa0NBQWtDO0VBQ2xDLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0VBQ25CLGFBQWE7QUFDZjs7QUFFQTtJQUNJLDJDQUEyQztFQUM3QyxjQUFjO0VBQ2QsaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQixZQUFZO0VBQ1osOEJBQThCO0FBQ2hDOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0FBQ3JCOztBQUtBO0VBQ0UsYUFBYTtFQUNiLDJDQUEyQztFQUMzQyxrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSx5QkFBbUI7TUFBbkIsc0JBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsMkNBQTJDO0FBQzdDOztBQUVBO0lBQ0ksaUJBQWlCO0VBQ25CLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsc0JBQXNCO0VBQ3RCLDRCQUE0QjtFQUM1Qiw4QkFBOEI7QUFDaEMsNEJBQTRCO0VBQzFCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLFlBQVk7RUFDWiw0QkFBNEI7RUFDNUIsYUFBYTtFQUNiLHlCQUFtQjtNQUFuQixzQkFBbUI7VUFBbkIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsYUFBYTtFQUNiLHNCQUFzQjtBQUN4Qjs7QUFFQTtJQUNJLDRCQUE0QjtFQUM5QixZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLGlCQUFpQjs7QUFFbkI7O0FBRUE7RUFDRSxpQkFBaUI7TUFDYiw0QkFBNEI7RUFDaEMsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsdUNBQXVDO0VBQ3ZDLDRCQUE0QjtBQUM5Qjs7QUFFQTtFQUNFLGdCQUFnQjtJQUNkLGlCQUFpQjtFQUNuQixZQUFZO0VBQ1osNEJBQTRCO0VBQzVCLGdCQUFnQjs7QUFFbEI7O0FBQ0E7RUFDRSwyQkFBa0I7TUFBbEIsa0JBQWtCO0VBQ2xCLFlBQVk7QUFDZDs7QUFDQTtBQUNBLGlCQUFpQjtBQUNqQixVQUFVO0FBQ1Y7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsZ0NBQWdDO0lBQzlCLDRCQUE0Qjs7SUFFNUIsaUJBQWlCO0lBQ2pCLGtCQUFrQjtBQUN0Qjs7QUFFQTtBQUNBLHVDQUF1QztFQUNyQyx5QkFBeUI7QUFDM0IsNEJBQTRCO0VBQzFCLFlBQVk7O0FBRWQ7O0FBQ0E7O0VBRUUsV0FBVzs7Q0FFWiwyQkFBMkI7O0FBRTVCOztBQU1BO0FBQ0Esb0JBQWE7QUFBYixvQkFBYTtBQUFiLGFBQWE7QUFDYixtQkFBbUI7QUFDbkIsOEJBQW1CO0FBQW5CLDZCQUFtQjtJQUFuQix1QkFBbUI7UUFBbkIsbUJBQW1CO0FBQ25CLDJCQUFrQjtJQUFsQixrQkFBa0I7QUFDbEIsaUJBQWlCOztBQUVqQjs7QUFFQTtFQUNFLDRCQUE0QjtFQUM1QixrQkFBa0I7RUFDbEIsMEJBQWtCO0VBQWxCLHVCQUFrQjtFQUFsQixrQkFBa0I7RUFDbEIsMkJBQTJCO0FBQzdCOztBQUVBO0VBQ0UsU0FBUztBQUNYOztBQUVBO0lBQ0ksYUFBYTtBQUNqQjs7QUFHQTtFQUNFLHNDQUFzQztFQUN0QyxZQUFZO0VBQ1osNkJBQTZCO0VBQzdCLGdCQUFnQjtFQUNoQixrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSw0QkFBNEI7RUFDNUIsNkJBQTZCO0VBQzdCLFlBQVk7RUFDWix1QkFBdUI7QUFDekI7O0FBQ0E7SUFDSSw0QkFBNEI7RUFDOUIsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixzQkFBc0I7O0VBRXRCLGlCQUFpQjs7QUFFbkI7O0FBRUE7RUFDRSwyQ0FBMkM7RUFDM0MsYUFBYTtFQUNiLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsd0JBQXdCO0FBQzFCOztBQUNBO0VBQ0Usc0NBQXNDO0VBQ3RDLFlBQVk7RUFDWiw2QkFBNkI7RUFDN0IsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtFQUNsQixrQkFBa0I7QUFDcEI7O0FBQ0E7RUFDRSxhQUFhO0VBQ2IsZ0RBQWdEO0FBQ2xEOztBQUVBO0lBQ0ksdUJBQXVCO01BQ3JCLDhCQUE4QjtBQUNwQzs7QUFFQTtJQUNJLDRCQUE0QjtFQUM5QixZQUFZO0VBQ1osaUJBQWlCO0VBQ2pCLDhCQUE4QjtBQUNoQzs7QUFHQSxTQUFTOztBQUVUO0VBQ0Usc0NBQXNDO0VBQ3RDLGFBQWE7RUFDYixZQUFZO0VBQ1osYUFBYTtFQUNiLGtDQUFrQztFQUNsQyw2QkFBNkI7RUFDN0IseUJBQW1CO01BQW5CLHNCQUFtQjtVQUFuQixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSw2QkFBNkI7RUFDN0IsVUFBVTtBQUNaOztBQUVBO0VBQ0UsVUFBVTtFQUNWLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQiw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSw0QkFBNEI7RUFDNUIsa0JBQWtCO0FBQ3BCOztBQUlBO0VBQ0Usc0NBQXNDO0VBQ3RDLGFBQWE7RUFDYixvQkFBb0I7RUFDcEIsWUFBWTtBQUNkOztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixjQUFjO0FBQ2hCOztBQUVBO0VBQ0UsaUJBQWlCO0VBQ2pCLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtFQUNoQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxzQ0FBc0M7RUFDdEMsYUFBYTtFQUNiLGdCQUFnQjtFQUNoQixvQkFBb0I7RUFDcEIsWUFBWTtFQUNaLDRCQUE0QjtBQUM5Qjs7QUFJQTtFQUNFLGNBQWM7RUFDZCxrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsWUFBWTtFQUNaLDJDQUEyQztFQUMzQyxhQUFhO0VBQ2Isb0NBQW9DO0VBQ3BDLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRSxpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC93b3JrLWRvY3VtZW50L3dvcmstZG9jdW1lbnQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qVE9ETyBuZWVkIHRvIHBsYXkgd2l0aCB2bWluL3dtaW4gLT4gYmluZCBhbGwgdmFsdWVzIHRvIHZ3IGFuZCB0aGVuIGFkZCBzY2FsaW5nIGZvciB3aWR0aCovXHJcblxyXG4ud29ya0RvY3VtZW50Q29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBnYXA6IC41JTtcclxufVxyXG5cclxuLmhlYWRlclRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAyLjV2dztcclxuICBmb250LXdlaWdodDogOTAwO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBncmlkLWNvbHVtbjogMSAvIDM7XHJcbn1cclxuXHJcbi5UaXRsZSB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5LWJnLWNvbG9yKTtcclxuICBmb250LXNpemU6IDJ2dztcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4uR3JpZENvbnRhaW5lciB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiAxZnIgYXV0bztcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcblxyXG4uZ3JpZFRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGp1c3RpZnktY29udGVudDogbGVmdDtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxuICBmb250LXNpemU6IDEuOHZ3O1xyXG59XHJcblxyXG5cclxuXHJcblxyXG4uY2hlY2tib3hncmlkSXRlbSB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLmNoZWNrYm94Z3JpZEl0ZW0gaW1nIHtcclxuICBwYWRkaW5nLXRvcDogMSU7XHJcbiAgd2lkdGg6IGF1dG87XHJcbiAgaGVpZ2h0OiAyLjB2dztcclxuXHJcbn1cclxuXHJcbmlucHV0W3R5cGU9Y2hlY2tib3hdIHtcclxuICBoZWlnaHQ6IDJ2dztcclxuICB3aWR0aDogMnZ3O1xyXG59XHJcblxyXG4ud29ya2dyaWRJdGVtQWN0aW9uVGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMS43dnc7XHJcbn1cclxuXHJcbi53b3JrVGFza1RpdGxlIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvO1xyXG59XHJcblxyXG4uYnV0dG9uQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmcjtcclxuICBjb2x1bW4tZ2FwOiAxJTtcclxuICA7XHJcbn1cclxuXHJcbi5pbnB1dGJ1dHRvbiB7XHJcbiAgaGVpZ2h0OiBhdXRvO1xyXG4gIHdpZHRoOiBtaW4tY29udGVudDtcclxuICBmb250LXNpemU6IDF2dztcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRibHVlO1xyXG59XHJcblxyXG5cclxuXHJcblxyXG5cclxuXHJcbi5jb250ZXh0IHtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLmNvbnRleHRDb250ZW50IHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmNvbXBsZXRpb25Db2RlcyB7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uQ29kZXNHcmlkVGl0bGVzIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogLjVmciAzLjVmcjtcclxufVxyXG5cclxuLmNvbXBsZXRpb25Db2Rlc1RhYmxlSXRlbXNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAuNWZyIDMuNWZyKTtcclxufVxyXG5cclxuLmF1dGhvcml0eVRvTWFpbnRhaW4ge1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uYXV0aG9yaXR5VG9NYWludGFpbkdyaWRUaXRsZXMge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAzZnIgMWZyO1xyXG59XHJcblxyXG4uYXV0aG9yaXR5VG9NYWludGFpbkl0ZW1zR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgM2ZyIDFmcik7XHJcbn1cclxuXHJcbi5lcXVpcG1lbnRBbmRNYXRlcmlhbHMge1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uZXF1aXBtZW50QW5kTWF0ZXJpYWxzR3JpZFRpdGxlcyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IC41ZnIgMi41ZnIgMWZyO1xyXG59XHJcblxyXG4uZXF1aXBtZW50QW5kTWF0ZXJpYWxzSXRlbXNHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAuNWZyIDIuNWZyIDFmcik7XHJcbn1cclxuXHJcbi53b3JrUHJlcGVyYXRpb24ge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0byBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4ucHJlc3RhcnRUYXNrc0l0ZW1zR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyIDIuMGZyIDFmcik7XHJcbn1cclxuXHJcbi5lcnJvclRhc2sge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmciAyLjBmciAxZnIpO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkNDQ0M7XHJcbn1cclxuXHJcbi5wcmVzdGFydFRhc2tBY3Rpb25zQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi50YXNrSW5wdXRDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvbiB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDVmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG8gYXV0byBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci10b3A6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuXHJcblxyXG5cclxuXHJcbi53b3JrRXhlY3V0aW9uSXRlbXNHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMy41ZnIgLjI1ZnIgLjc1ZnIpO1xyXG59XHJcblxyXG4ud29ya0V4ZWN1dGlvbkVSUk9SSXRlbXNHcmlkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIC41ZnIgMy41ZnIgLjI1ZnIgLjc1ZnIpO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkNDQ0M7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uSXRlbXNHcmlkIHtcclxuICBib3JkZXItYm90dG9tOiAtMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4udGFza0lucHV0RmxleENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4udGFza0lucHV0R3JpZENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gYXV0byBhdXRvO1xyXG59XHJcblxyXG4ubGltaXRzR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICByb3ctZ2FwOiAuNXZ3O1xyXG59XHJcblxyXG4ud29ya0Nsb3NlT3V0IHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogNWZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci13aWR0aDogMXB4O1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbiAgcm93LWdhcDogLjV2dztcclxufVxyXG5cclxuLmNvbW1lbnRzQW5kT2JzQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDRmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxufVxyXG5cclxuLmNvbW1lbnRzR3JpZENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxufVxyXG5cclxuLmNvbW1lbnRzQW5kT2JzR3JpZCB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDRmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IGF1dG87XHJcbn1cclxuXHJcbi5jb21tZW50c0FuZEdlbmVyYWxPYnNJbnB1dCB7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmFkZGNvbW1lbnRDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAzLjVmciAuNWZyO1xyXG59XHJcblxyXG4uZnVydGhlcldvcmtSZXF1aXJlZENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciA0ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uZnV0aGVyV29ya1JlcXVpcmVkR3JpZFRpdGxlcyB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxufVxyXG5cclxuLmZ1dGhlcldvcmtSZXF1aXJlZEl0ZW1zR3JpZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxufVxyXG5cclxuLmZ1dGhlcldvcmtSZXF1aXJlZEl0ZW1zRVJST1JHcmlkIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZDQ0NDO1xyXG59XHJcblxyXG4uY2xvc2VPdXRDaGVja2xpc3RDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGJvcmRlci1zdHlsZTogc29saWQ7XHJcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XHJcbiAgYm9yZGVyLWNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLm5vdGlmaWNhdGlvbkluZm9ybWF0aW9uQ29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDNmcjtcclxufVxyXG5cclxuLmNsb3NlT3V0Q2hlY2tsaXN0R3JpZFRpdGxlcyB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDIuMGZyIDFmcjtcclxufVxyXG5cclxuLmNsb3NlT3V0Q2hlY2tsaXN0R3JpZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0bztcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgxLCAxZnIgMi4wZnIgMWZyKTtcclxufVxyXG5cclxuXHJcblxyXG5cclxuXHJcblxyXG5cclxuLmNvbXBsZXRpb25TaWduT2ZmTmFtZSB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZTaWduYXR1cmUge1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uU2lnbk9mZlRpbWVTdGFtcCB7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG4uc2lnbmF0dXJle1xyXG4gIHdpZHRoOmF1dG87XHJcbiAgaGVpZ2h0OiA4dnc7XHJcbn1cclxuXHJcblxyXG5cclxuLyogTmV3IENTUyAyMDIwKi9cclxuLypUT0RPIHdpbGwgbmVlZCB0byBhY2NvdW50IGZvciBwYWRkaW5nIHdpdGggYm9yZGVycyBldGMqL1xyXG4uaW5mb3JtYXRpb25UZXh0e1xyXG4gIGxpbmUtaGVpZ2h0OiBjYWxjKDEwcHggKyAxLjV2dyk7XHJcbiAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuICBjb2xvcjogYmxhY2s7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xyXG4gIHBhZGRpbmctdG9wOiAuNSU7XHJcbiAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG4uaW5mb3JtYXRpb25UZXh0Omxhc3QtY2hpbGR7XHJcbiAgcGFkZGluZy1ib3R0b206IC41JTtcclxufVxyXG5cclxuLnNlY3Rpb25UaXRsZXtcclxuICBmb250LXNpemU6IGNhbGMoNXB4ICsgMS41dncpO1xyXG4gIGNvbG9yOiBibGFjaztcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLnNlY3Rpb25UaXRsZUNvbnRhaW5lcntcclxuICAgIGhlaWdodDogYXV0bztcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5zZWN0aW9uQ29udGFpbmVye1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXNlY29uZGFyeS1iZy1jb2xvcik7XHJcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgNGZyO1xyXG4gIG91dGxpbmU6c29saWQ7XHJcbn1cclxuXHJcbi5jb2x1bW5UaXRsZXtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xyXG4gIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDVweDtcclxufVxyXG5cclxuLkNvbW1lbnRzU2VjdGlvbkNvbnRhaW5lcntcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXNlY29uZGFyeS1iZy1jb2xvcik7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDMuNWZyIC41ZnI7XHJcbn1cclxuXHJcbi53b3JrR3JpZENvZGVDb250YWluZXJ7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLkNvbXBsZXRpb25Db2RlQ29udGFpbmVye1xyXG5iYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xyXG59XHJcblxyXG4uQ29tcGxldGlvbkNvZGVDb250YWluZXIgaW1ne1xyXG4gIGhlaWdodDogMi4wdnc7XHJcbn1cclxuXHJcbi5QcmVzdGFydFRhc2tHcmlke1xyXG5cclxufVxyXG5cclxuXHJcblxyXG4uRnVydGhlcldvcmtSZXF1aXJlZEdyaWR7XHJcblxyXG59XHJcblxyXG4uQ2xvc2VPdXRUYXNrR3JpZHtcclxuICBcclxufVxyXG5cclxuLmNvbXBsZXRpb25Db2Rlc0dyaWRUaXRsZXN7XHJcbmJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLmF1dGhvcml0eVRvTWFpbnRhaW5HcmlkVGl0bGVze1xyXG5ib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuXHJcbi5lcXVpcG1lbnRBbmRNYXRlcmlhbHNHcmlkVGl0bGVze1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLnByZXN0YXJ0VGFza3NHcmlkVGl0bGVze1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMi4wZnIgMWZyO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuLlNlY3Rpb25Db250YWluZXJUb3BUaXRsZXtcclxuICAgIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvIGF1dG8gYXV0bztcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gIG91dGxpbmU6c29saWQ7XHJcbn1cclxuXHJcbi5UaXRsZVNwYW57XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnktYmctY29sb3IpO1xyXG4gIGZvbnQtc2l6ZTogMnZ3O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uR3JpZENvbnRhaW5lcntcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuXHJcblxyXG5cclxuXHJcbi5Xb3JrRXhlY3V0aW9uR3JpZFRpdGxlc3tcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogLjVmciAyLjVmciAuNWZyIC41ZnI7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4uV29ya1Rhc2tHcmlke1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IC41ZnIgMi41ZnIgLjVmciAuNWZyO1xyXG59XHJcblxyXG4ud29ya0dyaWRjb2x1bW5UaXRsZXtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gIGJhY2tncm91bmQtY29sb3I6d2hpdGU7XHJcbiAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XHJcbmJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XHJcbiAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcbn1cclxuXHJcbi53b3JrR3JpZGNvbHVtblRpdGxlOmZpcnN0LWNoaWxke1xyXG4gIGJvcmRlci1sZWZ0OiBub25lO1xyXG59XHJcblxyXG4ubGltaXRzR3JpZENvbnRhaW5lcntcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCBibGFjaztcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5saW1pdHNHcmlke1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG5cclxuLndvcmtHcmlkSW5mb3JtYXRpb25UZXh0e1xyXG4gICAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuICBjb2xvcjogYmxhY2s7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBwYWRkaW5nLWxlZnQ6IDVweDtcclxuXHJcbn1cclxuXHJcbi53b3JrR3JpZEluZm9ybWF0aW9uU3ViVGl0bGV7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICAgIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcbn1cclxuXHJcbi53b3JrRXhlY3V0aW9uVGFza0NvbnRhaW5lcntcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93czogYXV0byBhdXRvIGF1dG8gYXV0bztcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4ud29ya0dyaWRJdGVtVGl0bGV7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBmb250LXNpemU6IGNhbGMoM3B4ICsgMS41dncpO1xyXG4gIHBhZGRpbmctbGVmdDogNSU7XHJcblxyXG59XHJcbi53b3JrR3JpZEl0ZW1JbWFnZXtcclxuICBhbGlnbi1zZWxmOiBjZW50ZXI7XHJcbiAgd2lkdGg6IDIuNWZyO1xyXG59XHJcbi53b3JrR3JpZEl0ZW1JbWFnZSBpbWd7XHJcbnBhZGRpbmctbGVmdDogMTAlO1xyXG53aWR0aDogODAlO1xyXG59XHJcblxyXG4ud29ya3Rhc2tJbmZvcm1hdGlvbntcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvO1xyXG4gICAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuXHJcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDEwJTtcclxufVxyXG5cclxuLndvcmt0YXNrdXNlcklucHV0e1xyXG5iYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pbnB1dC1iZy1jb2xvcik7XHJcbiAgaGVpZ2h0OiBjYWxjKDNweCArIDEuNXZ3KTtcclxuZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuICBjb2xvcjogYmxhY2s7XHJcbiBcclxufVxyXG4udXNlcklucHV0IHtcclxuICBcclxuICB3aWR0aDogMTB2dztcclxuICBcclxuIGJhY2tncm91bmQtY29sb3I6IGNhZGV0Ymx1ZTtcclxuXHJcbn1cclxuXHJcblxyXG5cclxuXHJcblxyXG4ud29ya0dyaWRJdGVtQnV0dG9uQ29udGFpbmVye1xyXG5kaXNwbGF5OiBmbGV4O1xyXG5wYWRkaW5nLWJvdHRvbTogNXB4O1xyXG5mbGV4LWRpcmVjdGlvbjogcm93O1xyXG5hbGlnbi1zZWxmOiBjZW50ZXI7XHJcbnBhZGRpbmctbGVmdDogMjAlO1xyXG5cclxufVxyXG5cclxuLndvcmtHcmlkSW5wdXRCdXR0b257XHJcbiAgZm9udC1zaXplOiBjYWxjKDNweCArIDEuNXZ3KTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xyXG4gIGJhY2tncm91bmQtY29sb3I6IGxpZ2h0Ymx1ZTtcclxufVxyXG5cclxuLndvcmtHcmlkQnV0dG9uU2VwZXJhdG9ye1xyXG4gIHdpZHRoOiAyJTtcclxufVxyXG5cclxuLndvcmtDbG9zZU91dHtcclxuICAgIG91dGxpbmU6c29saWQ7XHJcbn1cclxuXHJcblxyXG4uc3BhbkhlYWRlclRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiBjYWxjKDIwcHggKyAxLjV2dyk7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5Db21tZW50c0NvbnRhaW5lcntcclxuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG4uQ29tbWVudHtcclxuICAgIGZvbnQtc2l6ZTogY2FsYygzcHggKyAxLjV2dyk7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjp3aGl0ZTtcclxuXHJcbiAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcblxyXG59XHJcblxyXG4uY29tcGxldGlvblNpZ25PZmZ7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5LWJnLWNvbG9yKTtcclxuICBvdXRsaW5lOnNvbGlkO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiA1ZnI7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xyXG59XHJcbi5jb21wbGV0aW9uU2lnbk9mZkhlYWRlclRpdGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiBjYWxjKDIwcHggKyAxLjV2dyk7XHJcbiAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZ3JpZC1jb2x1bW46IDEgLyA3O1xyXG59XHJcbi5jb21wbGV0aW9uU2lnbk9mZlJvdyB7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmciAxZnIgMWZyIC41ZnIgMWZyIC41ZnI7XHJcbn1cclxuXHJcbi5jb21wbGV0aW9uU2lnbk9mZkRhdGF7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xyXG59XHJcblxyXG4uY29tcGxldGlvblRpdGxlc3tcclxuICAgIGZvbnQtc2l6ZTogY2FsYyg1cHggKyAxLjV2dyk7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBibGFjaztcclxufVxyXG5cclxuXHJcbi8qSGVhZGVyKi9cclxuXHJcbi5oZWFkZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYmctY29sb3IpO1xyXG4gIG91dGxpbmU6c29saWQ7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGRpc3BsYXk6IGdyaWQ7XHJcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgM2ZyIDFmcjtcclxuICBncmlkLXRlbXBsYXRlLXJvd3M6IDNmciAwLjJmcjtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG4uaGVhZExvZ29Db250YWluZXJ7XHJcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgd2hpdGU7XHJcbiAgd2lkdGg6IDFmcjtcclxufVxyXG5cclxuLmhlYWRMb2dvQ29udGFpbmVyIGltZyB7XHJcbiAgd2lkdGg6IDkwJTtcclxuICBwYWRkaW5nLWxlZnQ6IDUlO1xyXG59XHJcblxyXG4uRElDLVRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IGNhbGMoMXB4ICsgMS4wdncpO1xyXG59XHJcblxyXG4uRElDLUluZm9ybWF0aW9uIHtcclxuICBmb250LXNpemU6IGNhbGMoMXB4ICsgMS4wdncpO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuXHJcblxyXG4uZG9jdW1lbnRUaXRsZUNvbnRhaW5lciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1iZy1jb2xvcik7XHJcbiAgZGlzcGxheTogZ3JpZDtcclxuICBncmlkLWF1dG8tcm93czogYXV0bztcclxuICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuXHJcbi5kb2N1bWVudFRpdGxlQ29udGFpbmVyU3ViIHtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmcjtcclxufVxyXG5cclxuLmRvY3VtZW50VGl0bGUge1xyXG4gIGZvbnQtd2VpZ2h0OiA5MDA7XHJcbiAgZm9udC1zaXplOiAzdnc7XHJcbn1cclxuXHJcbi5kb2N1bWVudFR5cGUge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMnZ3O1xyXG59XHJcblxyXG4uRFRDLVRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IDEuNXZ3O1xyXG59XHJcblxyXG4uRFRDLUluZm9ybWF0aW9uIHtcclxuICBmb250LXNpemU6IDEuNXZ3O1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgcGFkZGluZy1sZWZ0OiA0cHg7XHJcbn1cclxuXHJcbi5kb2N1bWVudEluZm9ybWF0aW9uQ29udGFpbmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWJnLWNvbG9yKTtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgZ3JpZC1hdXRvLXJvd3M6IGF1dG87XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgd2hpdGU7XHJcbn1cclxuXHJcblxyXG5cclxuLkRJQy1TdWJJbmZvcm1hdGlvbiB7XHJcbiAgZm9udC1zaXplOiAxdnc7XHJcbiAgZm9udC1zdHlsZTogaXRhbGljO1xyXG59XHJcblxyXG4uZG9jdW1lbnRBY2Nlc3NlZENvbnRhaW5lciB7XHJcbiAgZ3JpZC1jb2x1bW46IDEvNTtcclxuICBjb2xvcjogYmxhY2s7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5LWJnLWNvbG9yKTtcclxuICBkaXNwbGF5OiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byAzZnIgYXV0bztcclxuICBmb250LXNpemU6IDEuMnZ3O1xyXG59XHJcblxyXG4uREFDLVRpdGxlIHtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBwYWRkaW5nLWxlZnQ6IDFweDtcclxufVxyXG5cclxuLmFjY2Vzc0RhdGUge1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuXHJcbi5wcmludGVkV2FybmluZyB7XHJcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbn1cclxuIl19 */";
     /***/
   },
 
@@ -6989,26 +7027,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "ngOnInit",
         //TODO will need to change from closeout task to further work
         value: function ngOnInit() {
-          var _this16 = this;
+          var _this17 = this;
 
           this.furtherWorkTaskTracker = new Map();
           this.overallDocumentComments = new Array();
 
           if (history.state.data.new) {
             this.HTTPSService.GetNewDocumentRequest(history.state.data.UUID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (data) {
-              _this16.makeSaveValueButtonsAvaliable = true;
-              _this16.currentWorkDocumentData = data;
-              _this16.loadedDocument = true;
-              _this16.inputDisabled = _this16.currentWorkDocumentData.Submitted;
+              _this17.makeSaveValueButtonsAvaliable = true;
+              _this17.currentWorkDocumentData = data;
+              _this17.loadedDocument = true;
+              _this17.inputDisabled = _this17.currentWorkDocumentData.Submitted;
               var _iteratorNormalCompletion26 = true;
               var _didIteratorError26 = false;
               var _iteratorError26 = undefined;
 
               try {
-                for (var _iterator26 = _this16.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step26; !(_iteratorNormalCompletion26 = (_step26 = _iterator26.next()).done); _iteratorNormalCompletion26 = true) {
+                for (var _iterator26 = _this17.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step26; !(_iteratorNormalCompletion26 = (_step26 = _iterator26.next()).done); _iteratorNormalCompletion26 = true) {
                   var closeOutTask = _step26.value;
 
-                  _this16.furtherWorkTaskTracker.set(closeOutTask, false);
+                  _this17.furtherWorkTaskTracker.set(closeOutTask, false);
                 }
               } catch (err) {
                 _didIteratorError26 = true;
@@ -7030,10 +7068,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var _iteratorError27 = undefined;
 
               try {
-                for (var _iterator27 = _this16.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step27; !(_iteratorNormalCompletion27 = (_step27 = _iterator27.next()).done); _iteratorNormalCompletion27 = true) {
+                for (var _iterator27 = _this17.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step27; !(_iteratorNormalCompletion27 = (_step27 = _iterator27.next()).done); _iteratorNormalCompletion27 = true) {
                   var completionCode = _step27.value;
 
-                  _this16.iconValues.set(completionCode.Name, completionCode);
+                  _this17.iconValues.set(completionCode.Name, completionCode);
                 }
               } catch (err) {
                 _didIteratorError27 = true;
@@ -7050,32 +7088,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 }
               }
 
-              _this16.currentWorkDocumentData.GeneralComments = new Array();
+              _this17.currentWorkDocumentData.GeneralComments = new Array();
 
-              if (_this16.currentWorkDocumentData.CloseoutTasksInformation.length) {
-                _this16.displayCloseoutTasks = true;
+              if (_this17.currentWorkDocumentData.CloseoutTasksInformation.length) {
+                _this17.displayCloseoutTasks = true;
               }
             }, function (error) {
-              _this16.errorService.error(error);
+              _this17.errorService.error(error);
             });
           } else {
             //will need to load in any entered information as well
             if (history.state.data.from === 'Incomplete') {
               this.HTTPSService.GetIncompleteDocumentRequest(history.state.data.name).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (data) {
-                _this16.currentWorkDocumentData = data;
-                _this16.loadedDocument = true;
-                _this16.inputDisabled = _this16.currentWorkDocumentData.Submitted;
-                _this16.makeSaveValueButtonsAvaliable = true; //Loop through tasks to setup
+                _this17.currentWorkDocumentData = data;
+                _this17.loadedDocument = true;
+                _this17.inputDisabled = _this17.currentWorkDocumentData.Submitted;
+                _this17.makeSaveValueButtonsAvaliable = true; //Loop through tasks to setup
 
                 var _iteratorNormalCompletion28 = true;
                 var _didIteratorError28 = false;
                 var _iteratorError28 = undefined;
 
                 try {
-                  for (var _iterator28 = _this16.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step28; !(_iteratorNormalCompletion28 = (_step28 = _iterator28.next()).done); _iteratorNormalCompletion28 = true) {
+                  for (var _iterator28 = _this17.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step28; !(_iteratorNormalCompletion28 = (_step28 = _iterator28.next()).done); _iteratorNormalCompletion28 = true) {
                     var closeOutTask = _step28.value;
 
-                    _this16.furtherWorkTaskTracker.set(closeOutTask, false);
+                    _this17.furtherWorkTaskTracker.set(closeOutTask, false);
                   }
                 } catch (err) {
                   _didIteratorError28 = true;
@@ -7099,10 +7137,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError29 = undefined;
 
                 try {
-                  for (var _iterator29 = _this16.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step29; !(_iteratorNormalCompletion29 = (_step29 = _iterator29.next()).done); _iteratorNormalCompletion29 = true) {
+                  for (var _iterator29 = _this17.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step29; !(_iteratorNormalCompletion29 = (_step29 = _iterator29.next()).done); _iteratorNormalCompletion29 = true) {
                     var completionCode = _step29.value;
 
-                    _this16.iconValues.set(completionCode.Name, completionCode);
+                    _this17.iconValues.set(completionCode.Name, completionCode);
                   } //Also put in each worktasks comments in
 
                 } catch (err) {
@@ -7125,12 +7163,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError30 = undefined;
 
                 try {
-                  for (var _iterator30 = _this16.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step30; !(_iteratorNormalCompletion30 = (_step30 = _iterator30.next()).done); _iteratorNormalCompletion30 = true) {
+                  for (var _iterator30 = _this17.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step30; !(_iteratorNormalCompletion30 = (_step30 = _iterator30.next()).done); _iteratorNormalCompletion30 = true) {
                     var workTask = _step30.value;
                     console.log(workTask.CompletionCode);
-                    triggerinformation = _this16.compareValue(workTask, Number(workTask.SubmittedValue));
+                    triggerinformation = _this17.compareValue(workTask, Number(workTask.SubmittedValue));
 
-                    _this16.updateTriggers(workTask, triggerinformation.trigger);
+                    _this17.updateTriggers(workTask, triggerinformation.trigger);
                   }
                 } catch (err) {
                   _didIteratorError30 = true;
@@ -7147,31 +7185,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   }
                 }
 
-                if (_this16.currentWorkDocumentData.CloseoutTasksInformation.length) {
-                  _this16.displayCloseoutTasks = true;
+                if (_this17.currentWorkDocumentData.CloseoutTasksInformation.length) {
+                  _this17.displayCloseoutTasks = true;
                 }
 
-                _this16.addComments();
+                _this17.addComments();
               }, function (error) {
-                _this16.errorService.error(error);
+                _this17.errorService.error(error);
               });
             } else if (history.state.data.from === 'Review') {
               //httpcall to review document and lock all but new comments and final part and have a new accept/decline button
               this.HTTPSService.GetReviewDocumentRequest(history.state.data.name).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (data) {
-                _this16.currentWorkDocumentData = data;
-                _this16.loadedDocument = true;
-                _this16.inputDisabled = _this16.currentWorkDocumentData.Submitted;
-                _this16.makeSaveValueButtonsAvaliable = false;
-                _this16.reviewstate = true;
+                _this17.currentWorkDocumentData = data;
+                _this17.loadedDocument = true;
+                _this17.inputDisabled = _this17.currentWorkDocumentData.Submitted;
+                _this17.makeSaveValueButtonsAvaliable = false;
+                _this17.reviewstate = true;
                 var _iteratorNormalCompletion31 = true;
                 var _didIteratorError31 = false;
                 var _iteratorError31 = undefined;
 
                 try {
-                  for (var _iterator31 = _this16.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step31; !(_iteratorNormalCompletion31 = (_step31 = _iterator31.next()).done); _iteratorNormalCompletion31 = true) {
+                  for (var _iterator31 = _this17.currentWorkDocumentData.ListOfAvaliableCloseoutTasksUUIDs[Symbol.iterator](), _step31; !(_iteratorNormalCompletion31 = (_step31 = _iterator31.next()).done); _iteratorNormalCompletion31 = true) {
                     var closeOutTask = _step31.value;
 
-                    _this16.furtherWorkTaskTracker.set(closeOutTask, false);
+                    _this17.furtherWorkTaskTracker.set(closeOutTask, false);
                   }
                 } catch (err) {
                   _didIteratorError31 = true;
@@ -7195,10 +7233,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError32 = undefined;
 
                 try {
-                  for (var _iterator32 = _this16.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step32; !(_iteratorNormalCompletion32 = (_step32 = _iterator32.next()).done); _iteratorNormalCompletion32 = true) {
+                  for (var _iterator32 = _this17.currentWorkDocumentData.CompletionCodes[Symbol.iterator](), _step32; !(_iteratorNormalCompletion32 = (_step32 = _iterator32.next()).done); _iteratorNormalCompletion32 = true) {
                     var completionCode = _step32.value;
 
-                    _this16.iconValues.set(completionCode.Name, completionCode);
+                    _this17.iconValues.set(completionCode.Name, completionCode);
                   }
                 } catch (err) {
                   _didIteratorError32 = true;
@@ -7220,11 +7258,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var _iteratorError33 = undefined;
 
                 try {
-                  for (var _iterator33 = _this16.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step33; !(_iteratorNormalCompletion33 = (_step33 = _iterator33.next()).done); _iteratorNormalCompletion33 = true) {
+                  for (var _iterator33 = _this17.currentWorkDocumentData.WorkTasksInformation[Symbol.iterator](), _step33; !(_iteratorNormalCompletion33 = (_step33 = _iterator33.next()).done); _iteratorNormalCompletion33 = true) {
                     var workTask = _step33.value;
-                    triggerinformation = _this16.compareValue(workTask, Number(workTask.SubmittedValue));
+                    triggerinformation = _this17.compareValue(workTask, Number(workTask.SubmittedValue));
 
-                    _this16.updateTriggers(workTask, triggerinformation.trigger);
+                    _this17.updateTriggers(workTask, triggerinformation.trigger);
                   }
                 } catch (err) {
                   _didIteratorError33 = true;
@@ -7241,9 +7279,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   }
                 }
 
-                _this16.addComments();
+                _this17.addComments();
               }, function (error) {
-                _this16.errorService.error(error);
+                _this17.errorService.error(error);
               });
             } //Bind icons and address for use
 
@@ -7421,7 +7459,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitPrestartTask",
         value: function submitPrestartTask(taskUUID, skipped) {
-          var _this17 = this;
+          var _this18 = this;
 
           var prestartTask = this.currentWorkDocumentData.PrestartTasksInformation.filter(function (task) {
             return task.UUID === taskUUID;
@@ -7437,20 +7475,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 console.log("no comment");
                 return;
               } else {
-                _this17.submitComment(prestartTask.Name + ": " + returnComment, taskUUID);
+                _this18.submitComment(prestartTask.Name + ": " + returnComment, taskUUID);
 
                 data = {
-                  DocumentUUID: _this17.currentWorkDocumentData.UUID,
+                  DocumentUUID: _this18.currentWorkDocumentData.UUID,
                   TaskUUID: taskUUID,
                   SubmittedValues: {
-                    CompletionKey: _this17.iconValues.get('NotCompleted').CompletionKey,
+                    CompletionKey: _this18.iconValues.get('NotCompleted').CompletionKey,
                     Submitted: true
                   }
                 };
-                prestartTask.CompletionCode = _this17.iconValues.get('NotCompleted').IconHyperLink;
+                prestartTask.CompletionCode = _this18.iconValues.get('NotCompleted').IconHyperLink;
                 prestartTask.Submitted = true;
 
-                _this17.UpdateValue(data);
+                _this18.UpdateValue(data);
 
                 if (prestartTask.Error) {
                   prestartTask.Error = false;
@@ -7479,7 +7517,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitWorkTask",
         value: function submitWorkTask(taskUUID, typeOfInput, skipped) {
-          var _this18 = this;
+          var _this19 = this;
 
           var userInput;
           var valueToCheck;
@@ -7498,13 +7536,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 //no comment so stop the skip
                 return;
               } else {
-                _this18.submitComment(workTask.Name + ": " + returnComment, taskUUID);
+                _this19.submitComment(workTask.Name + ": " + returnComment, taskUUID);
 
                 data = {
-                  DocumentUUID: _this18.currentWorkDocumentData.UUID,
+                  DocumentUUID: _this19.currentWorkDocumentData.UUID,
                   TaskUUID: taskUUID,
                   SubmittedValues: {
-                    CompletionKey: _this18.iconValues.get('NotCompleted').CompletionKey,
+                    CompletionKey: _this19.iconValues.get('NotCompleted').CompletionKey,
                     Submitted: true,
                     SubmittedValue: ''
                   }
@@ -7514,10 +7552,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   workTask.Error = false;
                 }
 
-                workTask.CompletionCode = _this18.iconValues.get('NotCompleted').IconHyperLink;
+                workTask.CompletionCode = _this19.iconValues.get('NotCompleted').IconHyperLink;
                 workTask.Submitted = true;
 
-                _this18.UpdateValue(data);
+                _this19.UpdateValue(data);
               }
             });
           } else {
@@ -7625,7 +7663,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateTriggers",
         value: function updateTriggers(workTask, triggerValue) {
-          var _this19 = this;
+          var _this20 = this;
 
           if (workTask.TaskLinks) {
             var _iteratorNormalCompletion41 = true;
@@ -7637,17 +7675,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var triggerlinks = _step41.value;
 
                 if (triggerlinks.TriggerCondition === triggerValue) {
-                  _this19.furtherWorkTaskTracker.set(triggerlinks.UUID, true); //And need to display the contianer of the new class.
+                  _this20.furtherWorkTaskTracker.set(triggerlinks.UUID, true); //And need to display the contianer of the new class.
 
 
-                  if (!_this19.displayFurtherWork || !_this19.displayCloseoutTasks) {
+                  if (!_this20.displayFurtherWork || !_this20.displayCloseoutTasks) {
                     //Find what type of task
-                    if (_this19.currentWorkDocumentData.FutherWorkTasksInformation.filter(function (task) {
+                    if (_this20.currentWorkDocumentData.FutherWorkTasksInformation.filter(function (task) {
                       return task.UUID === triggerlinks.UUID;
                     }).length) {
-                      _this19.displayFurtherWork = true;
+                      _this20.displayFurtherWork = true;
                     } else {
-                      _this19.displayCloseoutTasks = true;
+                      _this20.displayCloseoutTasks = true;
                     }
                   }
                 }
@@ -7675,7 +7713,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitComment",
         value: function submitComment(commentInfo, taskUUID) {
-          var _this20 = this;
+          var _this21 = this;
 
           var commentSubmit;
           var currentUserType;
@@ -7698,13 +7736,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           console.log(comment);
           console.log(taskUUID);
           this.HTTPSService.SubmitComment(commentSubmit).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (error) {
-            _this20.errorService.error(error);
+            _this21.errorService.error(error);
           });
         }
       }, {
         key: "submitCloseoutTask",
         value: function submitCloseoutTask(taskUUID, skipped) {
-          var _this21 = this;
+          var _this22 = this;
 
           var closeoutTask = this.currentWorkDocumentData.CloseoutTasksInformation.filter(function (task) {
             return task.UUID === taskUUID;
@@ -7719,20 +7757,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 //no comment so stop the skip
                 return;
               } else {
-                _this21.submitComment(closeoutTask.Name + ": " + returnComment, taskUUID);
+                _this22.submitComment(closeoutTask.Name + ": " + returnComment, taskUUID);
 
                 data = {
-                  DocumentUUID: _this21.currentWorkDocumentData.UUID,
+                  DocumentUUID: _this22.currentWorkDocumentData.UUID,
                   TaskUUID: taskUUID,
                   SubmittedValues: {
-                    CompletionKey: _this21.iconValues.get('NotCompleted').CompletionKey,
+                    CompletionKey: _this22.iconValues.get('NotCompleted').CompletionKey,
                     Submitted: true
                   }
                 };
-                closeoutTask.CompletionCode = _this21.iconValues.get('NotCompleted').IconHyperLink;
+                closeoutTask.CompletionCode = _this22.iconValues.get('NotCompleted').IconHyperLink;
                 closeoutTask.Submitted = true;
 
-                _this21.UpdateValue(data);
+                _this22.UpdateValue(data);
 
                 if (closeoutTask.Error) {
                   closeoutTask.Error = false;
@@ -7799,17 +7837,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "UpdateValue",
         value: function UpdateValue(data) {
-          var _this22 = this;
+          var _this23 = this;
 
           //send off data ->Only return of error, otherwise nothing will be returned
           this.HTTPSService.UpdateValue(data).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function (error) {
-            _this22.errorService.error(error);
+            _this23.errorService.error(error);
           });
         }
       }, {
         key: "generateTaskObservationComment",
         value: function generateTaskObservationComment(taskUUID, taskName) {
-          var _this23 = this;
+          var _this24 = this;
 
           console.log('generateTaskObservationComment');
           var dataToSend = {
@@ -7824,14 +7862,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //no comment so stop comment generation
               return;
             } else {
-              _this23.submitComment(taskName + ": " + returnComment, taskUUID);
+              _this24.submitComment(taskName + ": " + returnComment, taskUUID);
             }
           });
         }
       }, {
         key: "generateGeneralObservationComment",
         value: function generateGeneralObservationComment() {
-          var _this24 = this;
+          var _this25 = this;
 
           console.log('generateGeneralObservationComment');
           var dataToSend = {
@@ -7846,7 +7884,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //no comment so stop the skip
               return;
             } else {
-              _this24.submitComment(returnComment, 'None');
+              _this25.submitComment(returnComment, 'None');
             }
           });
         }
@@ -8012,7 +8050,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitSheet",
         value: function submitSheet() {
-          var _this25 = this;
+          var _this26 = this;
 
           var dateTime = new Date(); //Check All inputs to see if they are filled out
           //Lock Document
@@ -8025,19 +8063,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             this.HTTPSService.SubmitWorkDocument(this.currentWorkDocumentData.UUID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function () {
               console.log('waiting 10sec');
               setTimeout(function () {
-                _this25.router.navigate(['/dashboard/Welcome']);
+                _this26.router.navigate(['/dashboard/Welcome']);
               }, 10000);
             }, function (error) {
               console.log(error);
 
-              _this25.errorService.error(error);
+              _this26.errorService.error(error);
             });
           }
         }
       }, {
         key: "submitReview",
         value: function submitReview(accepted) {
-          var _this26 = this;
+          var _this27 = this;
 
           if (accepted) {
             this.currentWorkDocumentData.DocumentReviewed = true;
@@ -8046,10 +8084,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.HTTPSService.SubmitReview(this.currentWorkDocumentData.UUID, accepted).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["first"])()).subscribe(function () {
             console.log('waiting 10sec');
             setTimeout(function () {
-              _this26.router.navigate(['/dashboard/Welcome']);
+              _this27.router.navigate(['/dashboard/Welcome']);
             }, 10000);
           }, function (error) {
-            _this26.errorService.error(error);
+            _this27.errorService.error(error);
           });
         }
       }]);

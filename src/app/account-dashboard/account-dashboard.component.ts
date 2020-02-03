@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInformation } from '../Authenticators/UserInformation';
 import { Router } from '@angular/router';
+import { TitleMessageService } from '../Services/TitleMessageService';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-account-dashboard',
@@ -10,10 +12,25 @@ import { Router } from '@angular/router';
 export class AccountDashboardComponent implements OnInit {
   time = new Date();
   currentUser: UserInformation
-
+  showNavigationBar: boolean;
+  subscription: Subscription;
   constructor(
+    private messageService: TitleMessageService,
     private router: Router
-  ) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
+  ) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.subscription = this.messageService.getDisplayNavigation().subscribe(data => {
+      if (this.showNavigationBar) {
+        this.showNavigationBar = false;
+        (<HTMLInputElement> document.getElementById('navbar')).style.display = 'none';
+        (<HTMLInputElement> document.getElementById('dash')).style.gridTemplateColumns = '1fr';
+      } else {
+        this.showNavigationBar = true;
+        (<HTMLInputElement> document.getElementById('navbar')).style.display = 'grid';
+        (<HTMLInputElement> document.getElementById('dash')).style.gridTemplateColumns = '1fr 4fr';
+      }
+    });
+  }
 
 
   ngOnInit() {
@@ -21,6 +38,7 @@ export class AccountDashboardComponent implements OnInit {
     setInterval(() => {
       this.time = new Date();
     }, 1000);
+    this.showNavigationBar = true;
   }
 
   WelcomeButtonClick() {
@@ -35,7 +53,6 @@ export class AccountDashboardComponent implements OnInit {
     this.router.navigate(['/dashboard/IncompleteDocuments']);
   }
 
-
   DocumentsReviewClick() {
     this.router.navigate(['/dashboard/Review']);
   }
@@ -43,14 +60,7 @@ export class AccountDashboardComponent implements OnInit {
   GraphicsClick() {
     this.router.navigate(['/dashboard/Graphics']);
   }
-
-  HideShowClick() {
-    if ((<HTMLInputElement> document.getElementById('navbar')).style.display === 'none') {
-      (<HTMLInputElement> document.getElementById('navbar')).style.display = 'grid';
-      (<HTMLInputElement> document.getElementById('dash')).style.gridTemplateColumns = '1fr 4fr';
-    } else {
-      (<HTMLInputElement> document.getElementById('navbar')).style.display = 'none';
-      (<HTMLInputElement> document.getElementById('dash')).style.gridTemplateColumns = '1fr';
-    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

@@ -1,19 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { isNull } from 'util';
 
 @Injectable({ providedIn: 'root' })
 export class TitleMessageService {
-    private subject = new Subject<any>();
+    private userName = new Subject<string>();
+    private displayNavigation = new Subject<any>();
 
     logginIn(message: string) {
-        this.subject.next({ text: message });
+        this.userName.next(message);
     }
 
     loggingOut() {
-        this.subject.next();
+        this.userName.next();
     }
 
-    getMessage(): Observable<any> {
-        return this.subject.asObservable();
+    getMessage(): Observable<string> {
+        return this.userName.asObservable();
     }
+
+    navigationButtonClicked() {
+        this.displayNavigation.next();
+    }
+
+    getDisplayNavigation(): Observable<any> {
+        return this.displayNavigation.asObservable();
+    }
+
+
 }

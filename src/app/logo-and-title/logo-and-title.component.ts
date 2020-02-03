@@ -11,7 +11,7 @@ import { AuthenticatorService } from '../Authenticators/AuthenticatorService';
   styleUrls: ['./logo-and-title.component.css']
 })
 export class LogoAndTitleComponent implements OnInit, OnDestroy {
-
+  trackingNavigationState: boolean;
   subscription: Subscription;
   loggedIn: boolean;
   username: string;
@@ -27,8 +27,9 @@ export class LogoAndTitleComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.messageService.getMessage().subscribe(message => {
       if (message) {
-        this.username = message.text;
+        this.username = message;
         this.loggedIn = true;
+
       } else {
         // clear messages when empty message received
         this.username = '';
@@ -40,6 +41,16 @@ export class LogoAndTitleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.environment = environment.environemnt;
     this.loggedIn = false;
+    this.trackingNavigationState = true;
+  }
+
+  NavigationClick() {
+    this.messageService.navigationButtonClicked();
+    if (this.trackingNavigationState) {
+      this.trackingNavigationState = false;
+    } else {
+      this.trackingNavigationState = true;
+    }
   }
 
 

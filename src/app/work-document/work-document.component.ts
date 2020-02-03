@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { PrestartValues, CloseoutTaskValues, CompareValueReturn, TypeOfInput, ValidTriggerValue, AlarmTriggerValue, AlertTriggerValue } from '../_GlobalValues/global-values';
-import { WorkDocument, TasksInformation, TaskInformationToSend, WorkTasksInformation, CommentInformationToSend, NotificationToSubmit, FutherWorkTasksInformation, documentSubmit, CompletionCode, CommentPopUpData } from '../_GlobalValues/httpObjectInterfaces';
+import { WorkDocument, TasksInformation, TaskInformationToSend, WorkTasksInformation, CommentInformationToSend, FutherWorkTasksInformation, CompletionCode, CommentPopUpData } from '../_GlobalValues/httpObjectInterfaces';
 import { HTTPSRequestService } from '../Server-HTTPS/IHTTPS-Request';
 import { ErrorMessageService } from '../error-messages/error-messageService';
 import { Router } from '@angular/router';
