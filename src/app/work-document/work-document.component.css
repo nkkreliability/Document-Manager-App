@@ -82,14 +82,6 @@ input[type=checkbox] {
     ;
 }
 
-.inputbutton {
-    height: auto;
-    width: min-content;
-    font-size: 1vw;
-    text-align: center;
-    background-color: lightblue;
-}
-
 .context {
     align-items: center;
     display: grid;
@@ -177,12 +169,6 @@ input[type=checkbox] {
     border-color: black;
 }
 
-.prestartTasksItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
-}
-
 .errorTask {
     display: grid;
     grid-template-rows: auto;
@@ -191,6 +177,7 @@ input[type=checkbox] {
 }
 
 .prestartTaskActionsContainer {
+    background-color: white;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -371,6 +358,115 @@ input[type=checkbox] {
 
 /*TODO will need to account for padding with borders etc*/
 
+
+/*Prestart Area*/
+
+.PrestartTaskGridTitlesContainer {
+    display: grid;
+    grid-template-columns: .55fr 2.2fr .65fr;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.PrestartTaskGridTitlesContainer :first-child {
+    border-left: 1px solid black;
+}
+
+.PrestartTaskGrid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(1, .55fr 2.2fr .65fr);
+    align-items: center;
+    background-color: white;
+    border-left: 1px solid black;
+}
+
+.PrestartDurationInformationText {
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    text-align: center;
+    padding-left: 5px;
+    border-left: 1px solid black;
+}
+
+.PrestartTaskInformation {
+    line-height: calc(10px + 1.5vw);
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    text-align: left;
+    padding-top: .5%;
+    padding-left: 5%;
+    padding-bottom: 5%;
+}
+
+
+/*Generic*/
+
+
+/*Grid*/
+
+.GridContainer {
+    display: grid;
+    align-items: center;
+    background-color: white;
+}
+
+.GridWorkItemTitle {
+    text-align: left;
+    font-weight: bold;
+    height: 100%;
+    font-size: calc(2px + 1.5vw);
+    padding-left: 5%;
+    padding-top: 5%;
+    padding-bottom: 2.5%;
+}
+
+.InputButton {
+    font-size: calc(2px + 1.5vw);
+    width: 29%;
+    border: 1px solid black;
+}
+
+.GridWorkColumnTitle {
+    font-weight: bold;
+    height: 100%;
+    background-color: white;
+    font-size: calc(2px + 1.5vw);
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.GridWorkColumnTitle:first-child {
+    border-left: none;
+}
+
+.GridInformationText {
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    text-align: center;
+}
+
+.GridItemButtonContainer {
+    display: flex;
+    padding-bottom: 5%;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.submitImg {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    height: calc(2px + 1.5vw);
+    vertical-align: middle;
+}
+
+.GridButtonSeperator {
+    width: 1.5%;
+}
+
 .informationText {
     line-height: calc(10px + 1.5vw);
     font-size: calc(2px + 1.5vw);
@@ -390,6 +486,7 @@ input[type=checkbox] {
     font-size: calc(5px + 1.5vw);
     color: black;
     font-weight: bold;
+    padding: 5%;
 }
 
 .sectionTitleContainer {
@@ -432,17 +529,11 @@ input[type=checkbox] {
     border-left: 1px solid black;
 }
 
-.CompletionCodeContainer {
-    background-color: white;
-}
-
 .CompletionCodeContainer img {
     padding-left: 30%;
-    width: 20%;
+    width: 3vw;
     padding-right: 30%;
 }
-
-.PrestartTaskGrid {}
 
 .FurtherWorkRequiredGrid {}
 
@@ -484,35 +575,17 @@ input[type=checkbox] {
     border-bottom: 1px solid black;
 }
 
-.GridContainer {
-    display: grid;
-    align-items: center;
-}
-
 .WorkExecutionGridTitles {
     display: grid;
     grid-template-columns: .55fr 2.2fr .65fr .65fr;
     text-align: center;
+    border-bottom: 1px solid black;
 }
 
 .WorkTaskGrid {
     align-items: center;
     display: grid;
     grid-template-columns: .55fr 2.2fr .65fr .65fr;
-}
-
-.workGridcolumnTitle {
-    font-weight: bold;
-    height: 100%;
-    background-color: white;
-    font-size: calc(2px + 1.5vw);
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    padding-left: 5px;
-}
-
-.workGridcolumnTitle:first-child {
-    border-left: none;
 }
 
 .limitsGridContainer {
@@ -528,13 +601,6 @@ input[type=checkbox] {
     text-align: center;
 }
 
-.workGridInformationText {
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: center;
-    padding-left: 5px;
-}
-
 .workGridInformationSubTitle {
     font-weight: bold;
     font-size: calc(2px + 1.5vw);
@@ -547,16 +613,6 @@ input[type=checkbox] {
     display: grid;
     grid-template-rows: auto auto auto auto;
     border-left: 1px solid black;
-}
-
-.workGridItemTitle {
-    text-align: left;
-    font-weight: bold;
-    height: 100%;
-    font-size: calc(2px + 1.5vw);
-    padding-left: 5%;
-    padding-top: 5%;
-    padding-bottom: 2.5%;
 }
 
 .workGridItemImage {
@@ -596,33 +652,6 @@ input[type=checkbox] {
 .userInput {
     width: 10vw;
     background-color: cadetblue;
-}
-
-.submitImg {
-    padding-top: 5%;
-    padding-bottom: 5%;
-    height: calc(2px + 1.5vw);
-    vertical-align: middle;
-}
-
-.workGridItemButtonContainer {
-    display: flex;
-    padding-bottom: 5%;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-.workGridInputButton {
-    font-size: calc(2px + 1.5vw);
-    width: 28%;
-    border: 1px solid black;
-}
-
-.workGridButtonSeperator {
-    width: 3.0%;
 }
 
 .workCloseOut {
