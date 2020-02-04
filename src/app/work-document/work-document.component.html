@@ -54,8 +54,7 @@
                 <div class=columnTitle>Icon</div>
                 <div class=columnTitle>Completion Code Description</div>
             </div>
-            <div class=completionCodesTableItemsGrid
-                *ngFor="let CodeInformation of currentWorkDocumentData.CompletionCodes">
+            <div class=completionCodesTableItemsGrid *ngFor="let CodeInformation of currentWorkDocumentData.CompletionCodes">
                 <div class=CompletionCodeContainer><img src={{CodeInformation.IconHyperLink}}> </div>
                 <div class=informationText>{{CodeInformation.Description}}</div>
             </div>
@@ -68,8 +67,7 @@
                 <div class=columnTitle>Competency</div>
                 <div class=columnTitle>Completion Code</div>
             </div>
-            <div class=authorityToMaintainItemsGrid
-                *ngFor="let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation">
+            <div class=authorityToMaintainItemsGrid *ngFor="let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation">
                 <div class=informationText>{{AuthorityValue.CompetencyInformation}}</div>
                 <div class=informationText>{{AuthorityValue.AuthorityCode}}</div>
             </div>
@@ -83,8 +81,7 @@
                 <div class=columnTitle>Information</div>
                 <div class=columnTitle>Material<br>Number</div>
             </div>
-            <div class=equipmentAndMaterialsItemsGrid
-                *ngFor="let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation">
+            <div class=equipmentAndMaterialsItemsGrid *ngFor="let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation">
                 <div class=informationText>{{equipmentMaterialValue.Quantity}}</div>
                 <div class=informationText>{{equipmentMaterialValue.Information}}</div>
                 <div class=informationText>{{equipmentMaterialValue.MaterialNumber}}</div>
@@ -97,28 +94,24 @@
         <!--Spans section-->
         <div class=GridContainer>
             <div class=prestartTasksGridTitles>
-                <div class=columnTitle>Duration</div>
+                <div class=columnTitle>>Duration<br>(min)</div>
                 <div class=columnTitle>Tasks</div>
                 <div class=columnTitle>Completion Code</div>
             </div>
             <div *ngFor="let prestartTask of currentWorkDocumentData.PrestartTasksInformation">
-                <div id={{prestartTask.UUID}}
-                    [ngClass]="{'errorTask': prestartTask.Error, 'prestartTasksItemsGrid': !prestartTask.Error}">
-                    <div class=informationText>{{prestartTask.Duration}}mins</div>
+                <div id={{prestartTask.UUID}} [ngClass]="{'errorTask': prestartTask.Error, 'prestartTasksItemsGrid': !prestartTask.Error}">
+                    <div class=informationText>{{prestartTask.Duration}}min</div>
                     <div class=informationText>
                         <div class=prestartTaskActionsContainer>
                             <div class=workTaskTitle>
                                 <div class=workgridItemActionTitle>{{prestartTask.Name}}</div>
-                                <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable"
-                                    (click)="submitPrestartTask(prestartTask.UUID,true)">Skip</button>
+                                <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable" (click)="submitPrestartTask(prestartTask.UUID,true)">Skip</button>
                             </div>
-                            <button class=inputbutton
-                                (click)="generateTaskObservationComment(prestartTask.UUID,prestartTask.Name)">Add
-                                comment</button>
+                            <button class=inputbutton (click)="generateTaskObservationComment(prestartTask.UUID,prestartTask.Name)">Add
+                                comment</button>H
                             <div class=taskItem>{{prestartTask.Information}}</div>
                             <div class=buttonContainer>
-                                <button class=inputbutton *ngIf="makeSaveValueButtonsAvaliable"
-                                    (click)="submitPrestartTask(prestartTask.UUID,false)">Complete</button>
+                                <button class=inputbutton *ngIf="makeSaveValueButtonsAvaliable" (click)="submitPrestartTask(prestartTask.UUID,false)">Complete</button>
 
                             </div>
                         </div>
@@ -134,36 +127,37 @@
         <!--Spans section-->
         <div class=GridContainer>
             <div class=WorkExecutionGridTitles>
-                <div class=workGridcolumnTitle>Duration</div>
+                <div class=workGridcolumnTitle>Duration<br>(min)</div>
                 <div class=workGridcolumnTitle>Tasks</div>
                 <div class=workGridcolumnTitle>Limits</div>
                 <div class=workGridcolumnTitle>Completion<br>Code</div>
             </div>
             <div *ngFor="let workTask of currentWorkDocumentData.WorkTasksInformation">
-                <div id={{workTask.UUID}}
-                    [ngClass]="{'workExecutionERRORItemsGrid': workTask.Error, 'WorkTaskGrid': !workTask.Error}">
-                    <div class=workGridInformationText>{{workTask.Duration}}mins</div>
+                <div id={{workTask.UUID}} [ngClass]="{'workExecutionERRORItemsGrid': workTask.Error, 'WorkTaskGrid': !workTask.Error}">
+                    <div class=workGridInformationText>{{workTask.Duration}}min</div>
                     <div class=workExecutionTaskContainer>
                         <div class=workGridItemTitle>&bull; {{workTask.Name}}</div>
                         <!--TODO will need to see what the value of typeOfInput is to determine what to show-->
-                        <div class=workGridItemImage> <img
-                                src="https://nks-maintenance.online/Server/public/images/Pictures/image.png"></div>
+                        <div class=workGridItemImage> <img src="https://nks-maintenance.online/Server/public/images/Pictures/image.png"></div>
                         <div class=workGridItemInformationContainer>
-                            <div class=worktaskInformation>{{workTask.Information}}:&nbsp;&nbsp;
+                            <div class=worktaskInformation>{{workTask.Information}}:&nbsp;
                                 <!--//TODO https://stackoverflow.com/questions/41465542/angular2-input-field-to-accept-only-numbers-->
-                                <input [disabled]="inputDisabled" class=worktaskuserInput id="{{workTask.InputID}}"
-                                    [value]=workTask.SubmittedValue></div>
+                                <input [disabled]="inputDisabled" class=worktaskuserInput id="{{workTask.InputID}}" [value]=workTask.SubmittedValue>{{workTask.Units}}
+                            </div>
                         </div>
                         <div class=workGridItemButtonContainer>
-                            <button *ngIf="makeSaveValueButtonsAvaliable" class=workGridInputButton
-                                (click)="submitWorkTask(workTask.UUID,workTask.TypeOfInput,false)">SaveValue</button>
+                            <button *ngIf="makeSaveValueButtonsAvaliable" class=workGridInputButton (click)="submitWorkTask(workTask.UUID,workTask.TypeOfInput,false)"><img class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SubmitIcon.png">&nbsp;Save
+                                Task</button>
                             <div class=workGridButtonSeperator></div>
-                            <button class=workGridInputButton *ngIf=" makeSaveValueButtonsAvaliable"
-                                (click)="submitWorkTask(workTask.UUID,workTask.TypeOfInput,true)">Skip Task</button>
+                            <button class=workGridInputButton *ngIf=" makeSaveValueButtonsAvaliable" (click)="submitWorkTask(workTask.UUID,workTask.TypeOfInput,true)"><img class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SkipButton.png">&nbsp;Skip
+                                Task</button>
                             <div class=workGridButtonSeperator></div>
-                            <button class=workGridInputButton
-                                (click)="generateTaskObservationComment(workTask.UUID,workTask.Name)">Add
-                                comment</button>
+                            <button class=workGridInputButton (click)="generateTaskObservationComment(workTask.UUID,workTask.Name)"><img
+                                    class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SpeechBubble.png">&nbsp;
+                                Comment </button>
                         </div>
                     </div>
                     <div class=limitsGridContainer>
@@ -205,17 +199,13 @@
                     <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
                 </div>
                 <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
-                    <div *ngIf="furtherWorkTaskTracker.get(closeOutTask.UUID)"
-                        [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
+                    <div *ngIf="furtherWorkTaskTracker.get(closeOutTask.UUID)" [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
                         <div class=workgridItem>
                             <div class=notificationInfoContainer>
-                                <input [disabled]="inputDisabled" id={{furtherwork.UUID}}
-                                    [value]=furtherwork.SubmittedValue>
-                                <button *ngIf=" makeSaveValueButtonsAvaliable"
-                                    (click)="submitFurtherWorkRequired(furtherwork.UUID)">Save
+                                <input [disabled]="inputDisabled" id={{furtherwork.UUID}} [value]=furtherwork.SubmittedValue>
+                                <button *ngIf=" makeSaveValueButtonsAvaliable" (click)="submitFurtherWorkRequired(furtherwork.UUID)">Save
                                     Code</button>
-                                <button class=inputbutton
-                                    (click)="generateTaskObservationComment(furtherwork.UUID,furtherwork.Name)">Add
+                                <button class=inputbutton (click)="generateTaskObservationComment(furtherwork.UUID,furtherwork.Name)">Add
                                     comment</button>
                             </div>
                         </div>
@@ -231,30 +221,26 @@
         <div class=sectionTitle>Close-Out Checklist</div>
         <div class=GridContainer>
             <div class=closeOutChecklistGridTitles>
-                <div class=columnTitle>Duration</div>
+                <div class=columnTitle>>Duration<br>(min)</div>
                 <div class=columnTitle>Tasks</div>
                 <div class=columnTitle>Completion<br>Code</div>
             </div>
 
             <div *ngFor="let closeOutTask of currentWorkDocumentData.CloseoutTasksInformation">
-                <div id={{closeOutTask.Name}}
-                    [ngClass]="{'errorTask': closeOutTask.Error, 'closeOutChecklistGrid': !closeOutTask.Error}">
+                <div id={{closeOutTask.Name}} [ngClass]="{'errorTask': closeOutTask.Error, 'closeOutChecklistGrid': !closeOutTask.Error}">
 
-                    <div class=informationText>{{closeOutTask.Duration}}mins</div>
+                    <div class=informationText>{{closeOutTask.Duration}}min</div>
                     <div class=workgridItem>
                         <!--TODO will need a grid style-->
                         <div class=prestartTaskActionsContainer>
                             <div class=workTaskTitle>
                                 <div class=workgridItemActionTitle>{{closeOutTask.Name}}</div>
-                                <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable"
-                                    (click)="submitCloseoutTask(closeOutTask.UUID,true)">Skip</button>
+                                <button class=inputbutton *ngIf=" makeSaveValueButtonsAvaliable" (click)="submitCloseoutTask(closeOutTask.UUID,true)">Skip</button>
                             </div>
                             <div class=taskItem>{{closeOutTask.information}}</div>
                             <div class=buttonContainer>
-                                <button class=inputbutton *ngIf="makeSaveValueButtonsAvaliable"
-                                    (click)="submitCloseoutTask(closeOutTask.UUID,false)">Complete</button>
-                                <button class=inputbutton
-                                    (click)="generateTaskObservationComment(closeOutTask.UUID,closeOutTask.Name)">Add
+                                <button class=inputbutton *ngIf="makeSaveValueButtonsAvaliable" (click)="submitCloseoutTask(closeOutTask.UUID,false)">Complete</button>
+                                <button class=inputbutton (click)="generateTaskObservationComment(closeOutTask.UUID,closeOutTask.Name)">Add
                                     comment</button>
                             </div>
 

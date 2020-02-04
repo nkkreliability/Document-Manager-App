@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./account-dashboard.component.css']
 })
 export class AccountDashboardComponent implements OnInit {
-  time = new Date();
   currentUser: UserInformation
   showNavigationBar: boolean;
   subscription: Subscription;
@@ -35,9 +34,6 @@ export class AccountDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigate(['/dashboard/Welcome']);
-    setInterval(() => {
-      this.time = new Date();
-    }, 1000);
     this.showNavigationBar = true;
   }
 
