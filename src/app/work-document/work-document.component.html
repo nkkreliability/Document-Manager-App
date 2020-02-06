@@ -10,15 +10,13 @@
         <div class=documentTitleContainer>
             <div class=documentType>{{currentWorkDocumentData.Type}}</div>
             <div class=documentTitle>{{currentWorkDocumentData.Title}}</div>
-            <div class=documentTitleContainerSub>
-                <div class=DTC-Title>Responsible Work Centre:</div>
-                <div class=DTC-Information>{{currentWorkDocumentData.WorkCenter}}</div>
-            </div>
 
-            <div class=documentTitleContainerSub>
-                <div class=DTC-Information>Total Time Required - {{currentWorkDocumentData.TotalDuration}} hours</div>
+            <div class=headerInfo><b>Responsible Work Centre</b>: {{currentWorkDocumentData.WorkCenter}}</div>
 
-            </div>
+
+
+            <div class=headerInfo><b>Total Time Required</b> - {{currentWorkDocumentData.TotalDuration}} hours</div>
+
 
         </div>
         <div class=documentInformationContainer>
@@ -45,7 +43,9 @@
     </div>
     <div class=sectionContainer>
         <div class=sectionTitle>Context &<br>Purpose</div>
-        <div class=informationText>{{currentWorkDocumentData.Context}}</div>
+        <div class=contextInformationContainer>
+            <div class=ContextInformation>{{currentWorkDocumentData.Context}}</div>
+        </div>
     </div>
     <div class=sectionContainer>
         <div class=sectionTitle>Completion<br>Codes</div>
@@ -56,7 +56,9 @@
             </div>
             <div class=completionCodesTableItemsGrid *ngFor="let CodeInformation of currentWorkDocumentData.CompletionCodes">
                 <div class=CompletionCodeContainer><img src={{CodeInformation.IconHyperLink}}> </div>
-                <div class=informationText>{{CodeInformation.Description}}</div>
+                <div class=completionCodesGridCodeContainer>
+                    <div class=completionCodeInformation>{{CodeInformation.Description}}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,11 +67,11 @@
         <div class=Container>
             <div class=authorityToMaintainGridTitles>
                 <div class=columnTitle>Competency</div>
-                <div class=columnTitle>Completion Code</div>
+                <div class=centerTitle>Code</div>
             </div>
             <div class=authorityToMaintainItemsGrid *ngFor="let AuthorityValue of currentWorkDocumentData.AuthorityToMaintainInformation">
                 <div class=informationText>{{AuthorityValue.CompetencyInformation}}</div>
-                <div class=informationText>{{AuthorityValue.AuthorityCode}}</div>
+                <div class=centerInformation>{{AuthorityValue.AuthorityCode}}</div>
             </div>
         </div>
     </div>
@@ -77,14 +79,14 @@
         <div class=sectionTitle>Equipment &<br>Materials</div>
         <div class=GridContainer>
             <div class=equipmentAndMaterialsGridTitles>
-                <div class=columnTitle>Qty</div>
+                <div class=centerTitle>Qty</div>
                 <div class=columnTitle>Information</div>
-                <div class=columnTitle>Material<br>Number</div>
+                <div class=centerTitle>Material<br>Number</div>
             </div>
             <div class=equipmentAndMaterialsItemsGrid *ngFor="let equipmentMaterialValue of currentWorkDocumentData.EquipmentMaterialInformation">
-                <div class=informationText>{{equipmentMaterialValue.Quantity}}</div>
+                <div class=centerInformation>{{equipmentMaterialValue.Quantity}}</div>
                 <div class=informationText>{{equipmentMaterialValue.Information}}</div>
-                <div class=informationText>{{equipmentMaterialValue.MaterialNumber}}</div>
+                <div class=centerInformation>{{equipmentMaterialValue.MaterialNumber}}</div>
             </div>
         </div>
     </div>
@@ -188,38 +190,44 @@
     </div>
     <div class=SectionContainerTopTitle>
         <div class=spanHeaderTitle>Work Close-Out</div>
-        <div class=CommentsSectionContainer>
+        <div class=sectionContainer>
             <div class=sectionTitle>Comments &<br>General<br>Observations</div>
             <div class=CommentsContainer>
                 <div class=commentsAndObsGrid *ngFor="let comment of overallDocumentComments">
                     <div class=Comment>{{comment}}</div>
                 </div>
-
+                <div class=commentSectionButtonContainer>
+                    <button class=InputButton (click)="generateGeneralObservationComment()"><img
+                                    class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SpeechBubble.png">&nbsp;
+                                Comment </button>
+                </div>
             </div>
-            <button class=inputbutton (click)="generateGeneralObservationComment()">Add New Comment</button>
+
         </div>
         <div *ngIf="currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork" class=sectionContainer>
             <div class=sectionTitle>Further Work Required</div>
             <div class=GridContainer>
                 <div class=futherWorkRequiredGridTitles>
-                    <div class=columnTitle>NotificationCode</div>
-                    <div class=columnTitle>Notification Description</div>
-                    <div class=columnTitle>Completion<br>Code</div>
+                    <div class=columnTitle>Notification<br>Code</div>
+                    <div class=columnTitle>Description</div>
+                    <div class=centerTitle>Completion<br>Code</div>
                     <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
                 </div>
                 <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
-                    <div *ngIf="furtherWorkTaskTracker.get(closeOutTask.UUID)" [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
-                        <div class=workgridItem>
-                            <div class=notificationInfoContainer>
-                                <input [disabled]="inputDisabled" id={{furtherwork.UUID}} [value]=furtherwork.SubmittedValue>
-                                <button *ngIf=" makeSaveValueButtonsAvaliable" (click)="submitFurtherWorkRequired(furtherwork.UUID)">Save
-                                    Code</button>
-                                <button class=inputbutton (click)="generateTaskObservationComment(furtherwork.UUID,furtherwork.Name)">Add
-                                    comment</button>
+                    <div *ngIf="furtherWorkTaskTracker.get(furtherwork.UUID)" [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
+                        <div class=FurtherWorkUserInputContainer>
+                            <input [disabled]="inputDisabled" class=FurtherworkuserInput id={{furtherwork.UUID}} [value]=furtherwork.SubmittedValue>
+                            <div class=FurtherWorkGridItemButtonContainer>
+                                <button *ngIf="makeSaveValueButtonsAvaliable" class=FurtherWorkInputButton (click)="submitFurtherWorkRequired(furtherwork.UUID)"><img class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SubmitIcon.png">&nbsp;Save
+                                Task</button>
                             </div>
                         </div>
                         <div class=informationText>{{furtherwork.Information}}</div>
-                        <div class=CompletionCodeContainer><img src={{furtherwork.CompletionCode}}></div>
+                        <div class=workGridCodeContainer>
+                            <div class=CompletionCodeContainer><img src={{furtherwork.CompletionCode}}></div>
+                        </div>
                     </div>
                 </div>
             </div>

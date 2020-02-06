@@ -123,24 +123,28 @@ export class WorkDocumentComponent implements OnInit {
     //Prestart Tasks
     for (let prestartTask of this.currentWorkDocumentData.PrestartTasksInformation) {
       for (let workTaskComment of prestartTask.Comments) {
-        this.overallDocumentComments.push(workTaskComment);
+        if (workTaskComment !== "")
+          this.overallDocumentComments.push(workTaskComment);
       }
     }
     //WorkTasks
     for (let workTask of this.currentWorkDocumentData.WorkTasksInformation) {
       for (let workTaskComment of workTask.Comments) {
-        this.overallDocumentComments.push(workTaskComment);
+        if (workTaskComment !== "")
+          this.overallDocumentComments.push(workTaskComment);
       }
     }
     //CloseoutTasks
     for (let closeoutTask of this.currentWorkDocumentData.CloseoutTasksInformation) {
       for (let workTaskComment of closeoutTask.Comments) {
-        this.overallDocumentComments.push(workTaskComment);
+        if (workTaskComment !== "")
+          this.overallDocumentComments.push(workTaskComment);
       }
     }
     //generalComments
     for (let DocumentComment of this.currentWorkDocumentData.GeneralComments) {
-      this.overallDocumentComments.push(DocumentComment);
+      if (DocumentComment !== "")
+        this.overallDocumentComments.push(DocumentComment);
     }
   }
 
@@ -329,6 +333,7 @@ export class WorkDocumentComponent implements OnInit {
     if (workTask.TaskLinks) {
       for (let triggerlinks of workTask.TaskLinks) {
         if (triggerlinks.TriggerCondition === triggerValue) {
+          console.log('updating trigger');
           this.furtherWorkTaskTracker.set(triggerlinks.UUID, true);
           //And need to display the contianer of the new class.
           if (!this.displayFurtherWork || !this.displayCloseoutTasks) {
@@ -338,7 +343,7 @@ export class WorkDocumentComponent implements OnInit {
             }).length) {
               this.displayFurtherWork = true;
             } else {
-              this.displayCloseoutTasks = true;
+              this.displayFurtherWork = false;
             }
           }
         }

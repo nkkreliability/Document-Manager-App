@@ -82,23 +82,6 @@ input[type=checkbox] {
     ;
 }
 
-.context {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.contextContent {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    text-align: left;
-    border-left: 1px solid black;
-}
-
 .completionCodes {
     align-items: center;
     display: grid;
@@ -111,52 +94,6 @@ input[type=checkbox] {
 .completionCodesGridTitles {
     display: grid;
     grid-template-columns: .5fr 3.5fr;
-}
-
-.completionCodesTableItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .5fr 3.5fr);
-}
-
-.authorityToMaintain {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.authorityToMaintainGridTitles {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-}
-
-.authorityToMaintainItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 3fr 1fr);
-}
-
-.equipmentAndMaterials {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.equipmentAndMaterialsGridTitles {
-    display: grid;
-    grid-template-columns: .5fr 2.5fr 1fr;
-}
-
-.equipmentAndMaterialsItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .5fr 2.5fr 1fr);
 }
 
 .workPreperation {
@@ -246,62 +183,6 @@ input[type=checkbox] {
     row-gap: .5vw;
 }
 
-.commentsAndObsContainer {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto;
-    align-items: center;
-}
-
-.commentsGridContainer {
-    display: grid;
-}
-
-.commentsAndObsGrid {
-    display: grid;
-    grid-template-columns: 4fr;
-    grid-template-rows: auto;
-}
-
-.commentsAndGeneralObsInput {
-    border-left: 1px solid black;
-}
-
-.addcommentContainer {
-    display: grid;
-    grid-template-columns: 3.5fr .5fr;
-}
-
-.furtherWorkRequiredContainer {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto;
-    align-items: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.futherWorkRequiredGridTitles {
-    text-align: left;
-    display: grid;
-    grid-template-columns: 1fr 2.0fr 1fr;
-}
-
-.futherWorkRequiredItemsGrid {
-    text-align: center;
-    align-content: center;
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
-}
-
-.futherWorkRequiredItemsERRORGrid {
-    display: grid;
-    grid-template-columns: 1fr 2.0fr 1fr;
-    background-color: #FFCCCC;
-}
-
 .closeOutChecklistContainer {
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -359,11 +240,104 @@ input[type=checkbox] {
 /*TODO will need to account for padding with borders etc*/
 
 
+/*Context*/
+
+.contextInformationContainer {
+    height: 100%;
+    background-color: white;
+    border-left: 1px solid black;
+}
+
+.ContextInformation {
+    line-height: calc(10px + 1.5vw);
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    text-align: left;
+    background-color: white;
+    padding: 2%;
+}
+
+
+/*Completion Codes*/
+
+.completionCodesTableItemsGrid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(1, .5fr 3.5fr);
+    border-left: 1px solid black;
+}
+
+.completionCodesGridCodeContainer {
+    display: grid;
+    align-items: center;
+    text-align: center;
+}
+
+.completionCodeInformation {
+    line-height: calc(15px + 1.5vw);
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    text-align: left;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: white;
+    border-left: 1px solid black;
+}
+
+
+/*Authority To Maintain*/
+
+.authorityToMaintain {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.authorityToMaintainGridTitles {
+    display: grid;
+    grid-template-columns: 3.5fr .5fr;
+}
+
+.authorityToMaintainItemsGrid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(1, 3.5fr .5fr);
+}
+
+
+/*Equipment and Materials*/
+
+.equipmentAndMaterials {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.equipmentAndMaterialsGridTitles {
+    display: grid;
+    grid-template-columns: .25fr 3.25fr .5fr;
+}
+
+.equipmentAndMaterialsItemsGrid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(1, .25fr 3.25fr .5fr);
+}
+
+
 /*Prestart Area*/
 
 .PrestartTaskGridTitlesContainer {
     display: grid;
-    grid-template-columns: .55fr 2.2fr .65fr;
+    grid-template-columns: .55fr 2.3fr .65fr;
     text-align: center;
     border-bottom: 1px solid black;
 }
@@ -375,7 +349,7 @@ input[type=checkbox] {
 .PrestartTaskGrid {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: repeat(1, .55fr 2.2fr .65fr);
+    grid-template-columns: repeat(1, .55fr 2.3fr .65fr);
     align-items: center;
     background-color: white;
     border-left: 1px solid black;
@@ -400,7 +374,143 @@ input[type=checkbox] {
 }
 
 
+/*Further Work*/
+
+.futherWorkRequiredGridTitles {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 0.85fr 2.0fr .65fr;
+}
+
+.futherWorkRequiredItemsGrid {
+    text-align: center;
+    align-content: center;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(1, 0.85fr 2.0fr .65fr);
+    border-left: 1px solid black;
+}
+
+.futherWorkRequiredItemsERRORGrid {
+    display: grid;
+    grid-template-columns: 0.55fr 1.25fr .65fr;
+    background-color: #FFCCCC;
+}
+
+.FurtherWorkGridItemButtonContainer {
+    display: flex;
+    padding: 5%;
+    flex-direction: row;
+    align-items: center;
+}
+
+.FurtherWorkInputButton {
+    font-size: calc(2px + 1.5vw);
+    width: 100%;
+    border: 1px solid black;
+}
+
+.FurtherWorkUserInputContainer {
+    padding-top: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+}
+
+.FurtherworkuserInput {
+    background-color: rgb(253, 245, 245);
+    border-bottom: 1px solid black;
+    height: calc(2px + 1.5vw);
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    width: 100%;
+}
+
+
+/*Comment and Observations*/
+
+.commentsAndObsContainer {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto;
+    align-items: center;
+}
+
+.commentsGridContainer {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.commentsAndObsGrid {
+    display: grid;
+    grid-template-columns: 4fr;
+    grid-template-rows: auto;
+    min-height: 20px;
+}
+
+.commentsAndGeneralObsInput {
+    border-left: 1px solid black;
+}
+
+.addcommentContainer {
+    display: grid;
+    grid-template-columns: 3.5fr .5fr;
+}
+
+.commentSectionButtonContainer {
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.CommentsContainer {
+    border-left: 1px solid black;
+    height: 100%;
+    background-color: white;
+}
+
+.Comment {
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    text-align: left;
+    background-color: white;
+    padding-top: .5%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.Comment:last-child {
+    padding-bottom: .5%;
+}
+
+
 /*Generic*/
+
+
+/*Titles*/
+
+.centerTitle {
+    text-align: center;
+    font-weight: bold;
+    height: 100%;
+    background-color: white;
+    font-size: calc(2px + 1.5vw);
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.centerInformation {
+    text-align: center;
+    line-height: calc(10px + 1.5vw);
+    font-size: calc(2px + 1.5vw);
+    color: black;
+    background-color: white;
+    padding-top: .5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-left: 1px solid black;
+}
 
 
 /*Grid*/
@@ -431,6 +541,7 @@ input[type=checkbox] {
     font-weight: bold;
     height: 100%;
     background-color: white;
+    line-height: calc(10px + 1.5vw);
     font-size: calc(2px + 1.5vw);
     border-bottom: 1px solid black;
     border-left: 1px solid black;
@@ -474,7 +585,7 @@ input[type=checkbox] {
     text-align: left;
     background-color: white;
     padding-top: .5%;
-    padding-left: 5px;
+    padding-left: 2%;
     border-left: 1px solid black;
 }
 
@@ -510,15 +621,7 @@ input[type=checkbox] {
     font-size: calc(2px + 1.5vw);
     border-left: 1px solid black;
     border-bottom: 1px solid black;
-    padding-left: 5px;
-}
-
-.CommentsSectionContainer {
-    display: grid;
-    background-color: var(--secondary-bg-color);
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 3.5fr .5fr;
+    padding-left: 2%;
 }
 
 .workGridCodeContainer {
@@ -534,10 +637,6 @@ input[type=checkbox] {
     width: 3vw;
     padding-right: 30%;
 }
-
-.FurtherWorkRequiredGrid {}
-
-.CloseOutTaskGrid {}
 
 .completionCodesGridTitles {
     border-bottom: 1px solid black;
@@ -649,11 +748,6 @@ input[type=checkbox] {
     color: black;
 }
 
-.userInput {
-    width: 10vw;
-    background-color: cadetblue;
-}
-
 .workCloseOut {
     outline: solid;
 }
@@ -664,21 +758,6 @@ input[type=checkbox] {
     font-size: calc(20px + 1.5vw);
     font-weight: 900;
     text-align: center;
-}
-
-.CommentsContainer {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    height: 100%;
-    background-color: white;
-}
-
-.Comment {
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: left;
-    background-color: white;
-    padding-left: 5px;
 }
 
 .completionSignOff {
@@ -720,12 +799,12 @@ input[type=checkbox] {
 
 .header {
     background-color: var(--main-bg-color);
-    color: white;
     outline: solid;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: 3fr 0.2fr;
     align-items: center;
+    text-align: center;
 }
 
 .headLogoContainer {
@@ -746,6 +825,10 @@ input[type=checkbox] {
 
 .DIC-Information {
     font-size: calc(1px + 1.0vw);
+}
+
+.headerInfo {
+    font-size: calc(1px + 1.0vw);
     text-align: center;
 }
 
@@ -754,6 +837,7 @@ input[type=checkbox] {
     display: grid;
     grid-auto-rows: auto;
     height: 100%;
+    color: white;
 }
 
 .documentTitleContainerSub {
@@ -772,8 +856,7 @@ input[type=checkbox] {
 }
 
 .DTC-Title {
-    font-weight: bold;
-    font-size: 1.5vw;
+    font-size: calc(2px + 1.5vw);
 }
 
 .DTC-Information {
@@ -789,6 +872,7 @@ input[type=checkbox] {
     grid-auto-rows: auto;
     height: 100%;
     border-left: 1px solid white;
+    color: white;
 }
 
 .DIC-SubInformation {
