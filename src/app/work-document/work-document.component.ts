@@ -502,7 +502,7 @@ export class WorkDocumentComponent implements OnInit {
   generateSkippingTaskComment(taskName: string): Observable<any> {
     console.log('generateSkippingTaskComment');
     let dataToSend: CommentPopUpData = {
-      Title: "Enter Reason for Skipping Task: " + taskName,
+      Title: "Enter Reason for Skipping Task:\n" + taskName,
       ExcuseComments: this.currentWorkDocumentData.ExcuseComments,
       ShowExcuses: true,
     }
@@ -601,10 +601,12 @@ export class WorkDocumentComponent implements OnInit {
 @Component({
   selector: 'comment-dialog',
   templateUrl: 'comment-dialog.html',
+  styleUrls: ['./work-document.component.css']
 })
 export class CommentDialog {
   //TODO https://material.angular.io/components/dialog/overview 
-
+  displayCustom: boolean;
+  useCustomComment: boolean;
   form: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CommentPopUpData,
@@ -615,18 +617,43 @@ export class CommentDialog {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      comment: ['']
-    })
+      PresetComments: [''],
+      CustomComment: ['']
+    });
+    this.useCustomComment = false;
     if (this.data.ShowExcuses) {
+      this.displayCustom = false;
       this.data.ExcuseComments.push("Other");
+    } else {
+      this.displayCustom = true;
+      this.useCustomComment = true;
+    }
+  }
+
+  checkComment() {
+    if (this.form.controls.PresetComments.value === 'Other') {
+      this.useCustomComment = true;
+      this.displayCustom = true;
+    } else {
+      if (this.useCustomComment) {
+        this.useCustomComment = false;
+        this.displayCustom = false;
+      }
     }
   }
 
   saveComment() {
-    this.dialogRef.close(this.form.controls.comment.value);
+    this.data.ExcuseComments.pop();
+    if (this.useCustomComment) {
+      this.dialogRef.close(this.form.controls.CustomComment.value);
+    } else {
+      //need to check if it is the default "Select Reason" if so return empty
+      this.form.controls.PresetComments.value === 'Select Reason' ? this.dialogRef.close('') : this.dialogRef.close(this.form.controls.PresetComments.value)
+    }
   }
 
   onNoClick(): void {
+    this.data.ExcuseComments.pop();
     this.dialogRef.close(null);
   }
 

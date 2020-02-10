@@ -1,903 +1,919 @@
-/*TODO need to play with vmin/wmin -> bind all values to vw and then add scaling for width*/
-
-.workDocumentContainer {
-    display: grid;
-    text-align: center;
-    gap: .5%;
-    padding-left: 1%;
-    padding-right: 1%;
-}
-
-.headerTitle {
-    background-color: var(--main-bg-color);
-    color: white;
-    font-size: 2.5vw;
-    font-weight: 900;
-    text-align: center;
-    grid-column: 1 / 3;
-}
-
-.Title {
-    background-color: var(--secondary-bg-color);
-    font-size: 2vw;
-    font-weight: bold;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.GridContainer {
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    text-align: left;
-}
-
-.gridTitle {
-    font-weight: bold;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    font-size: 1.8vw;
-}
-
-.checkboxgridItem {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.checkboxgridItem img {
-    padding-top: 1%;
-    width: auto;
-    height: 2.0vw;
-}
-
-input[type=checkbox] {
-    height: 2vw;
-    width: 2vw;
-}
-
-.workgridItemActionTitle {
-    font-weight: bold;
-    text-align: center;
-    font-size: 1.7vw;
-}
-
-.workTaskTitle {
-    display: grid;
-    grid-template-columns: auto auto;
-}
-
-.buttonContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1%;
-    ;
-}
-
-.completionCodes {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.completionCodesGridTitles {
-    display: grid;
-    grid-template-columns: .5fr 3.5fr;
-}
-
-.workPreperation {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto auto;
-    align-items: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.errorTask {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
-    background-color: #FFCCCC;
-}
-
-.prestartTaskActionsContainer {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.taskInputContainer {
-    display: grid;
-    grid-template-columns: auto;
-}
-
-.workExecution {
-    display: grid;
-    grid-template-columns: 5fr;
-    grid-template-rows: auto auto auto;
-    align-items: center;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-}
-
-.workExecutionItemsGrid {
-    text-align: center;
-    align-content: center;
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);
-}
-
-.workExecutionERRORItemsGrid {
-    text-align: center;
-    align-content: center;
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);
-    background-color: #FFCCCC;
-}
-
-.workExecutionItemsGrid {
-    border-bottom: -1px solid black;
-}
-
-.taskInputFlexContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-}
-
-.taskInputGridContainer {
-    display: grid;
-    grid-template-columns: auto auto auto;
-}
-
-.limitsGrid {
-    display: grid;
-    row-gap: .5vw;
-}
-
-.workCloseOut {
-    display: grid;
-    grid-template-columns: 5fr;
-    grid-template-rows: auto;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    row-gap: .5vw;
-}
-
-.closeOutChecklistContainer {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto;
-    align-items: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.notificationInformationContainer {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-}
-
-.closeOutChecklistGridTitles {
-    text-align: left;
-    display: grid;
-    grid-template-columns: 1fr 2.0fr 1fr;
-}
-
-.closeOutChecklistGrid {
-    text-align: center;
-    align-content: center;
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
-}
-
-.completionSignOffName {
-    display: grid;
-    justify-content: center;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-}
-
-.completionSignOffSignature {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-}
-
-.completionSignOffTimeStamp {
-    border-left: 1px solid black;
-}
-
-.signature {
-    width: auto;
-    height: 8vw;
-}
-
-
-/* New CSS 2020*/
-
-
-/*TODO will need to account for padding with borders etc*/
-
-
-/*Context*/
-
-.contextInformationContainer {
-    height: 100%;
-    background-color: white;
-    border-left: 1px solid black;
-}
-
-.ContextInformation {
-    line-height: calc(10px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: left;
-    background-color: white;
-    padding: 2%;
-}
-
-
-/*Completion Codes*/
-
-.completionCodesTableItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .5fr 3.5fr);
-    border-left: 1px solid black;
-}
-
-.completionCodesGridCodeContainer {
-    display: grid;
-    align-items: center;
-    text-align: center;
-}
-
-.completionCodeInformation {
-    line-height: calc(15px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: left;
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    background-color: white;
-    border-left: 1px solid black;
-}
-
-
-/*Authority To Maintain*/
-
-.authorityToMaintain {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.authorityToMaintainGridTitles {
-    display: grid;
-    grid-template-columns: 3.5fr .5fr;
-}
-
-.authorityToMaintainItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 3.5fr .5fr);
-}
-
-
-/*Equipment and Materials*/
-
-.equipmentAndMaterials {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-.equipmentAndMaterialsGridTitles {
-    display: grid;
-    grid-template-columns: .25fr 3.25fr .5fr;
-}
-
-.equipmentAndMaterialsItemsGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .25fr 3.25fr .5fr);
-}
-
-
-/*Prestart Area*/
-
-.PrestartTaskGridTitlesContainer {
-    display: grid;
-    grid-template-columns: .55fr 2.3fr .65fr;
-    text-align: center;
-    border-bottom: 1px solid black;
-}
-
-.PrestartTaskGridTitlesContainer :first-child {
-    border-left: 1px solid black;
-}
-
-.PrestartTaskGrid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, .55fr 2.3fr .65fr);
-    align-items: center;
-    background-color: white;
-    border-left: 1px solid black;
-}
-
-.PrestartDurationInformationText {
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: center;
-    padding-left: 5px;
-    border-left: 1px solid black;
-}
-
-.PrestartTaskInformation {
-    line-height: calc(10px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: left;
-    padding-top: .5%;
-    padding-left: 5%;
-    padding-bottom: 5%;
-}
-
-
-/*Further Work*/
-
-.futherWorkRequiredGridTitles {
-    text-align: left;
-    display: grid;
-    grid-template-columns: 0.85fr 2.0fr .65fr;
-}
-
-.futherWorkRequiredItemsGrid {
-    text-align: center;
-    align-content: center;
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(1, 0.85fr 2.0fr .65fr);
-    border-left: 1px solid black;
-}
-
-.futherWorkRequiredItemsERRORGrid {
-    display: grid;
-    grid-template-columns: 0.55fr 1.25fr .65fr;
-    background-color: #FFCCCC;
-}
-
-.FurtherWorkGridItemButtonContainer {
-    display: flex;
-    padding: 5%;
-    flex-direction: row;
-    align-items: center;
-}
-
-.FurtherWorkInputButton {
-    font-size: calc(2px + 1.5vw);
-    width: 100%;
-    border: 1px solid black;
-}
-
-.FurtherWorkUserInputContainer {
-    padding-top: 2%;
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 90%;
-}
-
-.FurtherworkuserInput {
-    background-color: rgb(253, 245, 245);
-    border-bottom: 1px solid black;
-    height: calc(2px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    width: 100%;
-}
-
-
-/*Comment and Observations*/
-
-.commentsAndObsContainer {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto;
-    align-items: center;
-}
-
-.commentsGridContainer {
-    display: grid;
-    grid-template-rows: auto auto;
-}
-
-.commentsAndObsGrid {
-    display: grid;
-    grid-template-columns: 4fr;
-    grid-template-rows: auto;
-    min-height: 20px;
-}
-
-.commentsAndGeneralObsInput {
-    border-left: 1px solid black;
-}
-
-.addcommentContainer {
-    display: grid;
-    grid-template-columns: 3.5fr .5fr;
-}
-
-.commentSectionButtonContainer {
-    padding-top: 2%;
-    padding-bottom: 2%;
-}
-
-.CommentsContainer {
-    border-left: 1px solid black;
-    height: 100%;
-    background-color: white;
-}
-
-.Comment {
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: left;
-    background-color: white;
-    padding-top: .5%;
-    padding-left: 2%;
-    padding-right: 2%;
-}
-
-.Comment:last-child {
-    padding-bottom: .5%;
-}
-
-
-/*Generic*/
-
-
-/*Titles*/
-
-.centerTitle {
-    text-align: center;
-    font-weight: bold;
-    height: 100%;
-    background-color: white;
-    font-size: calc(2px + 1.5vw);
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    padding-left: 2%;
-    padding-right: 2%;
-}
-
-.centerInformation {
-    text-align: center;
-    line-height: calc(10px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    background-color: white;
-    padding-top: .5%;
-    padding-left: 2%;
-    padding-right: 2%;
-    border-left: 1px solid black;
-}
-
-
-/*Grid*/
-
-.GridContainer {
-    display: grid;
-    align-items: center;
-    background-color: white;
-}
-
-.GridWorkItemTitle {
-    text-align: left;
-    font-weight: bold;
-    height: 100%;
-    font-size: calc(2px + 1.5vw);
-    padding-left: 5%;
-    padding-top: 5%;
-    padding-bottom: 2.5%;
-}
-
-.InputButton {
-    font-size: calc(2px + 1.5vw);
-    width: 29%;
-    border: 1px solid black;
-}
-
-.GridWorkColumnTitle {
-    font-weight: bold;
-    height: 100%;
-    background-color: white;
-    line-height: calc(10px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-}
-
-.GridWorkColumnTitle:first-child {
-    border-left: none;
-}
-
-.GridInformationText {
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: center;
-}
-
-.GridItemButtonContainer {
-    display: flex;
-    padding-bottom: 5%;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-.submitImg {
-    padding-top: 5%;
-    padding-bottom: 5%;
-    height: calc(2px + 1.5vw);
-    vertical-align: middle;
-}
-
-.GridButtonSeperator {
-    width: 1.5%;
-}
-
-.informationText {
-    line-height: calc(10px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: left;
-    background-color: white;
-    padding-top: .5%;
-    padding-left: 2%;
-    border-left: 1px solid black;
-}
-
-.informationText:last-child {
-    padding-bottom: .5%;
-}
-
-.sectionTitle {
-    font-size: calc(5px + 1.5vw);
-    color: black;
-    font-weight: bold;
-    padding: 5%;
-}
-
-.sectionTitleContainer {
-    height: auto;
-    text-align: center;
-}
-
-.sectionContainer {
-    background-color: var(--secondary-bg-color);
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    outline: solid;
-}
-
-.columnTitle {
-    font-weight: bold;
-    height: 100%;
-    text-align: left;
-    background-color: white;
-    font-size: calc(2px + 1.5vw);
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    padding-left: 2%;
-}
-
-.workGridCodeContainer {
-    height: 100%;
-    display: grid;
-    align-items: center;
-    text-align: center;
-    border-left: 1px solid black;
-}
-
-.CompletionCodeContainer img {
-    padding-left: 30%;
-    width: 3vw;
-    padding-right: 30%;
-}
-
-.completionCodesGridTitles {
-    border-bottom: 1px solid black;
-}
-
-.authorityToMaintainGridTitles {
-    border-bottom: 1px solid black;
-}
-
-.equipmentAndMaterialsGridTitles {
-    border-bottom: 1px solid black;
-}
-
-.prestartTasksGridTitles {
-    display: grid;
-    grid-template-columns: 1fr 2.0fr 1fr;
-    border-bottom: 1px solid black;
-    text-align: center;
-}
-
-.SectionContainerTopTitle {
-    display: grid;
-    grid-template-columns: 5fr;
-    grid-template-rows: auto auto auto;
-    align-items: center;
-    outline: solid;
-}
-
-.TitleSpan {
-    background-color: var(--secondary-bg-color);
-    font-size: 2vw;
-    font-weight: bold;
-    text-align: center;
-    height: 100%;
-    border-bottom: 1px solid black;
-}
-
-.WorkExecutionGridTitles {
-    display: grid;
-    grid-template-columns: .55fr 2.2fr .65fr .65fr;
-    text-align: center;
-    border-bottom: 1px solid black;
-}
-
-.WorkTaskGrid {
-    align-items: center;
-    display: grid;
-    grid-template-columns: .55fr 2.2fr .65fr .65fr;
-}
-
-.limitsGridContainer {
-    height: 100%;
-    border-left: 1px solid black;
-    display: grid;
-    align-items: center;
-}
-
-.limitsGrid {
-    display: grid;
-    vertical-align: middle;
-    text-align: center;
-}
-
-.workGridInformationSubTitle {
-    font-weight: bold;
-    font-size: calc(2px + 1.5vw);
-    color: black;
-    text-align: center;
-    padding-left: 5px;
-}
-
-.workExecutionTaskContainer {
-    display: grid;
-    grid-template-rows: auto auto auto auto;
-    border-left: 1px solid black;
-}
-
-.workGridItemImage {
-    align-self: center;
-    width: 2.5fr;
-    padding-bottom: 2.5%;
-}
-
-.workGridItemImage img {
-    padding-left: 5%;
-    width: 90%;
-    padding-right: 5%;
-}
-
-.workGridItemInformationContainer {
-    width: 100%;
-    padding-bottom: 2.5%;
-}
-
-.worktaskInformation {
-    display: grid;
-    grid-template-columns: 50% 35% 5%;
-    font-size: calc(2px + 1.5vw);
-    text-align: right;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-.worktaskuserInput {
-    background-color: rgb(253, 245, 245);
-    border-bottom: 1px solid black;
-    height: calc(2px + 1.5vw);
-    font-size: calc(2px + 1.5vw);
-    color: black;
-}
-
-.workCloseOut {
-    outline: solid;
-}
-
-.spanHeaderTitle {
-    background-color: var(--main-bg-color);
-    color: white;
-    font-size: calc(20px + 1.5vw);
-    font-weight: 900;
-    text-align: center;
-}
-
-.completionSignOff {
-    background-color: var(--secondary-bg-color);
-    outline: solid;
-    display: grid;
-    grid-template-rows: 5fr;
-    grid-template-rows: auto;
-}
-
-.completionSignOffHeaderTitle {
-    background-color: var(--main-bg-color);
-    color: white;
-    font-size: calc(20px + 1.5vw);
-    font-weight: 900;
-    text-align: center;
-    grid-column: 1 / 7;
-}
-
-.completionSignOffRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;
-}
-
-.completionSignOffData {
-    background-color: white;
-    border-bottom: 1px solid black;
-}
-
-.completionTitles {
-    font-size: calc(5px + 1.5vw);
-    color: black;
-    font-weight: bold;
-    border-bottom: 1px solid black;
-}
-
-
-/*Header*/
-
-.header {
-    background-color: var(--main-bg-color);
-    outline: solid;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: 3fr 0.2fr;
-    align-items: center;
-    text-align: center;
-}
-
-.headLogoContainer {
-    border-right: 1px solid white;
-    width: 1fr;
-}
-
-.headLogoContainer img {
-    width: 90%;
-    height: 90%;
-    padding: 5%;
-}
-
-.DIC-Title {
-    font-weight: bold;
-    font-size: calc(1px + 1.0vw);
-}
-
-.DIC-Information {
-    font-size: calc(1px + 1.0vw);
-}
-
-.headerInfo {
-    font-size: calc(1px + 1.0vw);
-    text-align: center;
-}
-
-.documentTitleContainer {
-    background-color: var(--main-bg-color);
-    display: grid;
-    grid-auto-rows: auto;
-    height: 100%;
-    color: white;
-}
-
-.documentTitleContainerSub {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.documentTitle {
-    font-weight: 900;
-    font-size: 3vw;
-}
-
-.documentType {
-    font-weight: bold;
-    font-size: 2vw;
-}
-
-.DTC-Title {
-    font-size: calc(2px + 1.5vw);
-}
-
-.DTC-Information {
-    font-size: 1.5vw;
-    text-align: left;
-    padding-left: 4px;
-}
-
-.documentInformationContainer {
-    background-color: var(--main-bg-color);
-    display: grid;
-    text-align: left;
-    grid-auto-rows: auto;
-    height: 100%;
-    border-left: 1px solid white;
-    color: white;
-}
-
-.DIC-SubInformation {
-    font-size: 1vw;
-    font-style: italic;
-}
-
-.documentAccessedContainer {
-    grid-column: 1/5;
-    color: black;
-    background-color: var(--secondary-bg-color);
-    display: grid;
-    grid-template-columns: auto 3fr auto;
-    font-size: 1.2vw;
-}
-
-.DAC-Title {
-    font-weight: bold;
-    padding-left: 1px;
-}
-
-.accessDate {
-    text-align: left;
-}
-
-.printedWarning {
-    text-align: right;
-}
+        /*TODO need to play with vmin/wmin -> bind all values to vw and then add scaling for width*/
+        
+        .workDocumentContainer {
+            display: grid;
+            text-align: center;
+            gap: .5%;
+            padding-top: 1%;
+            padding-left: 1%;
+            padding-right: 1%;
+        }
+        
+        .headerTitle {
+            background-color: var(--main-bg-color);
+            color: white;
+            font-size: 2.5vw;
+            font-weight: 900;
+            text-align: center;
+            grid-column: 1 / 3;
+        }
+        
+        .Title {
+            background-color: var(--secondary-bg-color);
+            font-size: 2vw;
+            font-weight: bold;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .GridContainer {
+            height: 100%;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            text-align: left;
+        }
+        
+        .gridTitle {
+            font-weight: bold;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            font-size: 1.8vw;
+        }
+        
+        .checkboxgridItem {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .checkboxgridItem img {
+            padding-top: 1%;
+            width: auto;
+            height: 2.0vw;
+        }
+        
+        input[type=checkbox] {
+            height: 2vw;
+            width: 2vw;
+        }
+        
+        .workgridItemActionTitle {
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.7vw;
+        }
+        
+        .workTaskTitle {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        
+        .buttonContainer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 1%;
+            ;
+        }
+        
+        .completionCodes {
+            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        
+        .completionCodesGridTitles {
+            display: grid;
+            grid-template-columns: .5fr 3.5fr;
+        }
+        
+        .workPreperation {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-template-rows: auto auto;
+            align-items: center;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        
+        .errorTask {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
+            background-color: #FFCCCC;
+        }
+        
+        .prestartTaskActionsContainer {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .taskInputContainer {
+            display: grid;
+            grid-template-columns: auto;
+        }
+        
+        .workExecution {
+            display: grid;
+            grid-template-columns: 5fr;
+            grid-template-rows: auto auto auto;
+            align-items: center;
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+        }
+        
+        .workExecutionItemsGrid {
+            text-align: center;
+            align-content: center;
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);
+        }
+        
+        .workExecutionERRORItemsGrid {
+            text-align: center;
+            align-content: center;
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, .5fr 3.5fr .25fr .75fr);
+            background-color: #FFCCCC;
+        }
+        
+        .workExecutionItemsGrid {
+            border-bottom: -1px solid black;
+        }
+        
+        .taskInputFlexContainer {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .taskInputGridContainer {
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+        
+        .limitsGrid {
+            display: grid;
+            row-gap: .5vw;
+        }
+        
+        .workCloseOut {
+            display: grid;
+            grid-template-columns: 5fr;
+            grid-template-rows: auto;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            row-gap: .5vw;
+        }
+        
+        .closeOutChecklistContainer {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-template-rows: auto;
+            align-items: center;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        
+        .notificationInformationContainer {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+        }
+        
+        .closeOutChecklistGridTitles {
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr 2.0fr 1fr;
+        }
+        
+        .closeOutChecklistGrid {
+            text-align: center;
+            align-content: center;
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, 1fr 2.0fr 1fr);
+        }
+        
+        .completionSignOffName {
+            display: grid;
+            justify-content: center;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+        }
+        
+        .completionSignOffSignature {
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+        }
+        
+        .completionSignOffTimeStamp {
+            border-left: 1px solid black;
+        }
+        
+        .signature {
+            width: auto;
+            height: 8vw;
+        }
+        /* New CSS 2020*/
+        /*TODO will need to account for padding with borders etc*/
+        /*Context*/
+        
+        .contextInformationContainer {
+            height: 100%;
+            background-color: white;
+            border-left: 1px solid black;
+        }
+        
+        .ContextInformation {
+            line-height: calc(10px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: left;
+            background-color: white;
+            padding: 2%;
+        }
+        /*Completion Codes*/
+        
+        .completionCodesTableItemsGrid {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, .5fr 3.5fr);
+            border-left: 1px solid black;
+        }
+        
+        .completionCodesGridCodeContainer {
+            display: grid;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .completionCodeInformation {
+            line-height: calc(15px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: left;
+            padding-left: 2%;
+            padding-right: 2%;
+            padding-top: 1%;
+            padding-bottom: 1%;
+            background-color: white;
+            border-left: 1px solid black;
+        }
+        /*Authority To Maintain*/
+        
+        .authorityToMaintain {
+            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        
+        .authorityToMaintainGridTitles {
+            display: grid;
+            grid-template-columns: 3.5fr .5fr;
+        }
+        
+        .authorityToMaintainItemsGrid {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, 3.5fr .5fr);
+        }
+        /*Equipment and Materials*/
+        
+        .equipmentAndMaterials {
+            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        
+        .equipmentAndMaterialsGridTitles {
+            display: grid;
+            grid-template-columns: .25fr 3.25fr .5fr;
+        }
+        
+        .equipmentAndMaterialsItemsGrid {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, .25fr 3.25fr .5fr);
+        }
+        /*Prestart Area*/
+        
+        .PrestartTaskGridTitlesContainer {
+            display: grid;
+            grid-template-columns: .55fr 2.3fr .65fr;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+        
+        .PrestartTaskGridTitlesContainer :first-child {
+            border-left: 1px solid black;
+        }
+        
+        .PrestartTaskGrid {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, .55fr 2.3fr .65fr);
+            align-items: center;
+            background-color: white;
+            border-left: 1px solid black;
+        }
+        
+        .PrestartDurationInformationText {
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: center;
+            padding-left: 5px;
+            border-left: 1px solid black;
+        }
+        
+        .PrestartTaskInformation {
+            line-height: calc(10px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: left;
+            padding-top: .5%;
+            padding-left: 5%;
+            padding-bottom: 5%;
+        }
+        /*Further Work*/
+        
+        .futherWorkRequiredGridTitles {
+            text-align: left;
+            display: grid;
+            grid-template-columns: 0.85fr 2.0fr .65fr;
+        }
+        
+        .futherWorkRequiredItemsGrid {
+            text-align: center;
+            align-content: center;
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(1, 0.85fr 2.0fr .65fr);
+            border-left: 1px solid black;
+        }
+        
+        .futherWorkRequiredItemsERRORGrid {
+            display: grid;
+            grid-template-columns: 0.55fr 1.25fr .65fr;
+            background-color: #FFCCCC;
+        }
+        
+        .FurtherWorkGridItemButtonContainer {
+            display: flex;
+            padding: 5%;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .FurtherWorkInputButton {
+            font-size: calc(2px + 1.5vw);
+            width: 100%;
+            border: 1px solid black;
+        }
+        
+        .FurtherWorkUserInputContainer {
+            padding-top: 2%;
+            padding-left: 5%;
+            padding-right: 5%;
+            width: 90%;
+        }
+        
+        .FurtherworkuserInput {
+            background-color: rgb(253, 245, 245);
+            border-bottom: 1px solid black;
+            height: calc(2px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            width: 100%;
+        }
+        /*Comment and Observations*/
+        
+        .commentsAndObsContainer {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-template-rows: auto;
+            align-items: center;
+        }
+        
+        .commentsGridContainer {
+            display: grid;
+            grid-template-rows: auto auto;
+        }
+        
+        .commentsAndObsGrid {
+            display: grid;
+            grid-template-columns: 4fr;
+            grid-template-rows: auto;
+            min-height: 20px;
+        }
+        
+        .commentsAndGeneralObsInput {
+            border-left: 1px solid black;
+        }
+        
+        .addcommentContainer {
+            display: grid;
+            grid-template-columns: 3.5fr .5fr;
+        }
+        
+        .commentSectionButtonContainer {
+            padding-top: 2%;
+            padding-bottom: 2%;
+        }
+        
+        .CommentsContainer {
+            border-left: 1px solid black;
+            height: 100%;
+            background-color: white;
+        }
+        
+        .Comment {
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: left;
+            background-color: white;
+            padding-top: .5%;
+            padding-left: 2%;
+            padding-right: 2%;
+        }
+        
+        .Comment:last-child {
+            padding-bottom: .5%;
+        }
+        /*Generic*/
+        /*Titles*/
+        
+        .centerTitle {
+            text-align: center;
+            font-weight: bold;
+            height: 100%;
+            background-color: white;
+            font-size: calc(2px + 1.5vw);
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            padding-left: 2%;
+            padding-right: 2%;
+        }
+        
+        .centerInformation {
+            text-align: center;
+            line-height: calc(10px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            background-color: white;
+            padding-top: .5%;
+            padding-left: 2%;
+            padding-right: 2%;
+            border-left: 1px solid black;
+        }
+        /*Grid*/
+        
+        .GridContainer {
+            display: grid;
+            align-items: center;
+            background-color: white;
+        }
+        
+        .GridWorkItemTitle {
+            text-align: left;
+            font-weight: bold;
+            height: 100%;
+            font-size: calc(2px + 1.5vw);
+            padding-left: 5%;
+            padding-top: 5%;
+            padding-bottom: 2.5%;
+        }
+        
+        .InputButton {
+            font-size: calc(2px + 1.5vw);
+            width: 29%;
+            border: 1px solid black;
+        }
+        
+        .GridWorkColumnTitle {
+            font-weight: bold;
+            height: 100%;
+            background-color: white;
+            line-height: calc(10px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+        }
+        
+        .GridWorkColumnTitle:first-child {
+            border-left: none;
+        }
+        
+        .GridInformationText {
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: center;
+        }
+        
+        .GridItemButtonContainer {
+            display: flex;
+            padding-bottom: 5%;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+        .submitImg {
+            padding-top: 5%;
+            padding-bottom: 5%;
+            height: calc(2px + 1.5vw);
+            vertical-align: middle;
+        }
+        
+        .GridButtonSeperator {
+            width: 1.5%;
+        }
+        
+        .informationText {
+            line-height: calc(10px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: left;
+            background-color: white;
+            padding-top: .5%;
+            padding-left: 2%;
+            border-left: 1px solid black;
+        }
+        
+        .informationText:last-child {
+            padding-bottom: .5%;
+        }
+        
+        .sectionTitle {
+            font-size: calc(5px + 1.5vw);
+            color: black;
+            font-weight: bold;
+            padding: 5%;
+        }
+        
+        .sectionTitleContainer {
+            height: auto;
+            text-align: center;
+        }
+        
+        .sectionContainer {
+            background-color: var(--secondary-bg-color);
+            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            outline: solid;
+        }
+        
+        .columnTitle {
+            font-weight: bold;
+            height: 100%;
+            text-align: left;
+            background-color: white;
+            font-size: calc(2px + 1.5vw);
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            padding-left: 2%;
+        }
+        
+        .workGridCodeContainer {
+            height: 100%;
+            display: grid;
+            align-items: center;
+            text-align: center;
+            border-left: 1px solid black;
+        }
+        
+        .CompletionCodeContainer img {
+            padding-left: 30%;
+            width: 3vw;
+            padding-right: 30%;
+        }
+        
+        .completionCodesGridTitles {
+            border-bottom: 1px solid black;
+        }
+        
+        .authorityToMaintainGridTitles {
+            border-bottom: 1px solid black;
+        }
+        
+        .equipmentAndMaterialsGridTitles {
+            border-bottom: 1px solid black;
+        }
+        
+        .prestartTasksGridTitles {
+            display: grid;
+            grid-template-columns: 1fr 2.0fr 1fr;
+            border-bottom: 1px solid black;
+            text-align: center;
+        }
+        
+        .SectionContainerTopTitle {
+            display: grid;
+            grid-template-columns: 5fr;
+            grid-template-rows: auto auto auto;
+            align-items: center;
+            outline: solid;
+        }
+        
+        .TitleSpan {
+            background-color: var(--secondary-bg-color);
+            font-size: 2vw;
+            font-weight: bold;
+            text-align: center;
+            height: 100%;
+            border-bottom: 1px solid black;
+        }
+        
+        .WorkExecutionGridTitles {
+            display: grid;
+            grid-template-columns: .55fr 2.2fr .65fr .65fr;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+        
+        .WorkTaskGrid {
+            align-items: center;
+            display: grid;
+            grid-template-columns: .55fr 2.2fr .65fr .65fr;
+        }
+        
+        .limitsGridContainer {
+            height: 100%;
+            border-left: 1px solid black;
+            display: grid;
+            align-items: center;
+        }
+        
+        .limitsGrid {
+            display: grid;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        .workGridInformationSubTitle {
+            font-weight: bold;
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: center;
+            padding-left: 5px;
+        }
+        
+        .workExecutionTaskContainer {
+            display: grid;
+            grid-template-rows: auto auto auto auto;
+            border-left: 1px solid black;
+        }
+        
+        .workGridItemImage {
+            align-self: center;
+            width: 2.5fr;
+            padding-bottom: 2.5%;
+        }
+        
+        .workGridItemImage img {
+            padding-left: 5%;
+            width: 90%;
+            padding-right: 5%;
+        }
+        
+        .workGridItemInformationContainer {
+            width: 100%;
+            padding-bottom: 2.5%;
+        }
+        
+        .worktaskInformation {
+            display: grid;
+            grid-template-columns: 50% 35% 5%;
+            font-size: calc(2px + 1.5vw);
+            text-align: right;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+        .worktaskuserInput {
+            background-color: rgb(253, 245, 245);
+            border-bottom: 1px solid black;
+            height: calc(2px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+        }
+        
+        .workCloseOut {
+            outline: solid;
+        }
+        
+        .spanHeaderTitle {
+            background-color: var(--main-bg-color);
+            color: white;
+            font-size: calc(20px + 1.5vw);
+            font-weight: 900;
+            text-align: center;
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
+        
+        .completionSignOff {
+            background-color: var(--secondary-bg-color);
+            outline: solid;
+            display: grid;
+            grid-template-rows: 5fr;
+            grid-template-rows: auto;
+        }
+        
+        .completionSignOffHeaderTitle {
+            background-color: var(--main-bg-color);
+            color: white;
+            font-size: calc(20px + 1.5vw);
+            font-weight: 900;
+            text-align: center;
+            grid-column: 1 / 7;
+        }
+        
+        .completionSignOffRow {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr .5fr 1fr .5fr;
+        }
+        
+        .completionSignOffData {
+            background-color: white;
+            border-bottom: 1px solid black;
+        }
+        
+        .completionTitles {
+            font-size: calc(5px + 1.5vw);
+            color: black;
+            font-weight: bold;
+            border-bottom: 1px solid black;
+        }
+        /*Header*/
+        
+        .header {
+            background-color: var(--main-bg-color);
+            outline: solid;
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-rows: 3fr 0.2fr;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .headLogoContainer {
+            border-right: 1px solid white;
+            width: 1fr;
+        }
+        
+        .headLogoContainer img {
+            width: 80%;
+            height: 80%;
+            padding: 10%;
+        }
+        
+        .DIC-Title {
+            font-weight: bold;
+            font-size: calc(1px + 1.0vw);
+            padding-left: 2%;
+        }
+        
+        .DIC-Information {
+            font-size: calc(1px + 1.0vw);
+            padding-left: 2%;
+        }
+        
+        .headerInfo {
+            font-size: calc(1px + 1.0vw);
+            text-align: center;
+        }
+        
+        .documentTitleContainer {
+            background-color: var(--main-bg-color);
+            display: grid;
+            grid-auto-rows: auto;
+            height: 100%;
+            color: white;
+        }
+        
+        .documentTitleContainerSub {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .documentTitle {
+            font-weight: 900;
+            font-size: 3vw;
+        }
+        
+        .documentType {
+            font-weight: bold;
+            font-size: 2vw;
+        }
+        
+        .DTC-Title {
+            font-size: calc(2px + 1.5vw);
+        }
+        
+        .DTC-Information {
+            font-size: 1.5vw;
+            text-align: left;
+            padding-left: 2%;
+        }
+        
+        .documentInformationContainer {
+            background-color: var(--main-bg-color);
+            display: grid;
+            text-align: left;
+            grid-auto-rows: auto;
+            height: 100%;
+            border-left: 1px solid white;
+            color: white;
+        }
+        
+        .DIC-SubInformation {
+            font-size: 1vw;
+            font-style: italic;
+            padding-left: 2%;
+        }
+        
+        .documentAccessedContainer {
+            grid-column: 1/5;
+            color: black;
+            background-color: var(--secondary-bg-color);
+            display: grid;
+            grid-template-columns: auto 3fr auto;
+            font-size: 1.2vw;
+        }
+        
+        .DAC-Title {
+            font-weight: bold;
+        }
+        
+        .accessDate {
+            text-align: left;
+        }
+        
+        .printedWarning {
+            text-align: right;
+        }
+        /*POPUp*/
+        
+        .CommentPopupinputContainer {
+            display: grid;
+            grid-auto-rows: auto;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            row-gap: 2%;
+        }
+        
+        .CommentPopupInputButton {
+            font-size: calc(2px + 1.5vw);
+            width: fit-content;
+            border: 1px solid black;
+        }
+        
+        .CommentPopupButtonContainer {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .CommentPopupuserInput {
+            background-color: rgb(253, 245, 245);
+            border-bottom: 1px solid black;
+            height: calc(2px + 1.5vw);
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            width: 100%;
+        }
+        
+        .CommentPopupSelection {
+            font-size: calc(2px + 1.5vw);
+            color: black;
+            text-align: center;
+            width: fit-content;
+            border: 1px solid black;
+        }

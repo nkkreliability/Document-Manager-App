@@ -1,10 +1,21 @@
-<div>
-    <h1 mat-dialog-title>{{data.Title}}</h1>
+<div class=CommentPopup>
+    <div class=spanHeaderTitle>&nbsp;&nbsp;{{data.Title}}&nbsp;&nbsp;</div>
     <mat-dialog-content [formGroup]="form">
-
-        <input matInput placeholder="Comment" formControlName="comment">
+        <div class=CommentPopupinputContainer>
+            <select class=CommentPopupSelection formControlName="PresetComments" (change)="checkComment($event)">
+            <option value="">Select Reason</option>
+            <option *ngFor="let comment of data.ExcuseComments">{{comment}}</option>
+        </select>
+            <div *ngIf="displayCustom">
+                Reason: <input class=CommentPopupuserInput formControlName="CustomComment"></div>
+        </div>
+        <div class=CommentPopupButtonContainer>
+            <button class=CommentPopupInputButton (click)="saveComment()"><img class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SubmitIcon.png">&nbsp;Okay</button>
+            <div class=GridButtonSeperator></div>
+            <button class=CommentPopupInputButton (click)="onNoClick()"><img class=submitImg
+                                    src="https://nks-maintenance.online/Server/public/images/Icons/SkipButton.png">&nbsp;Go Back</button>
+        </div>
 
     </mat-dialog-content>
-    <button mat-button (click)="saveComment()" cdkFocusInitial>Submit Comment</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
 </div>

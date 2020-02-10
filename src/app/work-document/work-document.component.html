@@ -36,9 +36,9 @@
         </div>
 
         <div class=documentAccessedContainer>
-            <div class=DAC-Title>Document Accessed:</div>
-            <div class=accessDate>{{currentWorkDocumentData.AccessDate}}</div>
-            <div class=printedWarning>Printed copies of document are uncontrolled</div>
+            <div class=DAC-Title>&nbsp;Document Accessed:</div>
+            <div class=accessDate>&nbsp;{{currentWorkDocumentData.AccessDate}}</div>
+            <div class=printedWarning>Printed copies of document are uncontrolled&nbsp;</div>
         </div>
     </div>
     <div class=sectionContainer>
@@ -149,7 +149,7 @@
                     <div class=workExecutionTaskContainer>
                         <div class=GridWorkItemTitle>&bull; {{workTask.Name}}</div>
                         <!--TODO will need to see what the value of typeOfInput is to determine what to show-->
-                        <div class=workGridItemImage> <img src="https://nks-maintenance.online/Server/public/images/Pictures/image.png"></div>
+                        <div class=workGridItemImage> <img src="{{workTask.Image}}"></div>
                         <div class=workGridItemInformationContainer>
                             <div class=worktaskInformation>{{workTask.Information}}:&nbsp;
                                 <!--//TODO https://stackoverflow.com/questions/41465542/angular2-input-field-to-accept-only-numbers-->
@@ -203,36 +203,36 @@
                                 Comment </button>
                 </div>
             </div>
-
         </div>
-        <div *ngIf="currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork" class=sectionContainer>
-            <div class=sectionTitle>Further Work Required</div>
-            <div class=GridContainer>
-                <div class=futherWorkRequiredGridTitles>
-                    <div class=columnTitle>Notification<br>Code</div>
-                    <div class=columnTitle>Description</div>
-                    <div class=centerTitle>Completion<br>Code</div>
-                    <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
-                </div>
-                <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
-                    <div *ngIf="furtherWorkTaskTracker.get(furtherwork.UUID)" [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
-                        <div class=FurtherWorkUserInputContainer>
-                            <input [disabled]="inputDisabled" class=FurtherworkuserInput id={{furtherwork.UUID}} [value]=furtherwork.SubmittedValue>
-                            <div class=FurtherWorkGridItemButtonContainer>
-                                <button *ngIf="makeSaveValueButtonsAvaliable" class=FurtherWorkInputButton (click)="submitFurtherWorkRequired(furtherwork.UUID)"><img class=submitImg
+    </div>
+    <div *ngIf="currentWorkDocumentData.FutherWorkTasksInformation && displayFurtherWork" class=sectionContainer>
+        <div class=sectionTitle>Further Work Required</div>
+        <div class=GridContainer>
+            <div class=futherWorkRequiredGridTitles>
+                <div class=columnTitle>Notification<br>Code</div>
+                <div class=columnTitle>Description</div>
+                <div class=centerTitle>Completion<br>Code</div>
+                <!--TODO need to check if task is to be shown!!! Also look at a switch that is turned on once one is avaliable to show the grid titles-->
+            </div>
+            <div *ngFor="let furtherwork of currentWorkDocumentData.FutherWorkTasksInformation">
+                <div *ngIf="furtherWorkTaskTracker.get(furtherwork.UUID)" [ngClass]="{'futherWorkRequiredItemsERRORGrid': furtherwork.Error, 'futherWorkRequiredItemsGrid': !furtherwork.Error}">
+                    <div class=FurtherWorkUserInputContainer>
+                        <input [disabled]="inputDisabled" class=FurtherworkuserInput id={{furtherwork.UUID}} [value]=furtherwork.SubmittedValue>
+                        <div class=FurtherWorkGridItemButtonContainer>
+                            <button *ngIf="makeSaveValueButtonsAvaliable" class=FurtherWorkInputButton (click)="submitFurtherWorkRequired(furtherwork.UUID)"><img class=submitImg
                                     src="https://nks-maintenance.online/Server/public/images/Icons/SubmitIcon.png">&nbsp;Save
                                 Task</button>
-                            </div>
                         </div>
-                        <div class=informationText>{{furtherwork.Information}}</div>
-                        <div class=workGridCodeContainer>
-                            <div class=CompletionCodeContainer><img src={{furtherwork.CompletionCode}}></div>
-                        </div>
+                    </div>
+                    <div class=informationText>{{furtherwork.Information}}</div>
+                    <div class=workGridCodeContainer>
+                        <div class=CompletionCodeContainer><img src={{furtherwork.CompletionCode}}></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div *ngIf="currentWorkDocumentData.CloseoutTasksInformation && displayCloseoutTasks" class=sectionContainer>
         <div class=sectionTitle>Close-Out Checklist</div>

@@ -1,11 +1,10 @@
 <div class="TitleArea">
 
-        <img class="navigation" src="https://nks-maintenance.online/Server/public/images/Icons/Hamburger_icon.png"
-                (click)="NavigationClick()">
-        <div class="Title">{{title}}</div>
-        <div class="UserInformation" *ngIf="loggedIn">
-                {{username}}
-                <!--TODO logout button here-->
-                <button (click)="logout()">Logout</button>
-        </div>
+    <img class="navigation" src="https://nks-maintenance.online/Server/public/images/Icons/Hamburger_icon.png" (click)="NavigationClick()">
+    <div class="Title">{{title}}</div>
+    <div class="UserInformation" *ngIf="loggedIn">
+        {{username}}
+        <!--TODO logout button here-->
+        <button (click)="logout()">Logout</button>
+    </div>
 </div>
