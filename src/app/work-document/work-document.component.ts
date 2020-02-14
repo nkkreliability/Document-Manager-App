@@ -9,6 +9,13 @@ import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
+
+
+/**
+ * Work Document missing features:
+ * Needs to allow for different types of input for work tasks. This will require modification of the html as well
+ * Fixing up The bottom submission section
+ */
 @Component({
   selector: 'app-work-document',
   templateUrl: './work-document.component.html',
@@ -33,7 +40,6 @@ export class WorkDocumentComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog
   ) { }
-  //TODO will need to change from closeout task to further work
   ngOnInit() {
     this.furtherWorkTaskTracker = new Map();
     this.overallDocumentComments = new Array<string>();
@@ -598,6 +604,7 @@ export class WorkDocumentComponent implements OnInit {
   }
 }
 
+//Comment Popup
 @Component({
   selector: 'comment-dialog',
   templateUrl: 'comment-dialog.html',

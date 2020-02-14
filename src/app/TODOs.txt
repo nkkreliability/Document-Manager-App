@@ -1,8 +1,0 @@
-Current tasks for future
--Santization of inputs
--X side scripting
--Fetching of information for request manager
--Neaten up stuff/better interfaces
--
-
---
